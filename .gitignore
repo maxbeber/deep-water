@@ -110,6 +110,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# DS Store
+.DS_Store
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -127,3 +130,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# NWPU dataset
+NWPU_images.zip
+nwpu_images/
+
+# Sentinel-2 Cloudless dataset
+s2cloudless_imagery/

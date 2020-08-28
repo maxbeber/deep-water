@@ -1,0 +1,14 @@
+name: deep-water
+channels:
+  - conda-forge
+  - anaconda
+dependencies:
+  - jupyter
+  - matplotlib
+  - numpy
+  - pip
+  - python
+  - pip:
+      - Pillow
+      - rasterio
+      - requests
