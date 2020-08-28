@@ -1,6 +1,6 @@
 # Deep Water
 
-This projects track changes in water level using satellite imagery using deep learning.
+This projects track changes in water level using satellite imagery and deep neural networks.
 
 ## Virtual Environement
 
