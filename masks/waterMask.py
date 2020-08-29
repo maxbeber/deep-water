@@ -11,6 +11,9 @@ class WaterMask:
     """
     Represents a set of functions to work with satellite imagery
     and generate segmentation masks.
+    Parameters
+    ----------
+    base_folder : folder where the images are located
     """
     def __init__(self, base_folder):
         self.base_folder = base_folder
