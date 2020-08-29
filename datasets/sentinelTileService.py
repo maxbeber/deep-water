@@ -154,7 +154,7 @@ if __name__== '__main__':
     lake_id = args.id
     flag_map_service_url = args.ms
     flag_open_street_map_url = args.os
-    tiles = json.load(open('water-bodies.json'))
+    tiles = json.load(open('datasets/waterBodies.json'))
     if lake_id:
         if lake_id in tiles.keys():
             lake_properties = tiles[lake_id]
