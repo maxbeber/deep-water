@@ -1,4 +1,3 @@
-import argparse
 import glob
 import numpy as np
 import os
@@ -81,7 +80,3 @@ class BatchLoader:
             image_file_name = image.split(os.sep)[-1]
             image_list.append(image_file_name)
         return image_list
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
