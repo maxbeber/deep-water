@@ -21,26 +21,27 @@ class SentinelTileService:
     min_latitude : the upper-left latitude of the bounding box
     max_latitude : the lower-right latitude of the bounding box
     """
-    def __init__(self, name, layers, min_longitude, min_latitude, max_longitude, max_latitude, width=4096, height=4096):
-        self.flag_map_service_url = False
-        self.flag_open_street_map_url = False
-        self.layers = map(self._get_layer_name, layers)
-        self.output_folder = 's2cloudless_imagery'
-        self.data_folder = os.path.join('s2cloudless_imagery', 'data')
+    def __init__(self, name, country, layers, min_longitude, min_latitude, max_longitude, max_latitude, width=4096, height=4096):
         self.base_url = 'https://tiles.maps.eox.at/wms'
         self.base_url_parameters = '?service=wms&request=getmap'
-        self.open_street_map_url = 'http://openstreetmap.org/'
-        self.service_version = '1.1.1'
-        self.srs = 'epsg:4326'
-        self.file_extension = 'jpg'
-        self.http_success = 200
+        self.country = country
+        self.data_folder = os.path.join('s2cloudless_imagery', 'data')
         self.default_height = height
         self.default_widht = width
+        self.flag_map_service_url = False
+        self.flag_open_street_map_url = False
+        self.file_extension = 'jpg'
+        self.http_success = 200
+        self.layers = map(self._get_layer_name, layers)
         self.min_longitude = min_longitude
         self.max_longitude = max_longitude
         self.min_latitude = min_latitude
         self.max_latitude = max_latitude
         self.name = name
+        self.open_street_map_url = 'http://openstreetmap.org/'
+        self.service_version = '1.1.1'
+        self.srs = 'epsg:4326'
+        self.output_folder = 's2cloudless_imagery'
         self._create_output_directory()
 
 
@@ -54,7 +55,7 @@ class SentinelTileService:
             for layer in self.layers:
                 url = self._get_service_url(layer)
                 file_name = self._get_file_name(layer)
-                print(f'downloading {file_name} ... Done.')
+                print(f'downloading {file_name}... Done.')
                 if self.flag_map_service_url:
                     print('url: ', url)
                 self._download_url(session, file_name, url)
@@ -92,9 +93,10 @@ class SentinelTileService:
 
     
     def _format_layer_name(self, layer):
-        formatted_layer = layer
-        if not '-' in layer:
-            formatted_layer = f'{layer}-2016'
+        if '-' in layer:
+            formatted_layer = layer.replace('-', '_')
+        else:
+            formatted_layer = f'{layer}_2016'
         return formatted_layer
 
 
@@ -116,7 +118,7 @@ class SentinelTileService:
 
     def _get_file_name(self, layer):
         formated_layer = self._format_layer_name(layer)
-        file_name = f'{self.data_folder}{os.sep}{self.name}_{formated_layer}.{self.file_extension}'
+        file_name = f'{self.data_folder}{os.sep}{self.country}_{self.name}_{formated_layer}.{self.file_extension}'
         return file_name
 
     

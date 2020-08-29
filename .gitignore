@@ -110,9 +110,6 @@ ENV/
 env.bak/
 venv.bak/
 
-# DS Store
-.DS_Store
-
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -131,8 +128,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# DS Store
+.DS_Store
+
 # Visual Studio Code workspace
 deep-water.code-workspace
+
+# Visual studio Code settings
+.vscode/
 
 # NWPU dataset
 NWPU_images.zip

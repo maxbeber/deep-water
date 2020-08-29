@@ -7,7 +7,7 @@ import rasterio
 from matplotlib.image import imsave
 from PIL import Image, ImageDraw
 
-class ImagerySatellite:
+class WaterMask:
     """
     Represents a set of functions to work with satellite imagery
     and generate segmentation masks.
@@ -17,6 +17,7 @@ class ImagerySatellite:
         self.data_folder = os.path.join(base_folder, 'data')
         self.mask_folder = os.path.join(base_folder, 'mask')
         self._create_mask_folder()
+
 
     def create_mask(self, annotation, image_name):
         file_path = os.path.join(self.data_folder, image_name)
@@ -91,12 +92,13 @@ class ImagerySatellite:
         Retrive all anotation pairs for a given image.
         Note: JSON coordinates are flippled relative to the image.
         """
-        X = []; Y= []
-        for k in annotations[image_name]['regions']:
-            points_x = annotations[image_name]['regions'][k]['shape_attributes']['all_points_x']
-            points_y = annotations[image_name]['regions'][k]['shape_attributes']['all_points_y']
-            X.append(points_x)
-            Y.append(points_y)
+        X = []
+        Y= []
+        for i in annotations[image_name]['regions']:
+            x = annotations[image_name]['regions'][i]['shape_attributes']['all_points_x']
+            y = annotations[image_name]['regions'][i]['shape_attributes']['all_points_y']
+            X.append(x)
+            Y.append(y)
         assert len(X) == len(Y)
         return Y, X
 
