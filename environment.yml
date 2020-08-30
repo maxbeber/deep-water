@@ -13,4 +13,4 @@ dependencies:
       - Pillow
       - rasterio
       - requests
-      - tensorflow==2.3
+      - tensorflow=2.3
