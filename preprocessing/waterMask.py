@@ -95,8 +95,7 @@ class WaterMask:
         Retrive all anotation pairs for a given image.
         Note: JSON coordinates are flippled relative to the image.
         """
-        X = []
-        Y= []
+        X = []; Y = []
         for i in annotations[image_name]['regions']:
             x = annotations[image_name]['regions'][i]['shape_attributes']['all_points_x']
             y = annotations[image_name]['regions'][i]['shape_attributes']['all_points_y']
