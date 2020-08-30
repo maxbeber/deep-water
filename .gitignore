@@ -143,3 +143,4 @@ nwpu_images/
 
 # Sentinel-2 Cloudless dataset
 s2cloudless_imagery/
+s2cloudless_masks/
