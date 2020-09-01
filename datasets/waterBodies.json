@@ -1,5 +1,5 @@
 {
-    "1": {"name": "urmia", "country": "iran", "layers": [2016, 2017, 2018], "min_longitude":44.587725529095295, "min_latitude":36.86436828406643, "max_longitude":46.230181583782795, "max_latitude":38.50682433875393},
+    "1": {"name": "urmia", "country": "iran", "layers": [2016, 2017, 2018, 2019], "min_longitude":44.587725529095295, "min_latitude":36.86436828406643, "max_longitude":46.230181583782795, "max_latitude":38.50682433875393},
     "2": {"name": "popoo", "country": "bolivia", "layers": [2016, 2018], "min_longitude":-68.66848367000537, "min_latitude":-19.687928531849003, "max_longitude":-66.67924128546656, "max_latitude":-17.8774477409051},
     "3": {"name": "copais", "country": "greece", "layers": [2016, 2017, 2018], "min_longitude":23.214268551013436, "min_latitude":38.36067354565393, "max_longitude":23.350911007068124, "max_latitude":38.4633270490719},
     "4": {"name": "mojave", "country": "united_states", "layers": [2016, 2018], "min_longitude":-115.42507235769445, "min_latitude":34.94273489926993, "max_longitude":-113.78261630300695, "max_latitude":36.58519095395743},
