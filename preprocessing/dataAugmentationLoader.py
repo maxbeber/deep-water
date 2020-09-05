@@ -16,7 +16,7 @@ class DataAugmentationLoader:
         self.mask_folder = mask_folder
         self.batch_size = batch_size
         self.image_size = image_size
-        self.loader_seed = 111
+        self.seed = 111
         self.datagenerator_args = {
             "featurewise_center": True,
             "featurewise_std_normalization": True,
@@ -35,14 +35,14 @@ class DataAugmentationLoader:
             target_size=self.image_size,
             batch_size=self.batch_size,
             class_mode=None,
-            seed=self.loader_seed,
+            seed=self.seed,
             shuffle=False)
         mask_generator = mask_loader.flow_from_directory(\
             self.mask_folder,
             target_size=self.image_size,
             batch_size=self.batch_size,
             class_mode=None,
-            seed=self.loader_seed,
+            seed=self.seed,
             shuffle=False)
         train_generator = (pair for pair in zip(image_generator, mask_generator))
         return train_generator
