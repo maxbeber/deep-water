@@ -36,7 +36,7 @@ class Resic45:
                     response = session.get(self.base_url, params=params, stream=True)
                 if response.status_code == self.http_success:
                     self._save_response_content(self.chunk_size, response, file_name)
-                    print('downloading... Done.')
+                    print(f'downloading {file_name}... Done.')
             except ConnectionError as connection_error:
                 print(f'Connection error occurred: {connection_error}.')
             except HTTPError as http_error:
@@ -68,7 +68,7 @@ class Resic45:
         folders_to_delete = [s for s in sub_directories if self.lake_directory not in s]
         for folder in folders_to_delete:
             shutil.rmtree(folder, ignore_errors=True)
-        print('clean up... Done.')
+        print('house cleaning... Done.')
 
     
     def _delete_directory_listing_file(self):
@@ -111,19 +111,22 @@ class Resic45:
     def _unzip_dataset(self, file_name):
         with zipfile.ZipFile(file_name, 'r') as zip_file:
             zip_file.extractall()
-        print('uncompressing... Done.')
+        print(f'uncompressing {file_name}... Done.')
 
 
 if __name__ == '__main__':
-    file_id = '14kkcuU6wd9UMvjaDrg3PNI-e_voCi8HL'
-    file_name = 'NWPU_images.zip'
     parser = argparse.ArgumentParser()
-    parser.add_argument('-g', '--gd', action='store_true', help='download the dataset from google drive.')
+    parser.add_argument('file_id', default=None, help='the file id in Google Drive.')
+    parser.add_argument('file_name', default=None, help='the name of the file to be saved.')
+    parser.add_argument('-d', '--download', action='store_true', help='whether or not download the dataset from google drive.')
     args = parser.parse_args()
-    flag_download_dataset = args.gd
-    resic45 = Resic45()
-    if(flag_download_dataset):
-        print(f'start downloading {file_name}.')
-        resic45.download_file_from_google_drive(file_id, file_name)
-        print('file has been downloaded with success!')
-    resic45.extract_and_clean_up(file_name)
+    file_id = args.file_id
+    file_name = args.file_name
+    flag_download_dataset = args.download
+    try:
+        resic45 = Resic45()
+        if(flag_download_dataset):
+            resic45.download_file_from_google_drive(file_id, file_name)
+        resic45.extract_and_clean_up(file_name)
+    except Exception as error:
+        print(f'An error has occurred: {error}.')
