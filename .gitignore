@@ -131,6 +131,9 @@ dmypy.json
 # DS Store
 .DS_Store
 
+# MACOS
+__MACOSX/
+
 # Visual Studio Code workspace
 deep-water.code-workspace
 
