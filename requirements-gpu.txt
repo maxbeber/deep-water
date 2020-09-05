@@ -1,0 +1,6 @@
+matplotlib
+numpy
+Pillow
+rasterio
+requests
+tensorflow-gpu==2.3

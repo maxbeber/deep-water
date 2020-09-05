@@ -1,0 +1,6 @@
+matplotlib
+numpy
+Pillow
+rasterio
+requests
+tensorflow==2.3
