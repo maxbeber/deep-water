@@ -126,7 +126,8 @@ class SentinelTileService:
         layers = {
             2016: 's2cloudless',
             2017: 's2cloudless-2017',
-            2018: 's2cloudless-2018'
+            2018: 's2cloudless-2018',
+            2019: 's2cloudless-2019'
         }
         layer = layers.get(year, 'unknown')
         return layer
@@ -147,20 +148,25 @@ def get_all_layers_from_tile(lake_properties, flag_map_service_url, flag_open_st
 
 if __name__== '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('path', default=None, help='a path for a JSON file containing water bodies names and its coordinates')
     parser.add_argument('-i', '--id', default=None, help='the id of a given lake.')
     parser.add_argument('-m', '--ms', action='store_true', help='display the map service url.')
     parser.add_argument('-o', '--os', action='store_true', help='display the location in OpenStreetMap website.')
     args = parser.parse_args()
+    file_path = args.path
     lake_id = args.id
     flag_map_service_url = args.ms
     flag_open_street_map_url = args.os
-    tiles = json.load(open('datasets/waterBodies.json'))
-    if lake_id:
-        if lake_id in tiles.keys():
-            lake_properties = tiles[lake_id]
-            get_all_layers_from_tile(lake_properties, flag_map_service_url, flag_open_street_map_url)
+    try:
+        tiles = json.load(open(file_path))
+        if lake_id:
+            if lake_id in tiles.keys():
+                lake_properties = tiles[lake_id]
+                get_all_layers_from_tile(lake_properties, flag_map_service_url, flag_open_street_map_url)
+            else:
+                print('error: the id could not be found.')
         else:
-            print('error: the id could not be found.')
-    else:
-        for _, lake_properties in tiles.items():
-            get_all_layers_from_tile(lake_properties, flag_map_service_url, flag_open_street_map_url)
+            for _, lake_properties in tiles.items():
+                get_all_layers_from_tile(lake_properties, flag_map_service_url, flag_open_street_map_url)
+    except Exception as error:
+        print(f'An error has occurred: {error}.')
