@@ -21,7 +21,7 @@ class BatchLoader:
         self.threshold_water_pixel = 100
     
 
-    def generate(self):
+    def __call__(self):
         all_images = self._get_images()
         while True:
             batch_x = []
