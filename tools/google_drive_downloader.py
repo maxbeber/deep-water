@@ -67,7 +67,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('file_id', default=None, help='the file id in Google Drive.')
     parser.add_argument('file_name', default=None, help='the name of the file to be saved.')
-    parser.add_argument('-e', '--extract', action='store_true', help='display the map service url.')
+    parser.add_argument('-e', '--extract', action='store_true', help='whether or not extract the file after download.')
     args = parser.parse_args()
     file_id = args.file_id
     file_name = args.file_name

@@ -36,7 +36,7 @@ class Resic45:
                     response = session.get(self.base_url, params=params, stream=True)
                 if response.status_code == self.http_success:
                     self._save_response_content(self.chunk_size, response, file_name)
-                print('downloading... Done.')
+                    print('downloading... Done.')
             except ConnectionError as connection_error:
                 print(f'Connection error occurred: {connection_error}.')
             except HTTPError as http_error:
