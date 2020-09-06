@@ -11,7 +11,8 @@ class DeepAutoEncoder():
     """
     def __init__(self, image_size):
         # encoder
-        input_encoder = Input(shape=(image_size, image_size, 1))
+        image_shape=(image_size, image_size, 1)
+        input_encoder = Input(shape=image_shape)
         z = layers.Conv2D(32, (3, 3), activation='relu', padding='same')(input_encoder)
         z = layers.MaxPooling2D((2, 2), padding='same')(z)
         z = layers.Conv2D(16, (3, 3), activation='relu', padding='same')(z)
@@ -27,12 +28,12 @@ class DeepAutoEncoder():
         x_prime = layers.UpSampling2D((2, 2))(x_prime)
         output_decoder = layers.Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x_prime)
         # create the model
-        self._model = Model(input_encoder, output_decoder)
-        self._model.compile(optimizer='rmsprop', loss='binary_crossentropy')
+        self.model = Model(input_encoder, output_decoder)
+        self.model.compile(optimizer='rmsprop', loss='binary_crossentropy')
     
 
     def get_model_summary(self):
-        return self._model.summary()
+        return self.model.summary()
 
 
 if __name__ == '__main__':
