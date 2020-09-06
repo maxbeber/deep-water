@@ -1,4 +1,5 @@
-from tensorflow.keras import Input, layers, Model
+from tensorflow.keras import Input, layers
+from tensorflow.keras.models import Model
 
 class DeepAutoEncoder(Model):
     """
