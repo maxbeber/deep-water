@@ -1,7 +1,6 @@
-import tensorflow as tf
-from tensorflow.keras import layers
+from tensorflow.keras import Input, layers, Model
 
-class DeepAutoEncoder(tf.keras.Model):
+class DeepAutoEncoder(Model):
     """
     Represents an autoencoder for image denoising.
 
@@ -25,7 +24,7 @@ class DeepAutoEncoder(tf.keras.Model):
     def _build_graph(self):
         input_shape = (self.image_size, self.image_size, 1)
         self.build((None,) + input_shape)
-        encoder_input = tf.keras.Input(shape=input_shape)
+        encoder_input = Input(shape=input_shape)
         _ = self.call(encoder_input)
 
 
