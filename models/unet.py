@@ -1,4 +1,4 @@
-from metric import mean_iou
+from metrics import mean_iou
 from tensorflow.keras import Input, layers
 from tensorflow.keras.models import Model
 
@@ -11,12 +11,13 @@ class Unet():
     image_size : the size of the image for the input layer.
     """
     def __init__(self, image_size):
-        input_encoder = Input(image_size)
-        z = input_encoder
+        image_shape = (image_size, image_size, 3)
+        input_encoder = Input(shape=image_shape)
         f = 8
         ff2 = 64
-        # encoder
         skip_connections = []
+        # encoder
+        z = input_encoder
         for _ in range(6):
             z = layers.Conv2D(f, 3, activation='relu', padding='same')(z)
             z = layers.Conv2D(f, 3, activation='relu', padding='same')(z)
@@ -44,15 +45,15 @@ class Unet():
         x_prime = layers.Conv2D(f, 3, activation='relu', padding='same')(x_prime)
         output_decoder = layers.Conv2D(1, 1, activation='sigmoid')(x_prime)
         # create the model
-        self._model = Model(input_encoder, output_decoder)
-        self._model.compile(optimizer = 'rmsprop', loss = 'binary_crossentropy', metrics = [mean_iou])
+        self.model = Model(input_encoder, output_decoder)
+        self.model.compile(optimizer = 'rmsprop', loss = 'binary_crossentropy', metrics = [mean_iou])
     
 
     def get_model_summary(self):
-        return self._model.summary()
+        return self.model.summary()
 
 
 if __name__ == '__main__':
-    image_size = (512, 512, 3)
+    image_size = 512
     dae = Unet(image_size)
     dae.get_model_summary()
