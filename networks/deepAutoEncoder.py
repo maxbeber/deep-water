@@ -61,6 +61,7 @@ class DeepAutoEncoder(tf.keras.Model):
         self.up_sampling2d_3 = layers.UpSampling2D((2, 2))
         self.conv2d_7 = layers.Conv2D(1, (3, 3), activation='sigmoid', padding='same')
 
+
 if __name__ == '__main__':
     image_size = 124
     dae = DeepAutoEncoder(image_size)
