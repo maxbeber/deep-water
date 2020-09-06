@@ -2,6 +2,17 @@ import tensorflow as tf
 
 
 def mean_iou(y_true, y_pred):
+    """
+    The intersection over union (IoU) or Jacard metric
+    is used to evaluate the performance of a segmentation algorithm.
+
+    Parameters
+    ----------
+    y_true : the true value
+    y_pred : the estimated value
+
+    Returns the computed metric as floating point 32 bytes.
+    """
     yt0 = y_true[:, :, :, 0]
     yp0 = tf.keras.backend.cast(y_pred[:, :, :, 0] > 0.5, 'float32')
     intersection = tf.math.count_nonzero(tf.logical_and(tf.equal(yt0, 1), tf.equal(yp0, 1)))
