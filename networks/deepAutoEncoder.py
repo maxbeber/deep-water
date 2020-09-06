@@ -30,7 +30,7 @@ class DeepAutoEncoder(tf.keras.Model):
         x_prime = self.up_sampling2d_2(x_prime)
         x_prime = self.conv2d_6(x_prime)
         x_prime = self.up_sampling2d_3(x_prime)
-        x_prime = self.decoder_output(x_prime)
+        x_prime = self.conv2d_7(x_prime)
         return x_prime
 
 
@@ -59,7 +59,7 @@ class DeepAutoEncoder(tf.keras.Model):
         self.up_sampling2d_2 = layers.UpSampling2D((2, 2))
         self.conv2d_6 = layers.Conv2D(32, (3, 3), activation='relu', padding='valid')
         self.up_sampling2d_3 = layers.UpSampling2D((2, 2))
-        self.decoder_output = layers.Conv2D(1, (3, 3), activation='sigmoid', padding='same')
+        self.conv2d_7 = layers.Conv2D(1, (3, 3), activation='sigmoid', padding='same')
 
 if __name__ == '__main__':
     image_size = 124
