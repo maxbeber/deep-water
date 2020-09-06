@@ -2,7 +2,13 @@ import tensorflow as tf
 from tensorflow.keras import models, layers
 
 class DeepAutoEncoder(tf.keras.Model):
-    """ Represents an autoencoder for image denoising. """
+    """
+    Represents an autoencoder for image denoising.
+
+    Parameters
+    ----------
+    image_size : the size of the image for the input layer.
+    """
     def __init__(self, image_size):
         super().__init__()
         self.image_size = image_size
