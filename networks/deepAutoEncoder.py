@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras import models, layers
+from tensorflow.keras import layers
 
 class DeepAutoEncoder(tf.keras.Model):
     """
