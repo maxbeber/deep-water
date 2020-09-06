@@ -1,4 +1,3 @@
-import tensorflow as tf
 from metric import mean_iou
 from tensorflow.keras import Input, layers
 from tensorflow.keras.models import Model
