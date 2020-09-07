@@ -120,7 +120,7 @@
     "118": {"name": "lago_di_piazze", "country": "switzerland", "layers": [2016, 2017, 2018], "min_longitude":11.2676, "min_latitude":46.1483, "max_longitude":11.2909, "max_latitude":46.1582},
     "119": {"name": "lago_di_caldaro", "country": "switzerland", "layers": [2016, 2017, 2018], "min_longitude":11.2405, "min_latitude":46.3685, "max_longitude":11.2870, "max_latitude":46.3883},
     "120": {"name": "beluag_lake", "country": "usa", "layers": [2016, 2018], "min_longitude":-151.7198, "min_latitude":61.3628, "max_longitude":-151.4376, "max_latitude":61.4519},
-    "121": {"name": "lago_del sambuco", "country": "switzerland", "layers": [2016, 2017, 2018], "min_longitude":8.6247, "min_latitude":46.4539, "max_longitude":8.6694, "max_latitude":46.4771},
+    "121": {"name": "lago_del_sambuco", "country": "switzerland", "layers": [2016, 2017, 2018], "min_longitude":8.6247, "min_latitude":46.4539, "max_longitude":8.6694, "max_latitude":46.4771},
     "122": {"name": "fenial_lake", "country": "usa", "layers": [2016, 2018], "min_longitude":-158.3913, "min_latitude":68.2191, "max_longitude":-158.2381, "max_latitude":68.2793},
     "123": {"name": "depaeration_lake", "country": "usa", "layers": [2016, 2018], "min_longitude":-158.8247, "min_latitude":68.3052, "max_longitude":-158.6376, "max_latitude":68.3507},
     "124": {"name": "litla_sandvatn", "country": "island", "layers": [2016, 2017, 2018], "min_longitude":-14.7190, "min_latitude":65.3089, "max_longitude":-14.7043, "max_latitude":65.3188},
