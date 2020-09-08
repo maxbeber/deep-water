@@ -107,7 +107,7 @@
     "105": {"name": "plon", "country": "poland", "layers": [2016, 2017, 2018], "min_longitude":15.0411, "min_latitude":53.1282, "max_longitude":15.1352, "max_latitude":53.1665},
     "106": {"name": "gardzko", "country": "poland", "layers": [2016, 2017, 2018], "min_longitude":15.2673, "min_latitude":53.1909, "max_longitude":15.3138, "max_latitude":53.2081},
     "107": {"name": "jezioro_sulinowski", "country": "poland", "layers": [2016, 2017, 2018], "min_longitude":15.3919, "min_latitude":53.2149, "max_longitude":15.4080, "max_latitude":53.2205},
-    "108": {"name": "danau_laut_tawar", "country": "indonesia", "layers": [2016, 2017, 2018], "min_longitude":96.8320, "min_latitude":4.5480, "max_longitude":97.0191, "max_latitude":4.6707},
+    "108": {"name": "danau_laut_tawar", "country": "indonesia", "layers": [2016, 2018], "min_longitude":96.8320, "min_latitude":4.5480, "max_longitude":97.0191, "max_latitude":4.6707},
     "109": {"name": "lac_de_mansigne", "country": "france", "layers": [2016, 2017, 2018], "min_longitude":0.1228, "min_latitude":47.7521, "max_longitude":0.1367, "max_latitude":47.7639},
     "110": {"name": "lake_dapao", "country": "philipines", "layers": [2016, 2018], "min_longitude":124.0152, "min_latitude":7.7438, "max_longitude":124.1088, "max_latitude":7.8048},
     "111": {"name": "etang_des_landes", "country": "france", "layers": [2016, 2017, 2018], "min_longitude":-0.4108, "min_latitude":48.0989, "max_longitude":-0.3876, "max_latitude":48.1085},
