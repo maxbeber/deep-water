@@ -12,10 +12,9 @@ class BatchLoader:
     batch_size : size of the batch
     image_size : size of each image
     """
-    def __init__(self, base_folder, batch_size, image_size):
-        self.base_folder = base_folder
-        self.data_folder = os.path.join(self.base_folder, 'data')
-        self.mask_folder = os.path.join(self.base_folder, 'mask')
+    def __init__(self, image_folder, mask_folder, batch_size, image_size):
+        self.image_folder = os.path.join(image_folder, 'data')
+        self.mask_folder = os.path.join(mask_folder, 'data')
         self.batch_size = batch_size
         self.image_size = image_size
         self.threshold_water_pixel = 100
@@ -48,7 +47,7 @@ class BatchLoader:
     
     
     def _generate_image(self, image):
-        raw_file = os.path.join(self.data_folder, image)
+        raw_file = os.path.join(self.image_folder, image)
         raw_image = Image.open(raw_file)
         raw_image = raw_image.resize(self.image_size)
         raw_image = np.array(raw_image)
