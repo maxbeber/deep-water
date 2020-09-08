@@ -143,6 +143,10 @@ deep-water.code-workspace
 # NWPU dataset
 NWPU_images.zip
 nwpu_images/
+nwpu_label_images/
+
+# Google Drive
+google_drive/
 
 # Sentinel-2 Cloudless dataset
 s2cloudless_imagery/
