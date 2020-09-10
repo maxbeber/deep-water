@@ -55,7 +55,7 @@ class WaterMask:
         plt.title(image_name)
         plt.axis('off')
         for i in range(len(X)):
-            plt.plot(Y[i], X[i], annotation_color)
+            plt.plot(X[i], Y[i], annotation_color)
 
 
     def display_mask(self, image_name):
@@ -102,7 +102,7 @@ class WaterMask:
             X.append(x)
             Y.append(y)
         assert len(X) == len(Y)
-        return Y, X
+        return X, Y
 
 
     def _load_image(self, file_path):
