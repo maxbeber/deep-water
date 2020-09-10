@@ -11,7 +11,8 @@ class Unet():
     image_size : the size of the image for the input layer.
     """
     def __init__(self, image_size):
-        image_shape = (image_size, image_size, 3)
+        image_width, image_height = image_size
+        image_shape = (image_width, image_height, 3)
         input_encoder = Input(shape=image_shape)
         f = 8
         ff2 = 64
@@ -54,6 +55,6 @@ class Unet():
 
 
 if __name__ == '__main__':
-    image_size = 512
+    image_size = (512, 512)
     dae = Unet(image_size)
     dae.get_model_summary()

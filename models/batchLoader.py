@@ -1,6 +1,7 @@
 import glob
 import numpy as np
 import os
+import random
 from PIL import Image
 
 class BatchLoader:
@@ -12,20 +13,21 @@ class BatchLoader:
     batch_size : size of the batch
     image_size : size of each image
     """
-    def __init__(self, image_folder, mask_folder, batch_size, image_size):
+    def __init__(self, images, image_folder, mask_folder, batch_size, image_size):
         self.image_folder = os.path.join(image_folder, 'data')
         self.mask_folder = os.path.join(mask_folder, 'data')
         self.batch_size = batch_size
         self.image_size = image_size
         self.threshold_water_pixel = 100
+        self.images = [image.split(os.sep)[-1] for image in images]
     
 
     def __call__(self):
-        all_images = self._get_images()
+        random.shuffle(self.images)
         while True:
             batch_x = []
             batch_y = []
-            images = np.random.choice(all_images, size=self.batch_size)
+            images = np.random.choice(self.images, size=self.batch_size)
             for image in images:
                 raw_image = self._generate_image(image)
                 n = raw_image.shape[0]
@@ -70,12 +72,3 @@ class BatchLoader:
         mask_image = (mask_image > self.threshold_water_pixel).astype('int')
         mask_image = mask_image[:n, :n]
         return mask_image
-
-
-    def _get_images(self):
-        image_list = []
-        images = glob.glob(f'{self.mask_folder}/*.jpg')
-        for image in images:
-            image_file_name = image.split(os.sep)[-1]
-            image_list.append(image_file_name)
-        return image_list
