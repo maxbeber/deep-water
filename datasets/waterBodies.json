@@ -145,5 +145,11 @@
     "418": {"name": "stausee_sosa", "country": "germany", "layers": [2016, 2017, 2018], "min_longitude":12.6281, "min_latitude":50.4772, "max_longitude":12.6747, "max_latitude":50.4955},
     "419": {"name": "unterbecken", "country": "germany", "layers": [2016, 2017, 2018], "min_longitude":12.8637, "min_latitude":50.5095, "max_longitude":12.9102, "max_latitude":50.5278},
     "420": {"name": "danau_maninjau", "country": "indonesia", "layers": [2016, 2018], "min_longitude":100.0429, "min_latitude":-0.4563, "max_longitude":100.4154, "max_latitude":-0.2266},
-    "421": {"name": "danau_ranu_grati", "country": "indonesia", "layers": [2016, 2018], "min_longitude":112.9872, "min_latitude":-7.7400, "max_longitude":113.0338 ,"max_latitude":-7.7115} 
-}
+    "421": {"name": "danau_ranu_grati", "country": "indonesia", "layers": [2016, 2018], "min_longitude":112.9872, "min_latitude":-7.7400, "max_longitude":113.0338 ,"max_latitude":-7.7115},
+    "422": {"name": "danau_buyan", "country": "indonesia", "layers": [2016, 2018], "min_longitude":115.1031, "min_latitude":-8.2559, "max_longitude":115.1454 ,"max_latitude":-8.2301},
+    "423": {"name": "segara_anak", "country": "indonesia", "layers": [2016, 2018], "min_longitude":116.3740, "min_latitude":-8.4358, "max_longitude":116.4515 ,"max_latitude":-8.3749},
+    "424": {"name": "dam_pela_parado", "country": "indonesia", "layers": [2016, 2018], "min_longitude":118.5827, "min_latitude":-8.7393, "max_longitude":118.6214 ,"max_latitude":-8.7089},
+    "425": {"name": "gunung_kelimutu", "country": "indonesia", "layers": [2016, 2018], "min_longitude":121.8047, "min_latitude":-8.7753, "max_longitude":121.8241 ,"max_latitude":-8.7611},
+    "426": {"name": "ira_lalaro", "country": "timor_leste", "layers": [2016, 2018], "min_longitude":127.0574, "min_latitude":-8.4924, "max_longitude":127.2124 ,"max_latitude":-8.3788}    
+    }
+    
