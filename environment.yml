@@ -9,6 +9,7 @@ dependencies:
   - pip
   - pylint
   - python=3.8.5
+  - dash
   - pip:
       - Pillow
       - rasterio
