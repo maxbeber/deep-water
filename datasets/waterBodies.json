@@ -150,6 +150,12 @@
     "423": {"name": "segara_anak", "country": "indonesia", "layers": [2016, 2018], "min_longitude":116.3740, "min_latitude":-8.4358, "max_longitude":116.4515 ,"max_latitude":-8.3749},
     "424": {"name": "dam_pela_parado", "country": "indonesia", "layers": [2016, 2018], "min_longitude":118.5827, "min_latitude":-8.7393, "max_longitude":118.6214 ,"max_latitude":-8.7089},
     "425": {"name": "gunung_kelimutu", "country": "indonesia", "layers": [2016, 2018], "min_longitude":121.8047, "min_latitude":-8.7753, "max_longitude":121.8241 ,"max_latitude":-8.7611},
-    "426": {"name": "ira_lalaro", "country": "timor_leste", "layers": [2016, 2018], "min_longitude":127.0574, "min_latitude":-8.4924, "max_longitude":127.2124 ,"max_latitude":-8.3788}    
+    "426": {"name": "ira_lalaro", "country": "timor_leste", "layers": [2016, 2018], "min_longitude":127.0574, "min_latitude":-8.4924, "max_longitude":127.2124 ,"max_latitude":-8.3788},
+    "427": {"name": "danau_lindu", "country": "indonesia", "layers": [2016, 2018], "min_longitude":119.994, "min_latitude":-1.3714, "max_longitude":120.1544 ,"max_latitude":-1.2566},
+    "428": {"name": "danau_waduk", "country": "indonesia", "layers": [2016, 2018], "min_longitude":121.1923, "min_latitude":-2.5859, "max_longitude":121.5023 ,"max_latitude":-2.3564},
+    "429": {"name": "danau_sidenreng", "country": "indonesia", "layers": [2016, 2018], "min_longitude":119.7968, "min_latitude":-4.0418, "max_longitude":119.9518 ,"max_latitude":-3.927},
+    "430": {"name": "lake_liyutan", "country": "taiwan", "layers": [2016, 2018], "min_longitude":121.4895, "min_latitude":23.9158, "max_longitude":121.5337 ,"max_latitude":23.9420},
+    "431": {"name": "danau_moat", "country": "indonesia", "layers": [2016, 2018], "min_longitude":124.4120, "min_latitude":0.7260, "max_longitude":124.5004 ,"max_latitude":0.7834}
+      
     }
     
