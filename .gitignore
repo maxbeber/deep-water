@@ -140,14 +140,18 @@ deep-water.code-workspace
 # Visual studio Code settings
 .vscode/
 
+# Google Drive folder
+google_drive/
+
 # NWPU dataset
 NWPU_images.zip
 nwpu_images/
+nwpu_augmented_images/
 nwpu_label_images/
-
-# Google Drive
-google_drive/
+nwpu_label_augmented_images/
 
 # Sentinel-2 Cloudless dataset
 s2cloudless_imagery/
+s2cloudless_augmented_imagery/
 s2cloudless_label_imagery/
+s2cloudless_label_augmented_imagery/

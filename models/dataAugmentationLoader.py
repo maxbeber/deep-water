@@ -18,12 +18,13 @@ class DataAugmentationLoader:
         self.image_size = image_size
         self.seed = 111
         self.datagenerator_args = {
-            "featurewise_center": True,
-            "featurewise_std_normalization": True,
+            "featurewise_center": False,
+            "featurewise_std_normalization": False,
             "shear_range": 0,
-            "zoom_range": 0,
-            "rotation_range": 90,
-            "horizontal_flip": True
+            "zoom_range": 0.2,
+            "rotation_range": 45,
+            "horizontal_flip": True,
+            "vertical_flip": True
         }
 
 
@@ -45,12 +46,13 @@ class DataAugmentationLoader:
             seed=self.seed,
             shuffle=False)
         train_generator = (pair for pair in zip(image_generator, mask_generator))
+
         return train_generator
     
 
-    def get_pair(self, X, Y, i):
-        image = X[i].astype('uint8') / 255
-        mask = np.max(Y[i], axis=2) / 255
+    def get_pair(self, x, y):
+        image = x.astype('uint8') / 255
+        mask = np.max(y, axis=2) / 255
         mask[mask >= 0.5]  = 1
         mask[mask < 0.5] = 0
         mask = np.stack((mask,) * 3, axis=-1)
