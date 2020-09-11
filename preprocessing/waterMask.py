@@ -6,6 +6,9 @@ import os
 import rasterio
 from matplotlib.image import imsave
 from PIL import Image, ImageDraw
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
 
 class WaterMask:
     """
@@ -55,7 +58,47 @@ class WaterMask:
         plt.title(image_name)
         plt.axis('off')
         for i in range(len(X)):
-            plt.plot(Y[i], X[i], annotation_color)
+            plt.plot(X[i], Y[i], annotation_color)
+
+    def display_image_with_annotations2(self, image_name, annotations):
+        image_path = self._get_image_path(image_name)
+        image = self._load_image(image_path)
+        X, Y = self._get_annotation_points_from_vgg_json(annotations, image_name)
+        fig = px.imshow(image)
+        for x, y in zip(X, Y):
+            fig.add_trace(
+                go.Scatter(
+                    x = x, y = y,
+                    mode='lines', fill='toself', hoverinfo='none',
+                    fillcolor='red', marker_color='red', opacity=.2
+                    )
+                )
+            fig.update_layout(hovermode=False, showlegend=False)
+        return fig
+
+    def display_image_with_annotations2_subplot(self, image_names, annotations):
+        n_cols = len(image_names)
+        fig = make_subplots(rows=1, cols=n_cols)
+        cols = range(1, n_cols+1)
+        for pic, col in zip(image_names, cols):
+            image_name = pic
+            image_path = self._get_image_path(image_name)
+            image = self._load_image(image_path)
+            X, Y = self._get_annotation_points_from_vgg_json(annotations, image_name)
+            #fig = px.imshow(image, row = 1, col = col)
+            for x, y in zip(X, Y):
+                fig.add_trace(
+                    go.Scatter(
+                        x = x, y = y,
+                        mode='lines', fill='toself', hoverinfo='none',
+                        fillcolor='red', marker_color='red', opacity=.2
+                        ),
+                        row=1, col=col
+                    )
+                fig.update_layout(hovermode=False, showlegend=False)
+            fig.add_trace(go.Image(z=image), row=1, col=col)
+        return fig
+
 
 
     def display_mask(self, image_name):
@@ -102,7 +145,7 @@ class WaterMask:
             X.append(x)
             Y.append(y)
         assert len(X) == len(Y)
-        return Y, X
+        return X, Y
 
 
     def _load_image(self, file_path):
