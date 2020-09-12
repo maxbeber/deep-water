@@ -9,7 +9,8 @@ class Unet():
     ----------
     image_size : the size of the image for the input layer.
     """
-    def __init__(self, image_size):
+    def __init__(self, model_name, image_size):
+        self.model_name = model_name
         image_width, image_height = image_size
         image_shape = (image_width, image_height, 3)
         input_encoder = Input(shape=image_shape)
@@ -46,13 +47,34 @@ class Unet():
         output_decoder = layers.Conv2D(1, 1, activation='sigmoid')(x_prime)
         # create the model
         self.model = Model(input_encoder, output_decoder)
+
     
+    def evaluate(self, x_test, y_test):
+        loss, iou = self.model.evaluate(x_test, y_test, verbose=0)
+        return (loss, iou)
+
 
     def get_model_summary(self):
         return self.model.summary()
+    
+
+    def fit(self, train_generator, train_steps, validation_generator, validation_steps, epochs, callbacks):
+        self.history = self.model.fit(train_generator, steps_per_epoch=train_steps,\
+            validation_data=validation_generator, validation_steps=validation_steps,\
+            callbacks=callbacks, epochs=epochs, verbose=1)
+
+    
+    def set_compiler(self, loss, metrics, optimizer):
+        self.model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
+
+
+    def predict(self, x_test):
+        y_pred = self.model.predict(x_test)
+        return y_pred
 
 
 if __name__ == '__main__':
+    model_name = 'foo'
     image_size = (512, 512)
-    dae = Unet(image_size)
+    dae = Unet(model_name, image_size)
     dae.get_model_summary()
