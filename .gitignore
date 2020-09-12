@@ -143,6 +143,9 @@ deep-water.code-workspace
 # Google Drive folder
 google_drive/
 
+# Backup folder
+@backup/
+
 # NWPU dataset
 NWPU_images.zip
 nwpu_images/
