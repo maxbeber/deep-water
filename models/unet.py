@@ -1,4 +1,3 @@
-from metrics import mean_iou
 from tensorflow.keras import Input, layers
 from tensorflow.keras.models import Model
 
@@ -47,7 +46,6 @@ class Unet():
         output_decoder = layers.Conv2D(1, 1, activation='sigmoid')(x_prime)
         # create the model
         self.model = Model(input_encoder, output_decoder)
-        self.model.compile(optimizer = 'rmsprop', loss = 'binary_crossentropy', metrics = [mean_iou])
     
 
     def get_model_summary(self):
