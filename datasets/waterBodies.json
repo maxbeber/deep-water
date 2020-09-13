@@ -155,7 +155,17 @@
     "428": {"name": "danau_waduk", "country": "indonesia", "layers": [2016, 2018], "min_longitude":121.1923, "min_latitude":-2.5859, "max_longitude":121.5023 ,"max_latitude":-2.3564},
     "429": {"name": "danau_sidenreng", "country": "indonesia", "layers": [2016, 2018], "min_longitude":119.7968, "min_latitude":-4.0418, "max_longitude":119.9518 ,"max_latitude":-3.927},
     "430": {"name": "lake_liyutan", "country": "taiwan", "layers": [2016, 2018], "min_longitude":121.4895, "min_latitude":23.9158, "max_longitude":121.5337 ,"max_latitude":23.9420},
-    "431": {"name": "danau_moat", "country": "indonesia", "layers": [2016, 2018], "min_longitude":124.4120, "min_latitude":0.7260, "max_longitude":124.5004 ,"max_latitude":0.7834}
+    "431": {"name": "danau_moat", "country": "indonesia", "layers": [2016, 2018], "min_longitude":124.4120, "min_latitude":0.7260, "max_longitude":124.5004 ,"max_latitude":0.7834},
+    "432": {"name": "danau_bunong", "country": "indonesia", "layers": [2016, 2018], "min_longitude":124.5762, "min_latitude":0.7088, "max_longitude":124.6204 ,"max_latitude":0.7396},
+    "433": {"name": "danau_todngow", "country": "indonesia", "layers": [2016, 2018], "min_longitude":124.8334, "min_latitude":1.1662, "max_longitude":125.0102 ,"max_latitude":1.2894},
+    "434": {"name": "danau_anggi_gida", "country": "indonesia", "layers": [2016, 2018], "min_longitude":133.9252, "min_latitude":-1.4237, "max_longitude":133.9996 ,"max_latitude":-1.3559},
+    "435": {"name": "danau_anggi_giji", "country": "indonesia", "layers": [2016, 2018], "min_longitude":133.8614, "min_latitude":-1.4089, "max_longitude":133.9226 ,"max_latitude":-1.3246},
+    "436": {"name": "lake_hargy", "country": "papua_new_guinea", "layers": [2016, 2018], "min_longitude":151.1005, "min_latitude":-5.3892, "max_longitude":151.1889 ,"max_latitude":-5.3321},
+    "437": {"name": "lake_emirau_island", "country": "papua_new_guinea", "layers": [2016, 2018], "min_longitude":149.92047, "min_latitude":-1.66993, "max_longitude":149.93152 ,"max_latitude":-1.66276},
+    "438": {"name": "uafato_lake", "country": "samoa", "layers": [2016, 2018], "min_longitude":-171.5708, "min_latitude":-13.9862, "max_longitude":-171.5266 ,"max_latitude":-13.9583},
+    "439": {"name": "blue_lake", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":175.6470, "min_latitude":-39.1284, "max_longitude":175.6691 ,"max_latitude":-39.1173},
+    "440": {"name": "lake_pearson", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":171.7390, "min_latitude":-43.1268, "max_longitude":171.8274 ,"max_latitude":-43.0849},
+    "441": {"name": "lake_kaniere", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":171.0571, "min_latitude":-42.8804, "max_longitude":171.2339 ,"max_latitude":-42.7962}
       
     }
     
