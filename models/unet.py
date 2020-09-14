@@ -15,15 +15,20 @@ class Unet(UnetBase):
         super().__init__()
         self.dropout_rate = 0.25
         self.model_name = model_name
+        self.image_size = image_size
+        self.validate_version(version)
+
+
+    def validate_version(self, version):
         try:
             if version == 1:
-                self.model = self.build(image_size, 8, 64, False, False)
+                self.model = self.build(self.image_size, 8, 64, False, False)
             elif version == 2:
-                self.model = self.build(image_size, 16, 128, True, False)
+                self.model = self.build(self.image_size, 16, 128, True, False)
             elif version == 3:
-                self.model = self.build(image_size, 8, 64, True, True)
+                self.model = self.build(self.image_size, 8, 64, True, True)
             elif version == 4:
-                self.model = self.build(image_size, 16, 128, True, True)
+                self.model = self.build(self.image_size, 16, 128, True, True)
             else:
                 raise Exception(f'version {version} is not valid.')
         except Exception as error:
