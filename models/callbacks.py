@@ -3,7 +3,11 @@ from tensorflow.keras import callbacks
 
 def baseline_callback(model_name):
     file_path = f'{model_name}.h5'
-    callback = callbacks.ModelCheckpoint(filepath=file_path, verbose=0, save_best_only=True, save_weights_only=True)
+    callback = callbacks.ModelCheckpoint(\
+        filepath=file_path,
+        save_best_only=True,
+        save_weights_only=True,
+        verbose=0)
     return [callback]
 
 
