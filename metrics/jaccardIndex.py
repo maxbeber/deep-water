@@ -19,4 +19,9 @@ def mean_iou(y_true, y_pred):
     intersection = tf.math.count_nonzero(tf.logical_and(tf.equal(yt0, 1), tf.equal(yp0, 1)))
     union = tf.math.count_nonzero(tf.add(yt0, yp0))
     iou = tf.where(tf.equal(union, 0), 1.0, tf.cast(intersection/union, 'float32'))
-    return iou   
+    return iou
+
+
+def iou_loss(y_true, y_pred):
+    loss = 1 - mean_iou(y_true, y_pred)
+    return loss
