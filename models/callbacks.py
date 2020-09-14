@@ -1,12 +1,13 @@
-import tensorflow as tf
+from tensorflow.keras import callbacks
+
 
 def baseline_callback(model_name):
     file_path = f'{model_name}.h5'
-    callback = tf.keras.callbacks.ModelCheckpoint(filepath=file_path, verbose=0, save_best_only=True, save_weights_only=True)
+    callback = callbacks.ModelCheckpoint(filepath=file_path, verbose=0, save_best_only=True, save_weights_only=True)
     return [callback]
 
 
-def build_callback(model_name, monitor, mode, patience, factor, min_delta, cooldown, min_learning_rate):
+def build_callbacks(model_name, monitor, mode, patience, factor, min_delta, cooldown, min_learning_rate):
     checkpoint = model_checkpoint(model_name, mode, monitor)
     early_stop = early_stopping(mode, monitor, patience)
     reduce_learning_rate = reduce_learning_rate_on_plateau(factor, min_delta, min_learning_rate, monitor, patience)
@@ -15,13 +16,13 @@ def build_callback(model_name, monitor, mode, patience, factor, min_delta, coold
 
 
 def early_stopping(mode, monitor, patience):
-    callback = tf.keras.callbacks.EarlyStopping(mode=mode, monitor=monitor, patience=patience)
+    callback = callbacks.EarlyStopping(mode=mode, monitor=monitor, patience=patience)
     return [callback]
 
 
 def model_checkpoint(model_name, mode, monitor):
     file_path = f'{model_name}.h5'
-    callback = tf.keras.callbacks.ModelCheckpoint(\
+    callback = callbacks.ModelCheckpoint(\
         filepath=file_path,
         mode=mode,
         monitor=monitor,
@@ -32,7 +33,7 @@ def model_checkpoint(model_name, mode, monitor):
 
 
 def reduce_learning_rate_on_plateau(factor, min_delta, min_learning_rate, monitor, patience):
-    callback = tf.keras.callbacks.ReduceLROnPlateau(\
+    callback = callbacks.ReduceLROnPlateau(\
         factor=factor,
         min_delta=min_delta,
         min_lr=min_learning_rate,
