@@ -16,21 +16,22 @@ class Unet(UnetBase):
         self.dropout_rate = dropout_rate
         self.model_name = model_name
         self.image_size = image_size
-        self.validate_version(version)
+        self.model = self.pre_build(version)
 
 
-    def validate_version(self, version):
+    def pre_build(self, version):
         try:
             if version == 1:
-                self.model = self.build(self.image_size, 8, 64, False, False)
+                model = self.build(self.image_size, 8, 64, False, False)
             elif version == 2:
-                self.model = self.build(self.image_size, 16, 128, True, False)
+                model = self.build(self.image_size, 16, 128, True, False)
             elif version == 3:
-                self.model = self.build(self.image_size, 8, 64, True, True)
+                model = self.build(self.image_size, 8, 64, True, True)
             elif version == 4:
-                self.model = self.build(self.image_size, 16, 128, True, True)
+                model = self.build(self.image_size, 16, 128, True, True)
             else:
                 raise Exception(f'version {version} is not valid.')
+            return model
         except Exception as error:
             print('Input error:', error)
 
