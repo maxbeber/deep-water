@@ -85,8 +85,8 @@ app.layout = html.Div([
     [Input(component_id="slct_year", component_property="value")]
 )
 def update_graph(option_scltd):
-    print(option_scltd)
-    print(type(option_scltd))
+    #print(option_scltd)
+    #print(type(option_scltd))
 
     container = "The year chosen by user was: {}".format(option_scltd)
 
@@ -109,8 +109,11 @@ def update_graph(option_scltd):
     )
 def update_coordinates(all_rows_data, slctd_row_indices):
     dff = pd.DataFrame(all_rows_data)
-    if len(slctd_row_indices) == 0:
-        slctd_row_indices = [1]
+    if not slctd_row_indices:
+        slctd_row_indices = [6]
+
+    print(slctd_row_indices)
+
 
     longit = dff.loc[slctd_row_indices, "min_longitude"].values.tolist()
     longit = longit + dff.loc[slctd_row_indices, "max_longitude"].values.tolist()
@@ -122,18 +125,18 @@ def update_coordinates(all_rows_data, slctd_row_indices):
     latit = latit + dff.loc[slctd_row_indices, "max_latitude"].values.tolist()
     latit = latit + dff.loc[slctd_row_indices, "max_latitude"].values.tolist()
         
-    print(longit)
+    print(longit[0])
 
    
     fig = go.Figure(go.Scattermapbox(
         fill = "toself", lon = longit, lat = latit, 
-        marker = { 'size': 10, 'color': "orange"}))
+        marker = { 'size': 1, 'color': "orange"}))
     
     fig.update_layout(
     mapbox = {
         'style': "stamen-terrain",
-        'center': {'lon': longit[0], 'lat': latit[0] },
-        'zoom': 10},
+        'center': {'lon': longit[0], 'lat': latit[0]},
+        'zoom': 8},
     showlegend = False)
     
     return fig
