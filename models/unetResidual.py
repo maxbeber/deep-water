@@ -71,9 +71,9 @@ class UnetResidual(UnetBase):
         _ = self.upsamp_concat_block(_, e1)
         _ = self.res_block(_, f)
         ## classify
-        output_tesnor = layers.Conv2D(1, (1, 1), padding="same", activation="sigmoid")(_)
+        output_tensor = layers.Conv2D(1, (1, 1), padding="same", activation="sigmoid")(_)
         #model creation 
-        model = Model(input_tensor, output_tesnor)
+        model = Model(input_tensor, output_tensor)
         return model
 
 

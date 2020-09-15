@@ -74,7 +74,7 @@ class Unet(UnetBase):
         # classification
         x_prime = layers.Conv2D(f, 3, activation='relu', padding='same')(x_prime)
         x_prime = layers.Conv2D(f, 3, activation='relu', padding='same')(x_prime)
-        output_tesnor = layers.Conv2D(1, 1, activation='sigmoid')(x_prime)
+        output_tensor = layers.Conv2D(1, 1, activation='sigmoid')(x_prime)
         # create the model
-        model = Model(input_tensor, output_tesnor)
+        model = Model(input_tensor, output_tensor)
         return model
