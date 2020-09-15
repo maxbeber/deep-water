@@ -14,12 +14,13 @@ class UnetBase():
 
 
     def evaluate(self, x_test, y_test):
-        loss, iou = self.model.evaluate(x_test, y_test, verbose=0)
-        return (loss, iou)
+        metrics = self.model.evaluate(x_test, y_test, verbose=0)
+        return metrics
 
 
     def get_model_summary(self):
-        return self.model.summary()
+        model_summary = self.model.summary()
+        return model_summary
     
 
     def fit(self, train_generator, train_steps, validation_generator, validation_steps, epochs, callbacks):
