@@ -21,6 +21,7 @@ class UnetResidual(UnetBase):
         x = layers.BatchNormalization()(x)
         return layers.Activation("relu")(x)
 
+
     def conv_block(self, x, filters, kernel_size=(3, 3), padding="same", strides=1):
         conv = self.batchnorm_act(x)
         return layers.Conv2D(filters, kernel_size, padding=padding, strides=strides)(conv)
