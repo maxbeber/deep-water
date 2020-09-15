@@ -16,13 +16,13 @@ def build_callbacks(parameters):
     is_logger_enabled = parameters['enable_csv_logger']
     is_early_stopping_enabled = 'early_stopping' in parameters.keys()
     checkpoint = model_checkpoint(model_name)
-    logger = csv_logger(model_name)
-    early_stop = early_stopping(parameters)
     reduce_learning_rate = reduce_learning_rate_on_plateau(parameters)
     callbacks = checkpoint + reduce_learning_rate
     if is_early_stopping_enabled:
+        early_stop = early_stopping(parameters)
         callbacks.append(early_stop)
     if is_logger_enabled:
+        logger = csv_logger(model_name)
         callbacks.append(logger) 
     return callbacks
 
