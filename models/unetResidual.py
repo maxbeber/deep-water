@@ -14,6 +14,7 @@ class UnetResidual(UnetBase):
     def __init__(self, model_name, image_size, version=1):
         super().__init__()
         self.image_size = image_size
+        self.model_name = model_name
         self.model = self.pre_build(version)
         
     
