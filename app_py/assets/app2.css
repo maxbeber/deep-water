@@ -1,7 +1,16 @@
 
+#slct_lake {
+    background: red;
+    color: yellow;
+    background-color: green;
+
+}
+
 body {
     background-color: rgba(32, 82, 175, 0.5);
 }
-#slct_lake {
-    color: black;
+#some_title {
+    color: red;
 }
+
+

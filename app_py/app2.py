@@ -10,10 +10,14 @@ import os
 from app_helpers import download_image, import_image, lat_long, import_annotation
 import matplotlib.pyplot as plt
 
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-app = dash.Dash(__name__)
-
+colors = {
+    'background': '#111111',
+    'text': '#7FDBFF'
+}
 
 #====================================================================
 # prerequisites
@@ -52,17 +56,20 @@ figure_mapbox.update_layout(
 # app laypout
 #--------------------------------------------------------------------
 app.layout = html.Div(
-    [
-        html.H1("water bodies"),
-        dcc.Dropdown(
-            id="slct_lake",
-            options=[
-                {"label": i+', '+j, "value":k} for i, j, k in zip(df["name"], df["country"], df.index)
-                ],
-            placeholder="select a lake",
-            multi=False,
-            value=4,
-            style={"width" : "40%"}
+    children=[
+        html.H1(id='some_title', children="water bodies"),
+
+        html.Div(
+            dcc.Dropdown(
+                id="slct_lake",
+                options=[
+                    {"label": i+', '+j, "value":k} for i, j, k in zip(df["name"], df["country"], df.index)
+                    ],
+                placeholder="select a lake",
+                 multi=False,
+                value=4,
+            #style={"width" : "40%", "backgroundColor": "black"}
+                )
             ),
         dcc.Graph(id="lake_map", figure=figure_mapbox),
         dcc.Graph(id="satellite_image", figure={})
