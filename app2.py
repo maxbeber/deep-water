@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os
-from preprocessing.app_helpers import download_image, import_image, lat_long
+from preprocessing.app_helpers import download_image, import_image, lat_long, import_annotation
 import matplotlib.pyplot as plt
 
 
@@ -111,6 +111,18 @@ def display_satellite_image(slct_lake):
     image = import_image()
     fig = go.Figure()
     fig.add_trace(go.Image(z=image))
+    
+    X, Y = import_annotation(data_frame=df, slct_lake=slct_lake)
+    for x, y in zip(X, Y):
+        x = [i/8 for i in x]
+        y = [i/8 for i in y]
+        fig.add_trace(
+            go.Scatter(
+                x = x, y = y,
+                mode='lines', fill='toself', hoverinfo='none',
+                fillcolor='red', marker_color='red', opacity=.3
+            )
+        )
     return fig
 #-------------------------------------------------------------------
 #====================================================================
