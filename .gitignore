@@ -155,9 +155,16 @@ nwpu_label_augmented_images/
 
 # Models
 unet*.h5
+dash_app/unet*.h5
+dash_app/unet-residual-dice.h5.zip
 
 # Sentinel-2 Cloudless dataset
 s2cloudless_imagery/
 s2cloudless_augmented_imagery/
 s2cloudless_label_imagery/
 s2cloudless_label_augmented_imagery/
+
+# dash_app
+dash_app/sample_image.jpg
+dash_app/app2.ipynb
+dash_app/app2_trial.py
