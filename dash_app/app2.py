@@ -25,27 +25,40 @@ colors = {
 #--------------------------------------------------------------------
 # import dataset
 df = pd.read_json('../datasets/waterBodies.json').T
+df["lat"] = (df['min_latitude'] + df['max_latitude'])/2
+df["lon"] = (df['min_longitude'] + df['max_longitude'])/2
+#mapbox token
+token = "pk.eyJ1Ijoia2FybHJhZHRrZSIsImEiOiJja2YyZnVvbzUwODJ6MnVxbHU0cDV4YXAxIn0.a3aiSNjy2BOO0WKg40PSsA"
+
 #--------------------------------------------------------------------
 
 
 #--------------------------------------------------------------------
 # map
-figure_mapbox = go.Figure()
-for i in df.index:
-    longit, latit = lat_long(data_frame=df, slct_lake=i)
+figure_mapbox = px.scatter_mapbox(
+     df, lat="lat", lon="lon", 
+     hover_name="name", zoom=1)
+figure_mapbox.update_layout(mapbox_style="stamen-terrain", mapbox_accesstoken=token)
+#figure_mapbox.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+
+
+# go.Figure()
+# for i in df.index:
+#     longit, latit = lat_long(data_frame=df, slct_lake=i)
     
-    figure_mapbox.add_trace(
-        go.Scattermapbox(
-            fill = "toself", lon = longit, lat = latit, 
-            marker = { 'size': 1, 'color': "orange"}
-            )
-        )
-figure_mapbox.update_layout(
-    mapbox = {
-        'style': "stamen-terrain"
-        },
-    showlegend = False
-    )
+#     figure_mapbox.add_trace(
+#         go.Scattermapbox(
+#             fill = "toself", lon = longit, lat = latit, 
+#             marker = { 'size': 1, 'color': "orange"}
+#             )
+#         )
+# figure_mapbox.update_layout(
+#     mapbox = {
+#         'style': "stamen-terrain"
+#         },
+#     showlegend = False
+#     )
 #--------------------------------------------------------------------
 #====================================================================
 
@@ -71,10 +84,15 @@ app.layout = html.Div(
             #style={"width" : "40%", "backgroundColor": "black"}
                 )
             ),
-        dcc.Graph(id="lake_map", figure=figure_mapbox),
-        dcc.Graph(id="satellite_image", figure={})
-    ]
+        
+        html.Div(
+            dcc.Graph(id="lake_map", figure=figure_mapbox)
+            ),
 
+        html.Div(
+            dcc.Graph(id="satellite_image", figure={})
+            )
+    ]
 )
 #--------------------------------------------------------------------
 #====================================================================
