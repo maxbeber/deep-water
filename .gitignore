@@ -153,6 +153,9 @@ nwpu_augmented_images/
 nwpu_label_images/
 nwpu_label_augmented_images/
 
+# Models
+unet*.h5
+
 # Sentinel-2 Cloudless dataset
 s2cloudless_imagery/
 s2cloudless_augmented_imagery/
