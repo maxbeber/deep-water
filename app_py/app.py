@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os
-from preprocessing.waterMask import WaterMask
+#from preprocessing.waterMask import WaterMask
 
 app = dash.Dash(__name__)
 
@@ -15,7 +15,7 @@ app = dash.Dash(__name__)
 
 #----------------------------------------------------------------
 #import data
-df = pd.read_json('datasets/waterBodies.json').\
+df = pd.read_json('../datasets/waterBodies.json').\
     T.\
     explode("layers").\
     rename(columns={"layers": "year"})
@@ -24,7 +24,7 @@ df_groupby = df.\
     max().reset_index()
 
 
-water_mask = WaterMask('nwpu_images')
+#water_mask = WaterMask('nwpu_images')
 
 #----------------------------------------------------------------
 #App layout

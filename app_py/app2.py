@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os
-from preprocessing.app_helpers import download_image, import_image, lat_long, import_annotation
+from app_helpers import download_image, import_image, lat_long, import_annotation
 import matplotlib.pyplot as plt
 
 
@@ -20,7 +20,7 @@ app = dash.Dash(__name__)
 
 #--------------------------------------------------------------------
 # import dataset
-df = pd.read_json('datasets/waterBodies.json').T
+df = pd.read_json('../datasets/waterBodies.json').T
 #--------------------------------------------------------------------
 
 
