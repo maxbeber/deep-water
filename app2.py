@@ -101,21 +101,22 @@ def mapbox_map(slct_lake):
 
 
 #--------------------------------------------------------------------
-# satellite image for selected lake
+# satellite image for selected lake(2019) + mask
 @app.callback(
     Output(component_id="satellite_image", component_property="figure"),
     [Input(component_id="slct_lake", component_property="value")]
 )
 def display_satellite_image(slct_lake):
+    # satelite image
     download_image(data_frame=df, slct_lake=slct_lake)
     image = import_image()
     fig = go.Figure()
     fig.add_trace(go.Image(z=image))
-    
+    # mask
     X, Y = import_annotation(data_frame=df, slct_lake=slct_lake)
     for x, y in zip(X, Y):
-        x = [i/8 for i in x]
-        y = [i/8 for i in y]
+        x = [i/8 for i in x]  #the original picture was 4096x4096 pixel
+        y = [i/8 for i in y]  #scaling to 4096/512 = 8
         fig.add_trace(
             go.Scatter(
                 x = x, y = y,
