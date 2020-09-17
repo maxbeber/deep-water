@@ -11,16 +11,12 @@ import os
 from app_helpers import download_image, import_image, lat_long, import_annotation
 import matplotlib.pyplot as plt
 
-MAP_STYLE= 'outdoors'
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
 app = dash.Dash(
     __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
 #====================================================================
 # prerequisites
-
 #--------------------------------------------------------------------
 # import dataset
 df = pd.read_json('../datasets/waterBodies.json').T
@@ -30,18 +26,24 @@ df["lon"] = (df['min_longitude'] + df['max_longitude'])/2
 # Plotly mapbox public token
 mapbox_access_token = "pk.eyJ1Ijoia2FybHJhZHRrZSIsImEiOiJja2YyZnVvbzUwODJ6MnVxbHU0cDV4YXAxIn0.a3aiSNjy2BOO0WKg40PSsA"
 
-# map
-figure_mapbox = px.scatter_mapbox(
-     df,
-     lat="lat",
-     lon="lon", 
-     hover_name="name",
-     color_discrete_sequence=["fuchsia"],
-     zoom=3,
-     height=200)
-figure_mapbox.update_layout(mapbox_style=MAP_STYLE, mapbox_accesstoken=mapbox_access_token)
-figure_mapbox.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+# Constants
+MAP_STYLE= 'outdoors'
 
+def build_mapbox():
+    mapbox = px.scatter_mapbox(
+        df,
+        lat="lat",
+        lon="lon", 
+        hover_name="name",
+        color_discrete_sequence=["fuchsia"],
+        zoom=3,
+        height=200)
+    mapbox.update_layout(mapbox_style=MAP_STYLE, mapbox_accesstoken=mapbox_access_token)
+    mapbox.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    return mapbox
+
+# Build map box
+figure_mapbox = build_mapbox()
 
 #====================================================================
 # app laypout
@@ -102,7 +104,7 @@ app.layout = html.Div(
                                         # Slider to control the mask opacity
                                         drc.NamedSlider(
                                             name="Mask Opacity",
-                                            id="slider-opacity",
+                                            id="slider_opacity",
                                             min=0,
                                             max=1,
                                             step=0.1,
@@ -147,7 +149,6 @@ app.layout = html.Div(
 #====================================================================
 # Callbacks
 #====================================================================
-
 # location on the map
 @app.callback(
     Output(component_id="map-graph", component_property="figure"),
@@ -171,9 +172,10 @@ def mapbox_map(dropdown_water_body):
 # satellite image for selected lake(2019) + mask
 @app.callback(
     Output(component_id="satellite_image", component_property="figure"),
-    Input(component_id="dropdown_water_body", component_property="value")
+    [Input(component_id="dropdown_water_body", component_property="value"),
+    Input(component_id="slider_opacity", component_property="value")]
 )
-def display_satellite_image(dropdown_water_body):
+def display_satellite_image(dropdown_water_body, slider_opacity=0.2):
     figure = go.Figure()
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
@@ -195,7 +197,7 @@ def display_satellite_image(dropdown_water_body):
             go.Scatter(
                 x = x, y = y,
                 mode='lines', fill='toself', hoverinfo='none',
-                fillcolor='red', marker_color='red', opacity=.3
+                fillcolor='red', marker_color='red', opacity=slider_opacity
             )
         )
     return figure
