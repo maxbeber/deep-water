@@ -4,7 +4,7 @@
 
 /* Main Layout ––––––––––––––––––––––––––––––––––––––––––––––––––*/
 body {
-  background-color: #1E1E1E;
+  background-color: #282b38;
   color: #d8d8d8;
   margin: 0;
   padding: 0;
@@ -29,7 +29,9 @@ a {
   background-color: #31302F;
 }
 .text-padding{
-  padding: 5px;
+  padding: 0px;
+  background-color: #282b38;
+  color: #282b38;
 }
 /* Graph Layout ––––––––––––––––––––––––––––––––––––––––––––––––––*/
 .div-for-charts{
@@ -66,7 +68,7 @@ a {
   margin-left: 8px;
 }
 .Select-control, .Select-menu-outer, .Select-multi-value-wrapper, .select-up, .is-open .Select-control {
-  background-color: #1E1E1E;
+  background-color: #2f3445;
   color: white;
   
 }
