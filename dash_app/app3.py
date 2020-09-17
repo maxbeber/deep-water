@@ -3,6 +3,7 @@ import dash_table
 import pandas as pd
 import dash_core_components as dcc
 import dash_html_components as html
+import utils.dash_reusable_components as drc
 from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
@@ -69,11 +70,10 @@ app.layout = html.Div(
                                     children=[
                                         # Dropdown for water bodies
                                         dcc.Dropdown(
-                                            id="slct_lake",
+                                            id="dropdown_water_body",
                                             options=[
                                                 {"label": name.capitalize() + ', ' + country.replace('_', ' ').capitalize(), "value":i} for name, country, i in zip(df["name"], df["country"], df.index)
                                             ],
-                                            value=14,
                                             placeholder="Select a water body",
                                         )
                                     ],
@@ -83,7 +83,7 @@ app.layout = html.Div(
                                     children=[
                                         # Dropdown to select desired year
                                         dcc.Dropdown(
-                                            id="bar-selector",
+                                            id="dropdown_year",
                                             options=[
                                                 {
                                                     "label": str(n),
@@ -96,11 +96,29 @@ app.layout = html.Div(
                                         )
                                     ],
                                 ),
+                                html.Div(
+                                    className="div-for-dropdown",
+                                    children=[
+                                        # Slider to control the mask opacity
+                                        drc.NamedSlider(
+                                            name="Mask Opacity",
+                                            id="slider-opacity",
+                                            min=0,
+                                            max=1,
+                                            step=0.1,
+                                            marks={
+                                                str(i): str(i)
+                                                for i in [0.2, 0.4, 0.6, 0.8, 1.0]
+                                            },
+                                            value=0.2,
+                                        )
+                                    ],
+                                ),
                             ],
                         ),
                         dcc.Markdown(
                             children=[
-                                "Source: [FiveThirtyEight](https://github.com/fivethirtyeight/uber-tlc-foil-response/tree/master/uber-trip-data)"
+                                "Design by: [FiveThirtyEight](https://github.com/fivethirtyeight/uber-tlc-foil-response/tree/master/uber-trip-data)"
                             ]
                         ),
                     ],
@@ -133,10 +151,12 @@ app.layout = html.Div(
 # location on the map
 @app.callback(
     Output(component_id="map-graph", component_property="figure"),
-    [Input(component_id="slct_lake", component_property="value")]
+    Input(component_id="dropdown_water_body", component_property="value")
 )
-def mapbox_map(slct_lake):
-    dff = df.loc[slct_lake, :]
+def mapbox_map(dropdown_water_body):
+    if not dropdown_water_body:
+        return figure_mapbox
+    dff = df.loc[dropdown_water_body, :]
     longit_center = (dff["min_longitude"]+dff["max_longitude"])/2
     latit_center = (dff["min_latitude"]+dff["max_latitude"])/2
     figure_mapbox.update_layout(
@@ -145,28 +165,29 @@ def mapbox_map(slct_lake):
             'style': MAP_STYLE,
             'zoom': 6},
         showlegend = True)
-    
     return figure_mapbox
 
 
 # satellite image for selected lake(2019) + mask
 @app.callback(
     Output(component_id="satellite_image", component_property="figure"),
-    [Input(component_id="slct_lake", component_property="value")]
+    Input(component_id="dropdown_water_body", component_property="value")
 )
-def display_satellite_image(slct_lake):
-    # satelite image
-    download_image(data_frame=df, slct_lake=slct_lake)
-    image = import_image()
+def display_satellite_image(dropdown_water_body):
     figure = go.Figure()
-    figure.add_trace(go.Image(z=image))
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
         xaxis={'showgrid': False, 'zeroline': False, 'visible': False},
         yaxis={'showgrid': False, 'zeroline': False, 'visible': False}
-        )
+    )
+    if not dropdown_water_body:
+        return figure
+    # satelite image
+    download_image(data_frame=df, slct_lake=dropdown_water_body)
+    image = import_image()
+    figure.add_trace(go.Image(z=image))
     # mask
-    X, Y = import_annotation(data_frame=df, slct_lake=slct_lake)
+    X, Y = import_annotation(data_frame=df, slct_lake=dropdown_water_body)
     for x, y in zip(X, Y):
         x = [i/8 for i in x]  #the original picture was 4096x4096 pixel
         y = [i/8 for i in y]  #scaling to 4096/512 = 8
