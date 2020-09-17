@@ -98,3 +98,26 @@ def import_annotation(data_frame, slct_lake):
         assert len(X) == len(Y)
 
     return X, Y
+
+#--------------------------------------------------------------------
+def load_model():
+    model_file_name = 'dash_app/unet-nwpu.h5'
+    model_name = 'foo'
+    image_size = (256, 256)
+    unet_residual = UnetResidual(model_name, image_size, version=1)
+    unet_residual = Unet(model_name, image_size, version=1)
+    unet_residual.restore(model_file_name)
+    
+    return unet_residual
+
+#--------------------------------------------------------------------
+def model_prediction(X, model):
+    image_size = (256, 256)
+    with rasterio.open(X) as dataset:
+        bands = dataset.read()
+        raw_image = np.ma.transpose(bands, [1, 2, 0])
+        original_image = tf.Variable(raw_image)
+        resized_image = tf.keras.preprocessing.image.smart_resize(original_image, image_size)
+        y = model.predict(np.expand_dims(resized_image, axis=0))
+    
+    return y
