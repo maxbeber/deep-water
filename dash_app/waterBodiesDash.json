@@ -1,0 +1,6 @@
+{
+    "1": {"name": "urmia", "country": "iran", "layers": [2016, 2017, 2018, 2019], "min_longitude":44.587725529095295, "min_latitude":36.86436828406643, "max_longitude":46.230181583782795, "max_latitude":38.50682433875393},
+    "12": {"name": "balaton", "country": "hungary", "layers": [2016, 2017, 2018, 2019], "min_longitude":17.138306471163226, "min_latitude":46.438781725159295, "max_longitude":18.231446119600726, "max_latitude":47.260009752503045, "height":3084},
+    "14": {"name": "salda", "country": "turkey", "layers": [2016, 2017, 2018, 2019], "min_longitude":29.6337346568769, "min_latitude":37.49763563391751, "max_longitude":29.736044837540963, "max_latitude":37.60028913733548, "width":4082}  
+    }
+    

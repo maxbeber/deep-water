@@ -1,5 +1,6 @@
 import dash as dash
 import dash_table
+import numpy as np
 import pandas as pd
 import dash_core_components as dcc
 import dash_html_components as html
@@ -8,7 +9,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os
-from app_helpers import download_image, import_image, lat_long, import_annotation
+from app_helpers import download_image, import_image, lat_long, import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image
 import matplotlib.pyplot as plt
 
 app = dash.Dash(
@@ -19,7 +20,7 @@ app = dash.Dash(
 # prerequisites
 #--------------------------------------------------------------------
 # import dataset
-df = pd.read_json('../datasets/waterBodies.json').T
+df = pd.read_json('waterBodiesDash.json').T
 df["lat"] = (df['min_latitude'] + df['max_latitude'])/2
 df["lon"] = (df['min_longitude'] + df['max_longitude'])/2
 
@@ -173,9 +174,10 @@ def mapbox_map(dropdown_water_body):
 @app.callback(
     Output(component_id="satellite_image", component_property="figure"),
     [Input(component_id="dropdown_water_body", component_property="value"),
+    Input(component_id="dropdown_year", component_property="value"),
     Input(component_id="slider_opacity", component_property="value")]
 )
-def display_satellite_image(dropdown_water_body, slider_opacity=0.2):
+def display_satellite_image(dropdown_water_body, dropdown_year, slider_opacity):
     figure = go.Figure()
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
@@ -185,21 +187,23 @@ def display_satellite_image(dropdown_water_body, slider_opacity=0.2):
     if not dropdown_water_body:
         return figure
     # satelite image
-    download_image(data_frame=df, slct_lake=dropdown_water_body)
-    image = import_image()
-    figure.add_trace(go.Image(z=image))
-    # mask
-    X, Y = import_annotation(data_frame=df, slct_lake=dropdown_water_body)
-    for x, y in zip(X, Y):
-        x = [i/8 for i in x]  #the original picture was 4096x4096 pixel
-        y = [i/8 for i in y]  #scaling to 4096/512 = 8
-        figure.add_trace(
-            go.Scatter(
-                x = x, y = y,
-                mode='lines', fill='toself', hoverinfo='none',
-                fillcolor='red', marker_color='red', opacity=slider_opacity
-            )
+    lake = slct_image(
+        data_frame=df,
+        slct_lake=dropdown_water_body,
+        slct_year=dropdown_year
         )
+
+    image = import_image(lake)
+    figure.add_trace(go.Image(z=image))
+    #mask
+    model = load_model()
+    mask = model.predict(np.expand_dims(image, axis=0))
+    mask = blkwhte_rgb(mask)
+
+    figure.add_trace(
+        go.Image(z=mask, opacity=slider_opacity)
+        )
+    
     return figure
 
 
