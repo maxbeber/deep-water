@@ -28,9 +28,9 @@
     "126": {"name": "vietjonnet", "country": "norway", "layers": [2016, 2017, 2018], "min_longitude":9.43069, "min_latitude":61.32983, "max_longitude":9.43829, "max_latitude":61.33593},
     "127": {"name": "bodensee", "country": "germany", "layers": [2016, 2017, 2018], "min_longitude":8.5583, "min_latitude":47.2885, "max_longitude":10.0552, "max_latitude":47.9522},
     "128": {"name": "vernagt_stausee", "country": "switzerland", "layers": [2016, 2017, 2018], "min_longitude":10.8120, "min_latitude":46.7260, "max_longitude":10.8585, "max_latitude":46.7457},
-    "129": {"name": "", "country": "finland", "layers": [2016, 2017, 2018], "min_longitude":27.7485, "min_latitude":67.5276, "max_longitude":27.9357, "max_latitude":67.5746},
-    "130": {"name": "", "country": "russia", "layers": [2016, 2017, 2018], "min_longitude":51.5376, "min_latitude":62.6502, "max_longitude":52.2860, "max_latitude":62.8755},
-    "131": {"name": "carsington_water", "country": "england", "layers": [2016, 2017, 2018], "min_longitude":-1.6548, "min_latitude":53.0420, "max_longitude":-1.5613, "max_latitude":53.0790},
+    "129": {"name": "na", "country": "finland", "layers": [2016, 2017, 2018], "min_longitude":27.7485, "min_latitude":67.5276, "max_longitude":27.9357, "max_latitude":67.5746},
+    "130": {"name": "na", "country": "russia", "layers": [2016, 2017, 2018], "min_longitude":51.5376, "min_latitude":62.6502, "max_longitude":52.2860, "max_latitude":62.8755},
+    "131": {"name": "lake_kaniere", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":171.0571, "min_latitude":-42.8804, "max_longitude":171.2339 ,"max_latitude":-42.7962},
     "132": {"name": "lough_ennell", "country": "ireland", "layers": [2016, 2017, 2018], "min_longitude":-7.5473, "min_latitude":53.3880, "max_longitude":-7.1730, "max_latitude":53.5346},
     "133": {"name": "lough_sheelin", "country": "ireland", "layers": [2016, 2017, 2018], "min_longitude":-7.4032, "min_latitude":53.7708, "max_longitude":-7.2161, "max_latitude":53.8435},
     "134": {"name": "lough_allen", "country": "ireland", "layers": [2016, 2017, 2018], "min_longitude":-8.1587, "min_latitude":54.0457, "max_longitude":-7.7845, "max_latitude":54.1900},
@@ -56,10 +56,10 @@
     "154": {"name": "westerloh_baggersee", "country": "germany", "layers": [2016, 2017, 2018], "min_longitude":7.9005, "min_latitude":53.0030,  "max_longitude":7.9237,  "max_latitude":53.0122}, 
     "155": {"name": "dustin_ma", "country": "nigeria", "layers": [2016, 2018], "min_longitude":7.4261, "min_latitude":12.3016, "max_longitude":7.6132,  "max_latitude":12.4218},
     "156": {"name": "zakau", "country": "nigeria", "layers": [2016, 2018], "min_longitude":8.3252, "min_latitude":11.3077, "max_longitude":8.6995, "max_latitude":11.5490},
-    "157": {"name": "NA", "country": "nigeria", "layers": [2016, 2018], "min_longitude":8.8074, "min_latitude":11.5599, "max_longitude": 8.9010, "max_latitude":11.6202},
+    "157": {"name": "na", "country": "nigeria", "layers": [2016, 2018], "min_longitude":8.8074, "min_latitude":11.5599, "max_longitude": 8.9010, "max_latitude":11.6202},
     "158": {"name": "danau_poso", "country": "indonesia", "layers": [2016, 2018], "min_longitude":120.2323, "min_latitude":-2.1926, "max_longitude":120.9808, "max_latitude":-1.7006},
     "159": {"name": "danau_batur", "country": "indonesia", "layers": [2016, 2018], "min_longitude":115.2869, "min_latitude":-8.3180, "max_longitude": 115.4740, "max_latitude":-8.1962},
-    "160": {"name": "NA", "country": "indonesia", "layers": [2016, 2018], "min_longitude":119.9484, "min_latitude":-8.7478, "max_longitude":120.0419, "max_latitude":-8.6869},
+    "160": {"name": "na", "country": "indonesia", "layers": [2016, 2018], "min_longitude":119.9484, "min_latitude":-8.7478, "max_longitude":120.0419, "max_latitude":-8.6869},
     "161": {"name": "tigi", "country": "indonesia", "layers": [2016, 2018], "min_longitude":136.1874, "min_latitude":-4.1126, "max_longitude":136.3745, "max_latitude":-3.9898},
     "162": {"name": "rambaken_oya_reservoir", "country": "sri_lanka", "layers": [2016, 2018], "min_longitude": 81.3157, "min_latitude":7.3390, "max_longitude":81.5028, "max_latitude":7.4610},
     "163": {"name": "danau_singkarak", "country": "indonesia", "layers": [2016, 2018], "min_longitude":100.3872, "min_latitude":-0.7436, "max_longitude":100.7615, "max_latitude":-0.4975},
@@ -164,8 +164,6 @@
     "437": {"name": "lake_emirau_island", "country": "papua_new_guinea", "layers": [2016, 2018], "min_longitude":149.92047, "min_latitude":-1.66993, "max_longitude":149.93152 ,"max_latitude":-1.66276},
     "438": {"name": "uafato_lake", "country": "samoa", "layers": [2016, 2018], "min_longitude":-171.5708, "min_latitude":-13.9862, "max_longitude":-171.5266 ,"max_latitude":-13.9583},
     "439": {"name": "blue_lake", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":175.6470, "min_latitude":-39.1284, "max_longitude":175.6691 ,"max_latitude":-39.1173},
-    "440": {"name": "lake_pearson", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":171.7390, "min_latitude":-43.1268, "max_longitude":171.8274 ,"max_latitude":-43.0849},
-    "441": {"name": "lake_kaniere", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":171.0571, "min_latitude":-42.8804, "max_longitude":171.2339 ,"max_latitude":-42.7962}
-      
+    "440": {"name": "lake_pearson", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":171.7390, "min_latitude":-43.1268, "max_longitude":171.8274 ,"max_latitude":-43.0849}  
     }
     
