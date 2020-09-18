@@ -1,5 +1,6 @@
 import dash as dash
 import dash_table
+import numpy as np
 import pandas as pd
 import dash_core_components as dcc
 import dash_html_components as html
@@ -8,7 +9,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os
-from app_helpers import download_image, import_image, lat_long, import_annotation, load_model, model_prediction, blkwhte_rgb
+from app_helpers import download_image, import_image, lat_long, import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image
 import matplotlib.pyplot as plt
 
 app = dash.Dash(
@@ -185,17 +186,15 @@ def display_satellite_image(dropdown_water_body, slider_opacity):
     if not dropdown_water_body:
         return figure
     # satelite image
-    download_image(data_frame=df, slct_lake=dropdown_water_body)
-    image = import_image()
+    lake = slct_image(data_frame=df, slct_lake=dropdown_water_body)
+
+    image = import_image(lake)
     figure.add_trace(go.Image(z=image))
     #mask
     model = load_model()
-    image_path = 'sample_image.jpg'
-    mask = model_prediction(X=image_path, model=model)
-
+    mask = model.predict(np.expand_dims(image, axis=0))
     mask = blkwhte_rgb(mask)
 
-    
     figure.add_trace(
         go.Image(z=mask, opacity=slider_opacity)
         )

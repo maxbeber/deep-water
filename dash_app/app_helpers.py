@@ -9,6 +9,9 @@ import tensorflow as tf
 from models.unetResidual import UnetResidual
 from models.unet import Unet
 
+
+
+
 #--------------------------------------------------------------------
 def download_image(data_frame, slct_lake, size="256"):
     dff = data_frame.loc[slct_lake, :]
@@ -52,6 +55,20 @@ def import_image(im = "sample_image.jpg"):
     
     return image
     
+#--------------------------------------------------------------------
+def slct_image(data_frame, slct_lake):
+        dff = data_frame.loc[slct_lake, :]
+    
+        country = dff["country"]
+        name = dff["name"]
+        year = '2019'
+    
+        folder = "lakes_cropped"
+        image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg"
+    
+        return image_path
+
+
 
 #--------------------------------------------------------------------
 def lat_long(data_frame, slct_lake):
@@ -125,6 +142,17 @@ def model_prediction(X, model):
     
     return y
 
+
+#--------------------------------------------------------------------
+def model_prediction_stationary(X, model):
+    with rasterio.open(X) as dataset:
+        bands = dataset.read()
+        raw_image = np.ma.transpose(bands, [1, 2, 0])
+        original_image = tf.Variable(raw_image)
+        resized_image = tf.keras.preprocessing.image.smart_resize(original_image, image_size)
+        y = model.predict(np.expand_dims(resized_image, axis=0))
+    
+    return y
 
 #--------------------------------------------------------------------
 def blkwhte_rgb(mask):
