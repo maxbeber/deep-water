@@ -175,7 +175,7 @@ def mapbox_map(dropdown_water_body):
     [Input(component_id="dropdown_water_body", component_property="value"),
     Input(component_id="slider_opacity", component_property="value")]
 )
-def display_satellite_image(dropdown_water_body, slider_opacity=0.2):
+def display_satellite_image(dropdown_water_body, slider_opacity):
     figure = go.Figure()
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
@@ -197,7 +197,7 @@ def display_satellite_image(dropdown_water_body, slider_opacity=0.2):
 
     
     figure.add_trace(
-        go.Image(z=mask, opacity=.5)
+        go.Image(z=mask, opacity=slider_opacity)
         )
     
     return figure
