@@ -19,7 +19,7 @@ app = dash.Dash(
 # prerequisites
 #--------------------------------------------------------------------
 # import dataset
-df = pd.read_json('../datasets/waterBodies.json').T
+df = pd.read_json('waterBodiesDash.json').T
 df["lat"] = (df['min_latitude'] + df['max_latitude'])/2
 df["lon"] = (df['min_longitude'] + df['max_longitude'])/2
 

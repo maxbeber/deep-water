@@ -45,8 +45,8 @@ def download_image(data_frame, slct_lake, size="256"):
 
 
 #--------------------------------------------------------------------
-def import_image():
-    dataset = rasterio.open("sample_image.jpg")
+def import_image(im = "sample_image.jpg"):
+    dataset = rasterio.open(im)
     bands = dataset.read()
     image = np.ma.transpose(bands, [1, 2, 0])
     
