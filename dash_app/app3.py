@@ -174,9 +174,10 @@ def mapbox_map(dropdown_water_body):
 @app.callback(
     Output(component_id="satellite_image", component_property="figure"),
     [Input(component_id="dropdown_water_body", component_property="value"),
+    Input(component_id="dropdown_year", component_property="value"),
     Input(component_id="slider_opacity", component_property="value")]
 )
-def display_satellite_image(dropdown_water_body, slider_opacity):
+def display_satellite_image(dropdown_water_body, dropdown_year, slider_opacity):
     figure = go.Figure()
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
@@ -186,7 +187,11 @@ def display_satellite_image(dropdown_water_body, slider_opacity):
     if not dropdown_water_body:
         return figure
     # satelite image
-    lake = slct_image(data_frame=df, slct_lake=dropdown_water_body)
+    lake = slct_image(
+        data_frame=df,
+        slct_lake=dropdown_water_body,
+        slct_year=dropdown_year
+        )
 
     image = import_image(lake)
     figure.add_trace(go.Image(z=image))

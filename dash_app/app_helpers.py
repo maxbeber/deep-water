@@ -56,12 +56,12 @@ def import_image(im = "sample_image.jpg"):
     return image
     
 #--------------------------------------------------------------------
-def slct_image(data_frame, slct_lake):
+def slct_image(data_frame, slct_lake, slct_year):
         dff = data_frame.loc[slct_lake, :]
     
         country = dff["country"]
         name = dff["name"]
-        year = '2019'
+        year = slct_year
     
         folder = "lakes_cropped"
         image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg"
