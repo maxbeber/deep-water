@@ -10,7 +10,7 @@ from models.unetResidual import UnetResidual
 from models.unet import Unet
 
 #--------------------------------------------------------------------
-def download_image(data_frame, slct_lake):
+def download_image(data_frame, slct_lake, size="256"):
     dff = data_frame.loc[slct_lake, :]
     
     min_longitude = dff['min_longitude']
@@ -22,8 +22,8 @@ def download_image(data_frame, slct_lake):
     payload = {
         "version": '1.1.1',
         "layers": "s2cloudless-2019",
-        "width": "512",
-        "height": "512",
+        "width": size,
+        "height": size,
         "srs": 'epsg:4326',
         "bbox": bounding_box
     }
@@ -124,3 +124,12 @@ def model_prediction(X, model):
         y = model.predict(np.expand_dims(resized_image, axis=0))
     
     return y
+
+
+#--------------------------------------------------------------------
+def blkwhte_rgb(mask):
+    mask_sq = mask.squeeze()
+    mask_st = np.stack((mask_sq,)*3, axis=2)
+    mask_rgb = mask_st*250
+
+    return mask_rgb

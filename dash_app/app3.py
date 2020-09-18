@@ -8,7 +8,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os
-from app_helpers import download_image, import_image, lat_long, import_annotation
+from app_helpers import download_image, import_image, lat_long, import_annotation, load_model, model_prediction, blkwhte_rgb
 import matplotlib.pyplot as plt
 
 app = dash.Dash(
@@ -188,18 +188,18 @@ def display_satellite_image(dropdown_water_body, slider_opacity=0.2):
     download_image(data_frame=df, slct_lake=dropdown_water_body)
     image = import_image()
     figure.add_trace(go.Image(z=image))
-    # mask
-    X, Y = import_annotation(data_frame=df, slct_lake=dropdown_water_body)
-    for x, y in zip(X, Y):
-        x = [i/8 for i in x]  #the original picture was 4096x4096 pixel
-        y = [i/8 for i in y]  #scaling to 4096/512 = 8
-        figure.add_trace(
-            go.Scatter(
-                x = x, y = y,
-                mode='lines', fill='toself', hoverinfo='none',
-                fillcolor='red', marker_color='red', opacity=slider_opacity
-            )
+    #mask
+    model = load_model()
+    image_path = 'sample_image.jpg'
+    mask = model_prediction(X=image_path, model=model)
+
+    mask = blkwhte_rgb(mask)
+
+    
+    figure.add_trace(
+        go.Image(z=mask, opacity=.5)
         )
+    
     return figure
 
 
