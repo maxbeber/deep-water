@@ -9,7 +9,8 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os
-from app_helpers import download_image, import_image, lat_long, import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image
+from app_helpers import download_image, import_image, lat_long,\
+    import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image
 import matplotlib.pyplot as plt
 
 app = dash.Dash(
