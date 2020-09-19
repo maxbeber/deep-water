@@ -52,6 +52,24 @@ figure_mapbox = build_mapbox()
 #====================================================================
 # app laypout
 #====================================================================
+model_prediction = [
+    html.P("Model Prediction"),
+    html.Div(
+        dcc.Graph(id="satellite_image", figure={})
+        )
+        ]
+
+geo_location = [
+    html.P("Geo-location"),
+    html.Div(
+        dcc.Graph(id="map-graph", figure=figure_mapbox)),
+            html.P(""),
+            html.P("Surface Area (%)"),
+            html.Div(
+            dcc.Graph(id="histogram")
+        )   
+    ]
+
 app.layout = html.Div(
     children=[
         html.Div(
@@ -132,27 +150,19 @@ app.layout = html.Div(
                 # Column for app graphs and plots
                 html.Div(
                     className="one-third column div-for-charts bg-grey",
-                    children=[
-                        html.P("Model Prediction"),
-                        html.Div(
-                            dcc.Graph(id="satellite_image", figure={})
-                        )
-                    ]
+                    children=model_prediction
                 ),
                 html.Div(
                     className="one-third column div-for-charts bg-grey",
-                    children=[
-                        html.P("Geo-location"),
-                        html.Div(
-                            dcc.Graph(id="map-graph", figure=figure_mapbox)
-                        ),
-                        html.P(""),
-                        html.P("Surface Area (%)"),
-                        html.Div(
-                            dcc.Graph(id="histogram")
-                        )   
-                    ]
+                    children=geo_location
+                ),
+                html.Div(
+                    className="one-third column div-for-charts bg-grey",
+                    children=html.P(
+                        'Surface Area [hectar]'
+                        )
                 )
+                   
             ]
         )
     ]
