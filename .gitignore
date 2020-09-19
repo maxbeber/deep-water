@@ -146,6 +146,9 @@ google_drive/
 # Backup folder
 @backup/
 
+# Baseline files
+baselines/
+
 # NWPU dataset
 NWPU_images.zip
 nwpu_images/
