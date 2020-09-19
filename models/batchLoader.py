@@ -68,6 +68,10 @@ class BatchLoader:
         mask_image = Image.open(mask_file)
         mask_image = mask_image.resize(self.image_size)
         mask_image = np.array(mask_image)
+        if mask_image.ndim == 2:
+            mask_image = np.stack((mask_image,) * 3, axis=-1)
+        else:
+            mask_image = mask_image[:, :, :3]
         mask_image = np.max(mask_image, axis=2)
         mask_image = (mask_image > self.threshold_water_pixel).astype('int')
         mask_image = mask_image[:n, :n]
