@@ -17,43 +17,60 @@ class DataAugmentationLoader:
         self.batch_size = batch_size
         self.image_size = image_size
         self.seed = 111
-        self.datagenerator_args = {
+        self.datagenerator_image_args = {
             "featurewise_center": False,
             "featurewise_std_normalization": False,
             "shear_range": 0,
             "zoom_range": 0.2,
             "rotation_range": 45,
             "horizontal_flip": True,
-            "vertical_flip": True
+            "vertical_flip": True,
+            "rescale":1.0/255
+        }
+        self.datagenerator_mask_args = {
+            "featurewise_center": False,
+            "featurewise_std_normalization": False,
+            "shear_range": 0,
+            "zoom_range": 0.2,
+            "rotation_range": 45,
+            "horizontal_flip": True,
+            "vertical_flip": True,
+            "rescale":1.0/255,
+            "preprocessing_function":self._clip_mask,
         }
 
 
     def __call__(self):
-        image_loader = tf.keras.preprocessing.image.ImageDataGenerator(**self.datagenerator_args)
-        mask_loader = tf.keras.preprocessing.image.ImageDataGenerator(**self.datagenerator_args)
+        image_loader = tf.keras.preprocessing.image.ImageDataGenerator(**self.datagenerator_image_args)
+        mask_loader = tf.keras.preprocessing.image.ImageDataGenerator(**self.datagenerator_mask_args)
         image_generator = image_loader.flow_from_directory(\
             self.image_folder,
-            target_size=self.image_size,
             batch_size=self.batch_size,
             class_mode=None,
             seed=self.seed,
-            shuffle=False)
+            shuffle=False,
+            target_size=self.image_size)
         mask_generator = mask_loader.flow_from_directory(\
             self.mask_folder,
-            target_size=self.image_size,
             batch_size=self.batch_size,
             class_mode=None,
+            color_mode = 'grayscale',
             seed=self.seed,
-            shuffle=False)
+            shuffle=False,
+            target_size=self.image_size)
         train_generator = (pair for pair in zip(image_generator, mask_generator))
 
         return train_generator
     
 
     def get_pair(self, x, y):
-        image = x.astype('uint8') / 255
-        mask = np.max(y, axis=2) / 255
-        mask[mask >= 0.5]  = 1
-        mask[mask < 0.5] = 0
+        image = x
+        mask = y.squeeze()
         mask = np.stack((mask,) * 3, axis=-1)
         return np.concatenate([image, mask], axis = 1)
+        
+    
+    def _clip_mask(self, mask):
+        mask[mask < 100] = 0
+        mask[mask >= 150] = 255
+        return mask
