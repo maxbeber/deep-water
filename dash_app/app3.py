@@ -6,6 +6,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import utils.dash_reusable_components as drc
 from dash.dependencies import Input, Output
+import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import os
@@ -39,7 +40,7 @@ def build_mapbox():
         hover_name="name",
         color_discrete_sequence=["fuchsia"],
         zoom=3,
-        height=200)
+        height=300)
     mapbox.update_layout(mapbox_style=MAP_STYLE, mapbox_accesstoken=mapbox_access_token)
     mapbox.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     return mapbox
@@ -117,7 +118,7 @@ app.layout = html.Div(
                                             value=0.2,
                                         )
                                     ],
-                                ),
+                                )
                             ],
                         ),
                         dcc.Markdown(
@@ -129,20 +130,28 @@ app.layout = html.Div(
                 ),
                 # Column for app graphs and plots
                 html.Div(
-                    className="eight columns div-for-charts bg-grey",
+                    className="one-third column div-for-charts bg-grey",
                     children=[
-                        dcc.Graph(id="map-graph", figure=figure_mapbox),
-                        html.Div(
-                            className="text-padding",
-                            children=[
-                                "To be defined."
-                            ],
-                        ),
+                        html.P("Model Prediction"),
                         html.Div(
                             dcc.Graph(id="satellite_image", figure={})
                         )
-                    ],
+                    ]
                 ),
+                html.Div(
+                    className="one-third column div-for-charts bg-grey",
+                    children=[
+                        html.P("Geo-location"),
+                        html.Div(
+                            dcc.Graph(id="map-graph", figure=figure_mapbox)
+                        ),
+                        html.P(""),
+                        html.P("Surface Area (%)"),
+                        html.Div(
+                            dcc.Graph(id="histogram")
+                        )   
+                    ]
+                )
             ]
         )
     ]
@@ -183,7 +192,11 @@ def display_satellite_image(dropdown_water_body, dropdown_year, slider_opacity):
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
         xaxis={'showgrid': False, 'zeroline': False, 'visible': False},
-        yaxis={'showgrid': False, 'zeroline': False, 'visible': False}
+        yaxis={'showgrid': False, 'zeroline': False, 'visible': False},
+        plot_bgcolor="#282b38",
+        paper_bgcolor="#282b38",
+        height=300,
+        showlegend=False,
     )
     if not dropdown_water_body:
         return figure
@@ -206,6 +219,77 @@ def display_satellite_image(dropdown_water_body, dropdown_year, slider_opacity):
         )
     
     return figure
+
+
+@app.callback(
+    Output("histogram", "figure"),
+    [Input(component_id="dropdown_water_body", component_property="value")],
+)
+def update_histogram(dropdown_water_body):
+    if not dropdown_water_body:
+        figure = go.Figure()
+        figure.update_layout(
+            margin={"r": 0, "t": 0, "l": 0, "b": 0},
+            xaxis={'showgrid': False, 'zeroline': False, 'visible': False},
+            yaxis={'showgrid': False, 'zeroline': False, 'visible': False},
+            plot_bgcolor="#282b38",
+            paper_bgcolor="#282b38")
+        return figure
+    [xVal, yVal, _] = [[2016, 2017, 2018, 2019], [4, 2, 3, 2], ['#000']]
+    layout = go.Layout(
+        bargap=0.01,
+        bargroupgap=0,
+        barmode="group",
+        margin=go.layout.Margin(l=10, r=0, t=0, b=30),
+        showlegend=False,
+        plot_bgcolor="#282b38",
+        paper_bgcolor="#282b38",
+        dragmode="select",
+        font=dict(color="white"),
+        height=150,
+        xaxis=dict(
+            range=[2015, 2020],
+            showgrid=False,
+            fixedrange=True
+        ),
+        yaxis=dict(
+            range=[0, max(yVal) + max(yVal) / 4],
+            showticklabels=False,
+            showgrid=False,
+            fixedrange=True,
+            rangemode="nonnegative",
+            zeroline=False,
+        ),
+        annotations=[
+            dict(
+                x=xi,
+                y=yi,
+                text=str(yi),
+                xanchor="center",
+                yanchor="bottom",
+                showarrow=False,
+                font=dict(color="white"),
+            )
+            for xi, yi in zip(xVal, yVal)
+        ],
+    )
+
+    histogram = go.Figure(
+        data=[
+            go.Bar(x=xVal, y=yVal, marker=dict(color='blue'), hoverinfo="x"),
+            go.Scatter(
+                opacity=0,
+                x=xVal,
+                y=yVal,
+                hoverinfo="none",
+                mode="markers",
+                marker=dict(color="rgb(66, 134, 244, 0)", symbol="square", size=40),
+                visible=True,
+            ),
+        ],
+        layout=layout,
+    )
+    return histogram
 
 
 if __name__ == '__main__':
