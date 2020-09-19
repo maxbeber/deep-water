@@ -161,3 +161,10 @@ def blkwhte_rgb(mask):
     mask_rgb = mask_st*250
 
     return mask_rgb
+
+#--------------------------------------------------------------------
+def calculate_water(predicted_mask):
+  white = len(predicted_mask[predicted_mask>=.5])
+  black = len(predicted_mask[predicted_mask<.5])
+  water_percentage = white / (white+black)
+  return round(water_percentage,5)

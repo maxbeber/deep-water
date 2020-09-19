@@ -11,7 +11,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import os
 from app_helpers import download_image, import_image, lat_long,\
-    import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image
+    import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image,\
+    calculate_water
 import matplotlib.pyplot as plt
 
 app = dash.Dash(
@@ -235,7 +236,26 @@ def update_histogram(dropdown_water_body):
             plot_bgcolor="#282b38",
             paper_bgcolor="#282b38")
         return figure
-    [xVal, yVal, _] = [[2016, 2017, 2018, 2019], [4, 2, 3, 2], ['#000']]
+    
+    dff = df.loc[dropdown_water_body, :]
+    years = dff["layers"]
+
+    model = load_model()
+    prediction = []
+    for i in years:
+        lake = slct_image(
+            data_frame=df,
+            slct_lake=dropdown_water_body,
+            slct_year=i
+            )
+        image = import_image(lake)
+        mask = model.predict(np.expand_dims(image, axis=0))
+        water_percentage = calculate_water(mask) * 100
+        
+        prediction.append(water_percentage)
+
+
+    [xVal, yVal, _] = [years, prediction, ['#000']]
     layout = go.Layout(
         bargap=0.01,
         bargroupgap=0,
@@ -264,9 +284,9 @@ def update_histogram(dropdown_water_body):
             dict(
                 x=xi,
                 y=yi,
-                text=str(yi),
+                text=str(np.round(yi, 2)),
                 xanchor="center",
-                yanchor="bottom",
+                yanchor="middle",
                 showarrow=False,
                 font=dict(color="white"),
             )
@@ -276,14 +296,14 @@ def update_histogram(dropdown_water_body):
 
     histogram = go.Figure(
         data=[
-            go.Bar(x=xVal, y=yVal, marker=dict(color='blue'), hoverinfo="x"),
+            #go.Bar(x=xVal, y=yVal, marker=dict(color='blue'), hoverinfo="x"),
             go.Scatter(
-                opacity=0,
+                opacity=1,
                 x=xVal,
                 y=yVal,
                 hoverinfo="none",
-                mode="markers",
-                marker=dict(color="rgb(66, 134, 244, 0)", symbol="square", size=40),
+                mode="lines+markers",
+                marker=dict(color="rgb(66, 134, 244, 0)", size=40),
                 visible=True,
             ),
         ],
