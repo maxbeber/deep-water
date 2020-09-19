@@ -329,6 +329,7 @@ def update_histogram(dropdown_water_body):
     Input(component_id="dropdown_year", component_property="value")]
 )
 def update_pie_chart(dropdown_water_body, dropdown_year):
+    #ensuring a clean background
     if not dropdown_water_body:
         figure = go.Figure()
         figure.update_layout(
@@ -341,23 +342,25 @@ def update_pie_chart(dropdown_water_body, dropdown_year):
 
     dff = df.loc[dropdown_water_body, :]
 
+    # get predictions from the model
     lake = slct_image(
         data_frame=df,
         slct_lake=dropdown_water_body,
         slct_year=dropdown_year
         )
-
     image = import_image(lake)
-    #figure.add_trace(go.Image(z=image))
-    #mask
     model = load_model()
     mask = model.predict(np.expand_dims(image, axis=0))
+    # receiving the area for the whole image
     bounding_box = get_geom(dff)
     image_sqkm = get_sqkm(bounding_box)
+    # calculating the area for water and land
     water_percentage = calculate_water(mask)
     water_sqkm, land_sqkm = get_water_land_per_year(
         fraction = water_percentage, area=image_sqkm)
     water_sqkm, land_sqkm = round(water_sqkm, 2), round(land_sqkm, 2)
+    
+    #plot
     labels=["water", "land"]
     values=[water_sqkm, land_sqkm]
     
