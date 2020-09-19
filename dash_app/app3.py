@@ -11,7 +11,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import os
 from app_helpers import download_image, import_image, lat_long,\
-    import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image
+    import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image,\
+    calculate_water, get_water_land_per_year, get_sqkm, get_geom
 import matplotlib.pyplot as plt
 
 app = dash.Dash(
@@ -51,6 +52,28 @@ figure_mapbox = build_mapbox()
 #====================================================================
 # app laypout
 #====================================================================
+model_prediction = [
+    html.P("Model Prediction"),
+    html.Div(
+        dcc.Graph(id="satellite_image", figure={})
+        ),
+    html.P("Surface Area (square kilometer)"),
+    html.Div(
+        dcc.Graph(id="pie_chart", figure={})
+        ) 
+        ]
+
+geo_location = [
+    html.P("Geo-location"),
+    html.Div(
+        dcc.Graph(id="map-graph", figure=figure_mapbox)),
+            html.P(""),
+            html.P("Surface Area (%)"),
+            html.Div(
+            dcc.Graph(id="histogram")
+        )   
+    ]
+
 app.layout = html.Div(
     children=[
         html.Div(
@@ -131,27 +154,14 @@ app.layout = html.Div(
                 # Column for app graphs and plots
                 html.Div(
                     className="one-third column div-for-charts bg-grey",
-                    children=[
-                        html.P("Model Prediction"),
-                        html.Div(
-                            dcc.Graph(id="satellite_image", figure={})
-                        )
-                    ]
+                    children=model_prediction
                 ),
                 html.Div(
                     className="one-third column div-for-charts bg-grey",
-                    children=[
-                        html.P("Geo-location"),
-                        html.Div(
-                            dcc.Graph(id="map-graph", figure=figure_mapbox)
-                        ),
-                        html.P(""),
-                        html.P("Surface Area (%)"),
-                        html.Div(
-                            dcc.Graph(id="histogram")
-                        )   
-                    ]
-                )
+                    children=geo_location
+                ),
+                
+                   
             ]
         )
     ]
@@ -223,7 +233,7 @@ def display_satellite_image(dropdown_water_body, dropdown_year, slider_opacity):
 
 @app.callback(
     Output("histogram", "figure"),
-    [Input(component_id="dropdown_water_body", component_property="value")],
+    [Input(component_id="dropdown_water_body", component_property="value")]
 )
 def update_histogram(dropdown_water_body):
     if not dropdown_water_body:
@@ -235,7 +245,27 @@ def update_histogram(dropdown_water_body):
             plot_bgcolor="#282b38",
             paper_bgcolor="#282b38")
         return figure
-    [xVal, yVal, _] = [[2016, 2017, 2018, 2019], [4, 2, 3, 2], ['#000']]
+    
+    dff = df.loc[dropdown_water_body, :]
+    years = dff["layers"]
+
+    model = load_model()
+    prediction = []
+    prediction_dic = dict()
+    for i in years:
+        lake = slct_image(
+            data_frame=df,
+            slct_lake=dropdown_water_body,
+            slct_year=i
+            )
+        image = import_image(lake)
+        mask = model.predict(np.expand_dims(image, axis=0))
+        water_percentage = calculate_water(mask) * 100
+        prediction_dic[str(i)] = water_percentage
+        prediction.append(water_percentage)
+
+
+    [xVal, yVal, _] = [years, prediction, ['#000']]
     layout = go.Layout(
         bargap=0.01,
         bargroupgap=0,
@@ -264,9 +294,9 @@ def update_histogram(dropdown_water_body):
             dict(
                 x=xi,
                 y=yi,
-                text=str(yi),
+                text=str(np.round(yi, 2)),
                 xanchor="center",
-                yanchor="bottom",
+                yanchor="middle",
                 showarrow=False,
                 font=dict(color="white"),
             )
@@ -276,20 +306,72 @@ def update_histogram(dropdown_water_body):
 
     histogram = go.Figure(
         data=[
-            go.Bar(x=xVal, y=yVal, marker=dict(color='blue'), hoverinfo="x"),
+            #go.Bar(x=xVal, y=yVal, marker=dict(color='blue'), hoverinfo="x"),
             go.Scatter(
-                opacity=0,
+                opacity=1,
                 x=xVal,
                 y=yVal,
                 hoverinfo="none",
-                mode="markers",
-                marker=dict(color="rgb(66, 134, 244, 0)", symbol="square", size=40),
+                mode="lines+markers",
+                marker=dict(color="rgb(66, 134, 244, 0)", size=40),
                 visible=True,
             ),
         ],
         layout=layout,
     )
+
     return histogram
+
+
+@app.callback(
+    Output(component_id="pie_chart", component_property="figure"),
+    [Input(component_id="dropdown_water_body", component_property="value"),
+    Input(component_id="dropdown_year", component_property="value")]
+)
+def update_pie_chart(dropdown_water_body, dropdown_year):
+    if not dropdown_water_body:
+        figure = go.Figure()
+        figure.update_layout(
+            margin={"r": 0, "t": 0, "l": 0, "b": 0},
+            xaxis={'showgrid': False, 'zeroline': False, 'visible': False},
+            yaxis={'showgrid': False, 'zeroline': False, 'visible': False},
+            plot_bgcolor="#282b38",
+            paper_bgcolor="#282b38")
+        return figure
+
+    dff = df.loc[dropdown_water_body, :]
+
+    lake = slct_image(
+        data_frame=df,
+        slct_lake=dropdown_water_body,
+        slct_year=dropdown_year
+        )
+
+    image = import_image(lake)
+    #figure.add_trace(go.Image(z=image))
+    #mask
+    model = load_model()
+    mask = model.predict(np.expand_dims(image, axis=0))
+    bounding_box = get_geom(dff)
+    image_sqkm = get_sqkm(bounding_box)
+    water_percentage = calculate_water(mask)
+    water_sqkm, land_sqkm = get_water_land_per_year(
+        fraction = water_percentage, area=image_sqkm)
+    water_sqkm, land_sqkm = round(water_sqkm, 2), round(land_sqkm, 2)
+    labels=["water", "land"]
+    values=[water_sqkm, land_sqkm]
+    
+    piechart = go.Figure(data=[go.Pie(labels=labels, values=values)])
+    piechart.update_traces(
+        hoverinfo='none',
+        textinfo='value',#, textfont_size=20#,
+        marker=dict(colors=["rgb(66, 134, 244, 0)", "rgb(150, 75, 0)"])
+        )
+    piechart.update_layout(plot_bgcolor="#282b38",
+        paper_bgcolor="#282b38")
+
+    return piechart
+
 
 
 if __name__ == '__main__':

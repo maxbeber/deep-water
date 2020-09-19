@@ -8,6 +8,13 @@ import os
 import tensorflow as tf
 from models.unetResidual import UnetResidual
 from models.unet import Unet
+from shapely.geometry import Polygon
+from shapely.ops import transform
+import pyproj
+from functools import partial
+
+
+
 
 
 
@@ -71,8 +78,8 @@ def slct_image(data_frame, slct_lake, slct_year):
 
 
 #--------------------------------------------------------------------
-def lat_long(data_frame, slct_lake):
-    dff = data_frame.loc[slct_lake, :]
+def lat_long(data_frame):
+    dff = data_frame
 
     longit = [
         dff["min_longitude"], 
@@ -161,3 +168,35 @@ def blkwhte_rgb(mask):
     mask_rgb = mask_st*250
 
     return mask_rgb
+
+#--------------------------------------------------------------------
+def calculate_water(predicted_mask):
+  white = len(predicted_mask[predicted_mask>=.5])
+  black = len(predicted_mask[predicted_mask<.5])
+  water_percentage = white / (white+black)
+  return round(water_percentage,5)
+
+#--------------------------------------------------------------------
+def get_geom(df):
+    lat, long = lat_long(df)
+    coordinates = [[lat, long] for lat, long in zip (lat, long)]
+    
+    return Polygon(coordinates)
+
+#--------------------------------------------------------------------
+def get_sqkm(bounding_box):
+    proj = partial(
+        pyproj.transform, 
+        pyproj.Proj(init='epsg:4326'),
+        pyproj.Proj(init='epsg:4088')
+    )
+    bounding_box_new = transform(proj, bounding_box)
+    sqm = bounding_box_new.area
+    return sqm / 1000000
+
+#--------------------------------------------------------------------
+def get_water_land_per_year(fraction, area):
+    water_sqkm = area * fraction
+    land_sqkm = area - water_sqkm
+    
+    return water_sqkm, land_sqkm
