@@ -29,16 +29,14 @@ class WaterMask:
         file_path = os.path.join(self.data_folder, image_name)
         image = self._load_image(file_path)
         nx, ny, _ = np.shape(image)
-        mask = np.zeros((nx, ny))
         X, Y = self._get_annotation_points_from_vgg_json(annotation, image_name)
+        img = Image.new('L', (ny, nx), 0)
         for x, y in zip(X, Y):
             polygon = np.vstack((x, y)).reshape((-1), order='F').tolist()
-            img = Image.new('L', (nx, ny), 0)
             ImageDraw.Draw(img).polygon(polygon, outline=1, fill=1)
-            m = np.flipud(np.rot90(np.array(img)))
-            mask = mask + m
+        mask = np.array(img)
         file_name = os.path.join(self.mask_folder, image_name)
-        imsave(file_name, mask.astype('uint8'))
+        imsave(file_name, mask.astype('uint8'), cmap='gray')
 
 
     def create_masks(self, annotations):
@@ -60,6 +58,7 @@ class WaterMask:
         for i in range(len(X)):
             plt.plot(X[i], Y[i], annotation_color)
 
+
     def display_image_with_annotations2(self, image_name, annotations):
         image_path = self._get_image_path(image_name)
         image = self._load_image(image_path)
@@ -75,6 +74,7 @@ class WaterMask:
                 )
             fig.update_layout(hovermode=False, showlegend=False)
         return fig
+
 
     def display_image_with_annotations2_subplot(self, image_names, annotations):
         n_cols = len(image_names)
@@ -98,7 +98,6 @@ class WaterMask:
                 fig.update_layout(hovermode=False, showlegend=False)
             fig.add_trace(go.Image(z=image), row=1, col=col)
         return fig
-
 
 
     def display_mask(self, image_name):
