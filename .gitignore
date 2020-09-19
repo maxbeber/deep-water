@@ -167,6 +167,10 @@ s2cloudless_augmented_imagery/
 s2cloudless_label_imagery/
 s2cloudless_label_augmented_imagery/
 
+# Temporary files
+Untitled.ipynb
+optimization-results.docx
+
 # dash_app
 dash_app/sample_image.jpg
 dash_app/app2.ipynb
