@@ -134,12 +134,7 @@ app.layout = html.Div(
                         html.P("Model Prediction"),
                         html.Div(
                             dcc.Graph(id="satellite_image", figure={})
-                        ),
-                        html.P(""),
-                        html.P("Surface Area (%)"),
-                        html.Div(
-                            dcc.Graph(id="histogram")
-                        )   
+                        )
                     ]
                 ),
                 html.Div(
@@ -148,7 +143,12 @@ app.layout = html.Div(
                         html.P("Geo-location"),
                         html.Div(
                             dcc.Graph(id="map-graph", figure=figure_mapbox)
-                        )
+                        ),
+                        html.P(""),
+                        html.P("Surface Area (%)"),
+                        html.Div(
+                            dcc.Graph(id="histogram")
+                        )   
                     ]
                 )
             ]
