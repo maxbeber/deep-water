@@ -131,7 +131,7 @@
     "404": {"name": "haidersee", "country": "austria", "layers": [2016, 2017, 2018], "min_longitude":10.5027, "min_latitude":46.7397, "max_longitude":10.5597, "max_latitude":46.7675},
     "405": {"name": "zoggler_stausee", "country": "austria", "layers": [2016, 2017, 2018], "min_longitude":10.9479, "min_latitude":46.5178, "max_longitude":11.0049, "max_latitude":46.5457},
     "406": {"name": "lago_del_careser", "country": "austria", "layers": [2016, 2017, 2018], "min_longitude":10.6877, "min_latitude":46.4193, "max_longitude":10.7162, "max_latitude":46.4333},
-    "407": {"name": "lago_di_cancano", "country": "italy", "layers": [2016, 2017, 2018], "min_longitude":10.2352, "min_latitude":46.5017, "max_longitude":10.3492, "max_latitude":46.5575},
+    "407": {"name": "lago_di_cancano", "country": "italy", "layers": [2016, 2017, 2018, 2019], "min_longitude":10.2352, "min_latitude":46.5017, "max_longitude":10.3492, "max_latitude":46.5575},
     "408": {"name": "lac_de_neuchatel", "country": "switzerland", "layers": [2016, 2017, 2018], "min_longitude":6.4332, "min_latitude":46.7083, "max_longitude":7.1782, "max_latitude":47.0224},
     "409": {"name": "thunersee", "country": "switzerland", "layers": [2016, 2017, 2018], "min_longitude":7.6259, "min_latitude":46.6492, "max_longitude":7.8480, "max_latitude":46.7547},
     "410": {"name": "vodni_nadrz_nechranice", "country": "czech_republic", "layers": [2016, 2017, 2018], "min_longitude":13.3127, "min_latitude":50.3281, "max_longitude":13.4761, "max_latitude":50.4072},
