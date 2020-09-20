@@ -1,4 +1,6 @@
+cython
 dash
+git+https://github.com/lucasb-eyer/pydensecrf.git
 matplotlib
 numpy
 Pillow
