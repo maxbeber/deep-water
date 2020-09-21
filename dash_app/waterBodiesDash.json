@@ -6,7 +6,6 @@
     "5": {"name": "elephant butte", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-107.23803910498334, "min_latitude":33.14614806405013, "max_longitude":-107.13572892431928, "max_latitude":33.2488015674681, "width":4082},
     "6": {"name": "koroneia", "country": "greece", "layers": [2016, 2017, 2018, 2019], "min_longitude":23.34167375183668, "min_latitude":40.56321556296156, "max_longitude":23.614958663946055, "max_latitude":40.7685225697975, "height":3084},
     "7": {"name": "lago di cancano", "country": "italy", "layers": [2016, 2017, 2018, 2019], "min_longitude":10.2352, "min_latitude":46.5017, "max_longitude":10.3492, "max_latitude":46.5575},
-    "8": {"name": "lake", "country": "nigeria", "layers": [2016, 2018, 2019], "min_longitude":8.8074, "min_latitude":11.5599, "max_longitude": 8.9010, "max_latitude":11.6202},
     "9": {"name": "mendocino", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-123.19613698824355, "min_latitude":39.189371563341254, "max_longitude":-123.14498189791152, "max_latitude":39.24069831505024, "width":4082},
     "10": {"name": "monzanares", "country": "spain", "layers": [2016, 2017, 2018, 2019], "min_longitude":-3.8232000, "min_latitude":40.5488000, "max_longitude":-3.7604000, "max_latitude":40.5879000},
     "11": {"name": "mono", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-119.22357779576633, "min_latitude":37.797192162208084, "max_longitude":-118.81433707311008, "max_latitude":38.20780617587996, "width":4082},
