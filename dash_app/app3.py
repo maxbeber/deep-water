@@ -117,11 +117,11 @@ app.layout = html.Div(
                                         dcc.Dropdown(
                                             id="dropdown_year",
                                             options=[
-                                                {
-                                                    "label": str(n),
-                                                    "value": str(n),
-                                                }
-                                                for n in range(2016, 2020)
+                                                # {
+                                                #     "label": str(n),
+                                                #     "value": str(n),
+                                                # }
+                                                # for n in range(2016, 2020)
                                             ],
                                             value=2019,
                                             placeholder="Select the desired year",
@@ -174,6 +174,20 @@ app.layout = html.Div(
 #====================================================================
 # Callbacks
 #====================================================================
+#options for year dropdown
+@app.callback(
+    Output(component_id="dropdown_year", component_property="options"),
+    [Input(component_id="dropdown_water_body", component_property="value")]
+    )
+def update_dropdown_year(dropdown_water_body):
+    if not dropdown_water_body:
+        return [{"label": str(n), "value": str(n)} for n in range(2016, 2020)]
+    dff = df.loc[dropdown_water_body, :]
+    years = dff["layers"]
+    years = [{"label": str(n), "value": str(n)} for n in years]
+    return years
+
+
 # location on the map
 @app.callback(
     Output(component_id="map-graph", component_property="figure"),
