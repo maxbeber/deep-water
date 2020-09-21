@@ -71,7 +71,9 @@ def slct_image(data_frame, slct_lake, slct_year):
         year = slct_year
     
         folder = "lakes_cropped"
-        image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg"
+        image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg".\
+            replace(" ", "_").lower()
+        
     
         return image_path
 
