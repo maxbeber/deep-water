@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5 {
   font-size: 21px;
   padding-left: 12px;
 }
+h3 {
+  font-size: 16px;
+  margin: 30px 0px;
+}
 p {
   font-family: "Open Sans";
   font-weight: 400;

@@ -37,13 +37,17 @@ def build_mapbox():
     mapbox = px.scatter_mapbox(
         df,
         lat="lat",
-        lon="lon", 
+        lon="lon",
+        center=go.layout.mapbox.Center(lat=52.52,lon=13.4050),
         hover_name="name",
         color_discrete_sequence=["fuchsia"],
-        zoom=3,
+        zoom=8,
         height=300)
-    mapbox.update_layout(mapbox_style=MAP_STYLE, mapbox_accesstoken=mapbox_access_token)
-    mapbox.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    mapbox.update_layout(
+        margin={"r":0, "t":0, "l":0, "b":0},
+        mapbox_style=MAP_STYLE,
+        mapbox_accesstoken=mapbox_access_token
+    )
     return mapbox
 
 # Build map box
@@ -53,26 +57,26 @@ figure_mapbox = build_mapbox()
 # app laypout
 #====================================================================
 model_prediction = [
-    html.P("Model Prediction"),
+    html.H3("Model Prediction"),
     html.Div(
         dcc.Graph(id="satellite_image", figure={})
         ),
-    html.P("Surface Area (square kilometer)"),
+    html.H3("Surface Area (square kilometer)"),
     html.Div(
         dcc.Graph(id="pie_chart", figure={})
         ) 
-        ]
+]
 
 geo_location = [
-    html.P("Geo-location"),
+    html.H3("Geolocation"),
     html.Div(
-        dcc.Graph(id="map-graph", figure=figure_mapbox)),
-            html.P(""),
-            html.P("Surface Area (%)"),
-            html.Div(
-            dcc.Graph(id="histogram")
-        )   
-    ]
+        dcc.Graph(id="map-graph", figure=figure_mapbox)
+        ),
+    html.H3("Water Surface (%)"),
+    html.Div(
+        dcc.Graph(id="histogram")
+    )   
+]
 
 app.layout = html.Div(
     children=[
@@ -88,7 +92,7 @@ app.layout = html.Div(
                         ),
                         html.H2("DEEP WATER"),
                         html.P(
-                            """Select a water body and choose the desired year."""
+                            """Select a water body and the desired year."""
                         ),
                         html.Div(
                             className="row",
@@ -100,9 +104,9 @@ app.layout = html.Div(
                                         dcc.Dropdown(
                                             id="dropdown_water_body",
                                             options=[
-                                                {"label": name.capitalize() + ', ' + country.replace('_', ' ').capitalize(), "value":i} for name, country, i in zip(df["name"], df["country"], df.index)
+                                                {"label": name.replace('_', ' ').capitalize() + ', ' + country.replace('_', ' ').capitalize(), "value":i} for name, country, i in zip(df["name"], df["country"], df.index)
                                             ],
-                                            placeholder="Select a water body",
+                                            placeholder="Select a water body"
                                         )
                                     ],
                                 ),
@@ -138,7 +142,7 @@ app.layout = html.Div(
                                                 str(i): str(i)
                                                 for i in [0.2, 0.4, 0.6, 0.8, 1.0]
                                             },
-                                            value=0.2,
+                                            value=0.8,
                                         )
                                     ],
                                 )
@@ -218,14 +222,27 @@ def display_satellite_image(dropdown_water_body, dropdown_year, slider_opacity):
         )
 
     image = import_image(lake)
-    figure.add_trace(go.Image(z=image))
+    figure.add_trace(
+        go.Image(z=image)
+    )
+    figure.update_layout(
+        margin={"r": 60, "t": 0, "l": 0, "b": 0}
+    )
     #mask
     model = load_model()
-    mask = model.predict(np.expand_dims(image, axis=0))
-    mask = blkwhte_rgb(mask)
-
+    y_pred = model.predict(np.expand_dims(image, axis=0))
+    mask = y_pred.squeeze()
+    colorscale = [[0, 'gold'], [0.5, 'gold'], [1, 'gold']]
     figure.add_trace(
-        go.Image(z=mask, opacity=slider_opacity)
+        go.Contour(
+            z=mask,
+            contours_coloring='lines',
+            line_width=3,
+            opacity=slider_opacity,
+            showlegend=False,
+            showscale=False,
+            colorscale=colorscale,
+            colorbar=dict(showticklabels=False))
         )
     
     return figure
@@ -278,9 +295,9 @@ def update_histogram(dropdown_water_body):
         font=dict(color="white"),
         height=150,
         xaxis=dict(
-            range=[2015, 2020],
+            range=[2015.5, 2019.5],
             showgrid=False,
-            fixedrange=True
+            fixedrange=False
         ),
         yaxis=dict(
             range=[0, max(yVal) + max(yVal) / 4],
@@ -306,7 +323,6 @@ def update_histogram(dropdown_water_body):
 
     histogram = go.Figure(
         data=[
-            #go.Bar(x=xVal, y=yVal, marker=dict(color='blue'), hoverinfo="x"),
             go.Scatter(
                 opacity=1,
                 x=xVal,
@@ -363,18 +379,28 @@ def update_pie_chart(dropdown_water_body, dropdown_year):
     #plot
     labels=["water", "land"]
     values=[water_sqkm, land_sqkm]
-    
-    piechart = go.Figure(data=[go.Pie(labels=labels, values=values)])
+    piechart = go.Figure(
+        data=[
+            go.Pie(
+                labels=labels,
+                values=values,
+                hole=0.3,
+                showlegend=False)
+            ]
+    )
     piechart.update_traces(
-        hoverinfo='none',
-        textinfo='value',#, textfont_size=20#,
+        hoverinfo='label',
+        textinfo='value',
         marker=dict(colors=["rgb(66, 134, 244, 0)", "rgb(150, 75, 0)"])
-        )
-    piechart.update_layout(plot_bgcolor="#282b38",
-        paper_bgcolor="#282b38")
+    )
+    piechart.update_layout(
+        margin={"r":100, "t":0, "l":0, "b":0},
+        height=150,
+        plot_bgcolor="#282b38",
+        paper_bgcolor="#282b38"
+    )
 
     return piechart
-
 
 
 if __name__ == '__main__':

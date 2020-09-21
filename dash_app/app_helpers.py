@@ -128,11 +128,10 @@ def import_annotation(data_frame, slct_lake):
 
 #--------------------------------------------------------------------
 def load_model():
-    model_file_name = 'unet-residual-dice.h5'
+    model_file_name = 'unet-baseline.h5'
     model_name = 'foo'
     image_size = (256, 256)
-    unet_residual = UnetResidual(model_name, image_size, version=1)
-    #unet_residual = Unet(model_name, image_size, version=1)
+    unet_residual = Unet(model_name, image_size)
     unet_residual.restore(model_file_name)
     
     return unet_residual
