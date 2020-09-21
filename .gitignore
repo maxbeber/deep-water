@@ -149,6 +149,9 @@ google_drive/
 # Baseline files
 baselines/
 
+# Training files
+@training/
+
 # NWPU dataset
 NWPU_images.zip
 nwpu_images/
