@@ -15,10 +15,11 @@ class GoogleDriveDownloader():
         self.base_url = 'https://docs.google.com/uc?export=download'
         self.chunk_size = 32768
         self.http_success = 200
-        self.max_number_retries = 3
+        self.max_number_attempts = 3
+
 
     def download(self, file_id, file_name, extract_file=False):
-        http_adapter = HTTPAdapter(max_retries=self.max_number_retries)
+        http_adapter = HTTPAdapter(max_retries=self.max_number_attempts)
         with Session() as session:
             session.mount(self.base_url, http_adapter)
             try:
