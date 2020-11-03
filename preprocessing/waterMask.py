@@ -81,8 +81,7 @@ class WaterMask:
 
     def _get_annotation_points_from_vgg_json(self, annotations, image_name):
         """
-        Retrive all anotation pairs for a given image.
-        Note: JSON coordinates are flippled relative to the image.
+        Retrive all anotation pairs from a given image.
         """
         X = []; Y = []
         for i in annotations[image_name]['regions']:
