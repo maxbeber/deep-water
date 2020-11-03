@@ -5,8 +5,8 @@ import numpy as np
 import os
 import rasterio
 from matplotlib.image import imsave
-from rasterio.plot import reshape_dataset_as_image
 from PIL import Image, ImageDraw
+from rasterio.plot import reshape_dataset_as_image
 
 
 class WaterMask:
