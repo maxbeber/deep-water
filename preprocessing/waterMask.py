@@ -5,6 +5,7 @@ import numpy as np
 import os
 import rasterio
 from matplotlib.image import imsave
+from rasterio.plot import reshape_dataset_as_image
 from PIL import Image, ImageDraw
 
 
@@ -95,23 +96,5 @@ class WaterMask:
 
     def _load_image(self, file_path):
         with rasterio.open(file_path) as dataset:
-            image = self._reshape_dataset_as_image(dataset)
-        return image
-
-
-    def _reshape_dataset_as_image(self, dataset):
-        """
-        Returns the source array reshaped into the order
-        expected by image processing libraries by swapping
-        the axes order from (bands, rows, columns)
-        to (rows, columns, bands).
-            
-        Parameters
-        ----------
-        raster: array-like of shape (bands, rows, columns).
-    
-        Returns the source array reshaped.
-        """
-        bands = dataset.read()
-        image = np.ma.transpose(bands, [1, 2, 0])
+            image = reshape_dataset_as_image(dataset)
         return image
