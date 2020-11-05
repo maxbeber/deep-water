@@ -165,4 +165,4 @@
     "438": {"name": "uafato_lake", "country": "samoa", "layers": [2016, 2018], "min_longitude":-171.5708, "min_latitude":-13.9862, "max_longitude":-171.5266 ,"max_latitude":-13.9583},
     "439": {"name": "blue_lake", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":175.6470, "min_latitude":-39.1284, "max_longitude":175.6691 ,"max_latitude":-39.1173},
     "440": {"name": "lake_pearson", "country": "new_zealand", "layers": [2016, 2018], "min_longitude":171.7390, "min_latitude":-43.1268, "max_longitude":171.8274 ,"max_latitude":-43.0849}
-    }
+}
