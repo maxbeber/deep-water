@@ -6,7 +6,6 @@ import os
 import rasterio
 from matplotlib.image import imsave
 from PIL import Image, ImageDraw
-from rasterio.plot import reshape_dataset_as_image
 
 
 class WaterMask:
@@ -45,6 +44,17 @@ class WaterMask:
         images = sorted(all_dicts.keys())
         for image in images:
             self.create_mask(annotations, image)
+
+
+    def display_image_with_annotations(self, image_name, annotations, annotation_color='y'):
+        image_path = self._get_image_path(image_name)
+        image = self._load_image(image_path)
+        X, Y = self._get_annotation_points_from_vgg_json(annotations, image_name)
+        plt.imshow(image)
+        plt.title(image_name)
+        plt.axis('off')
+        for i in range(len(X)):
+            plt.plot(X[i], Y[i], annotation_color)
 
 
     def display_mask(self, image_name):
@@ -95,5 +105,23 @@ class WaterMask:
 
     def _load_image(self, file_path):
         with rasterio.open(file_path) as dataset:
-            image = reshape_dataset_as_image(dataset)
+            image = self._reshape_dataset_as_image(dataset)
+        return image
+
+
+    def _reshape_dataset_as_image(self, dataset):
+        """
+        Returns the source array reshaped into the order
+        expected by image processing libraries by swapping
+        the axes order from (bands, rows, columns)
+        to (rows, columns, bands).
+                
+        Parameters
+        ----------
+        raster: array-like of shape (bands, rows, columns).
+        
+        Returns the source array reshaped.
+        """
+        bands = dataset.read()
+        image = np.ma.transpose(bands, [1, 2, 0])
         return image
