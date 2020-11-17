@@ -18,8 +18,9 @@ class DeepAutoEncoder():
         z = layers.Conv2D(16, (3, 3), activation='relu', padding='same')(z)
         z = layers.MaxPooling2D((2, 2), padding='same')(z)
         z = layers.Conv2D(16, (3, 3), activation='relu', padding='same')(z)
-        # decoder
+        # bottle neck
         x_prime = layers.MaxPooling2D((2, 2), padding='same')(z)
+        # decoder
         x_prime = layers.Conv2D(16, (3, 3), activation='relu', padding='same')(x_prime)
         x_prime = layers.UpSampling2D((2, 2))(x_prime)
         x_prime = layers.Conv2D(16, (3, 3), activation='relu', padding='same')(x_prime)
