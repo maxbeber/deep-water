@@ -58,9 +58,9 @@ class DataAugmentationLoader:
             seed=self.seed,
             shuffle=False,
             target_size=self.image_size)
-        train_generator = (pair for pair in zip(image_generator, mask_generator))
+        data_generator = (pair for pair in zip(image_generator, mask_generator))
 
-        return train_generator
+        return data_generator
     
 
     def get_pair(self, x, y):
