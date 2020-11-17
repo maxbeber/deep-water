@@ -159,6 +159,9 @@ nwpu_augmented_images/
 nwpu_label_images/
 nwpu_label_augmented_images/
 
+# Milestones notebooks
+@milestones/
+
 # Models
 unet*.h5
 dash_app/unet*.h5
