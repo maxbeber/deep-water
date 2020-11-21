@@ -25,7 +25,7 @@ class DataAugmentationLoader:
             "rotation_range": 45,
             "horizontal_flip": True,
             "vertical_flip": True,
-            "rescale":1.0/255
+            "rescale":1.0/255.0
         }
         self.datagenerator_mask_args = {
             "featurewise_center": False,
@@ -35,7 +35,7 @@ class DataAugmentationLoader:
             "rotation_range": 45,
             "horizontal_flip": True,
             "vertical_flip": True,
-            "rescale":1.0/255,
+            "rescale":1.0/255.0,
             "preprocessing_function":self._clip_mask,
         }
 
