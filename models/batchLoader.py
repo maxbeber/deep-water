@@ -13,7 +13,7 @@ class BatchLoader:
     batch_size : size of the batch
     image_size : size of each image
     """
-    def __init__(self, images, image_folder, mask_folder, batch_size, image_size, threshold_water_pixel = 100):
+    def __init__(self, images, image_folder, mask_folder, batch_size, image_size, threshold_water_pixel=100):
         self.image_folder = os.path.join(image_folder, 'data')
         self.mask_folder = os.path.join(mask_folder, 'data')
         self.batch_size = batch_size

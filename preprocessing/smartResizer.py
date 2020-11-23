@@ -21,7 +21,7 @@ class SmartResizer:
         self._create_output_folder_if_necessary()
 
 
-    def resize(self, image_size = (256, 256)):
+    def resize(self, image_size=(256, 256)):
         image_count = len(self.image_paths)
         print(f'{image_count} images have been found.')
         for image_path in self.image_paths:
