@@ -152,6 +152,9 @@ baselines/
 # Training files
 @training/
 
+# Annotations
+annotations/
+
 # NWPU dataset
 NWPU_images.zip
 nwpu_images/
