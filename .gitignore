@@ -173,5 +173,8 @@ dash_app/sample_image.jpg
 dash_app/app2.ipynb
 dash_app/app2_trial.py
 
+# Jupyter Notebooks
+*.ipynb
+
 # Saved models
 unet*.h5
