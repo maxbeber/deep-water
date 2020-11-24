@@ -13,7 +13,7 @@ def build_callbacks(parameters):
     is_logger_enabled = parameters['enable_csv_logger']
     is_early_stopping_enabled = 'early_stopping' in parameters.keys()
     is_reduce_lr_on_plateau_enabled = parameters['reduce_lr_on_plateau']
-    is_plot_learning_enabled = parameters['plot_learning']
+    is_plot_learning_enabled = 'plot_learning' in parameters.keys()
     callbacks = model_checkpoint(model_name)
     if is_early_stopping_enabled:
         early_stop = early_stopping(parameters)
