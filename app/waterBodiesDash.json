@@ -1,0 +1,20 @@
+{
+    "1": {"name": "balaton", "country": "hungary", "layers": [2016, 2017, 2018, 2019], "min_longitude":17.138306471163226, "min_latitude":46.438781725159295, "max_longitude":18.231446119600726, "max_latitude":47.260009752503045, "height":3084},
+    "2": {"name": "burdur", "country": "turkey", "layers": [2016, 2017, 2018, 2019], "min_longitude":30.008970333642345, "min_latitude":37.6345355820376, "max_longitude":30.373579098290783, "max_latitude":37.83984258887354, "height":2312},
+    "3": {"name": "copais", "country": "greece", "layers": [2016, 2017, 2018, 2019], "min_longitude":23.214268551013436, "min_latitude":38.36067354565393, "max_longitude":23.350911007068124, "max_latitude":38.4633270490719},
+    "4": {"name": "faguibine", "country": "mali", "layers": [2016, 2018, 2019], "min_longitude":-4.656089323623854, "min_latitude":14.959306189862815, "max_longitude":-3.0191264329988536, "max_latitude":16.601762244550315, "width":4082},
+    "5": {"name": "elephant butte", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-107.23803910498334, "min_latitude":33.14614806405013, "max_longitude":-107.13572892431928, "max_latitude":33.2488015674681, "width":4082},
+    "6": {"name": "koroneia", "country": "greece", "layers": [2016, 2017, 2018, 2019], "min_longitude":23.34167375183668, "min_latitude":40.56321556296156, "max_longitude":23.614958663946055, "max_latitude":40.7685225697975, "height":3084},
+    "7": {"name": "lago di cancano", "country": "italy", "layers": [2016, 2017, 2018, 2019], "min_longitude":10.2352, "min_latitude":46.5017, "max_longitude":10.3492, "max_latitude":46.5575},
+    "9": {"name": "mendocino", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-123.19613698824355, "min_latitude":39.189371563341254, "max_longitude":-123.14498189791152, "max_latitude":39.24069831505024, "width":4082},
+    "10": {"name": "monzanares", "country": "spain", "layers": [2016, 2017, 2018, 2019], "min_longitude":-3.8232000, "min_latitude":40.5488000, "max_longitude":-3.7604000, "max_latitude":40.5879000},
+    "11": {"name": "mono", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-119.22357779576633, "min_latitude":37.797192162208084, "max_longitude":-118.81433707311008, "max_latitude":38.20780617587996, "width":4082},
+    "12": {"name": "popoo", "country": "bolivia", "layers": [2016, 2018, 2019], "min_longitude":-68.66848367000537, "min_latitude":-19.687928531849003, "max_longitude":-66.67924128546656, "max_latitude":-17.8774477409051},
+    "13": {"name": "salda", "country": "turkey", "layers": [2016, 2017, 2018, 2019], "min_longitude":29.6337346568769, "min_latitude":37.49763563391751, "max_longitude":29.736044837540963, "max_latitude":37.60028913733548, "width":4082},
+    "14": {"name": "salton", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-116.21928854749297, "min_latitude":32.903320741965295, "max_longitude":-115.40080710218047, "max_latitude":33.724548769309045},
+    "15": {"name": "urmia", "country": "iran", "layers": [2016, 2017, 2018, 2019], "min_longitude":44.587725529095295, "min_latitude":36.86436828406643, "max_longitude":46.230181583782795, "max_latitude":38.50682433875393},
+    "16": {"name": "qinghai", "country": "china", "layers": [2016, 2018, 2019], "min_longitude":99.56471967977474, "min_latitude":35.70094613663666, "max_longitude":101.20168257039974, "max_latitude":37.34340219132416},
+    "17": {"name": "ramganga", "country": "india", "layers": [2016, 2018, 2019], "min_longitude":78.63716910452058, "min_latitude":29.468167756293038, "max_longitude":78.91045401662996, "max_latitude":29.673474763128976},
+    "18": {"name": "walker", "country": "united_states", "layers": [2016, 2018, 2019], "min_longitude":-118.82841344222616, "min_latitude":38.58649115903216, "max_longitude":-118.62379308089804, "max_latitude":38.791798165868094, "width":4082}
+}
+    
