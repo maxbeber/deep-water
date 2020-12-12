@@ -33,7 +33,7 @@ def build_callbacks(parameters):
 def csv_logger(model_name):
     file_path = f'training_{model_name}.log'
     callback = callbacks.CSVLogger(file_path, separator=',', append=False)
-    return [callback]
+    return callback
 
 
 def early_stopping(parameters):
@@ -41,7 +41,7 @@ def early_stopping(parameters):
     monitor = parameters['early_stopping']['monitor']
     patience = parameters['early_stopping']['patience']
     callback = callbacks.EarlyStopping(mode=mode, monitor=monitor, patience=patience)
-    return [callback]
+    return callback
 
 
 def model_checkpoint(model_name):
@@ -70,4 +70,4 @@ def reduce_learning_rate_on_plateau(parameters):
         monitor=monitor,
         patience=patience,
         verbose=1)
-    return [callback]
+    return callback
