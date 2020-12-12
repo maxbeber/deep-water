@@ -1,8 +1,8 @@
 from tensorflow.keras import callbacks
 
 
-def baseline_callback(model_name, plot_learning=None):
-    callbacks = model_checkpoint(model_name)
+def baseline_callback(model_name, model_checkpoint_monitor, plot_learning=None):
+    callbacks = model_checkpoint(model_name, model_checkpoint_monitor)
     if plot_learning:
         callbacks.append(plot_learning)
     return callbacks
@@ -10,11 +10,12 @@ def baseline_callback(model_name, plot_learning=None):
 
 def build_callbacks(parameters):
     model_name = parameters['model_name']
+    model_checkpoint_monitor = parameters['model_checkpoint_monitor']
     is_logger_enabled = parameters['enable_csv_logger']
     is_early_stopping_enabled = 'early_stopping' in parameters.keys()
     is_plot_learning_enabled = 'plot_learning' in parameters.keys()
     is_reduce_lr_on_plateau_enabled = parameters['reduce_lr_on_plateau']
-    callbacks = model_checkpoint(model_name)
+    callbacks = model_checkpoint(model_name, model_checkpoint_monitor)
     if is_early_stopping_enabled:
         early_stop = early_stopping(parameters)
         callbacks.append(early_stop)
@@ -44,10 +45,12 @@ def early_stopping(parameters):
     return callback
 
 
-def model_checkpoint(model_name):
+def model_checkpoint(model_name, monitor):
     file_path = f'{model_name}.h5'
     callback = callbacks.ModelCheckpoint(\
         filepath=file_path,
+        mode='min',
+        monitor=monitor,
         save_best_only=True,
         save_weights_only=True,
         verbose=0)
