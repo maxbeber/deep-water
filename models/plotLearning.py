@@ -10,7 +10,8 @@ class PlotLearning(Callback):
     """
     Display the model's progress during training at the end of each epoch.
     """
-    def __init__(self, model, test_images, image_size=(256, 256), threshold_water_pixel=100):
+    def __init__(self, model, test_images, image_size=(256, 256), threshold_water_pixel=100, crf_model=None):
+        self.crf_model = crf_model
         self.image_size = image_size
         self.model = model
         self.test_images = test_images
@@ -33,6 +34,8 @@ class PlotLearning(Callback):
         raw_image = raw_image[:, :, :3]
         prediction = 255 * self.model.predict(np.expand_dims(raw_image, 0)).squeeze()
         mask = (prediction > self.threshold_water_pixel).astype('int')
+        if self.crf_model:
+            mask = self.crf_model.refine(raw_image, mask)
         mask = np.stack((mask,) * 3, axis= -1)
         triplet = np.concatenate([raw_image, mask, raw_image * mask], axis = 1)
         plt.axis('off')
