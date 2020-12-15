@@ -13,7 +13,8 @@ class BatchLoader:
     batch_size : size of the batch
     image_size : size of each image
     """
-    def __init__(self, images, image_folder, mask_folder, batch_size, image_size, threshold_water_pixel=100):
+    def __init__(self, images, image_folder, mask_folder, batch_size, image_size, threshold_water_pixel=100, crf_model=None):
+        self.crf_model = crf_model
         self.image_folder = os.path.join(image_folder, 'data')
         self.mask_folder = os.path.join(mask_folder, 'data')
         self.batch_size = batch_size
@@ -65,14 +66,16 @@ class BatchLoader:
     
     def _generate_mask(self, image, n):
         mask_file = os.path.join(self.mask_folder, image)
-        mask_image = Image.open(mask_file)
-        mask_image = mask_image.resize(self.image_size)
-        mask_image = np.array(mask_image)
-        if mask_image.ndim == 2:
-            mask_image = np.stack((mask_image,) * 3, axis=-1)
+        mask = Image.open(mask_file)
+        mask = mask.resize(self.image_size)
+        mask = np.array(mask)
+        if mask.ndim == 2:
+            mask = np.stack((mask,) * 3, axis=-1)
         else:
-            mask_image = mask_image[:, :, :3]
-        mask_image = np.max(mask_image, axis=2)
-        mask_image = (mask_image > self.threshold_water_pixel).astype('int')
-        mask_image = mask_image[:n, :n]
-        return mask_image
+            mask = mask[:, :, :3]
+        mask = np.max(mask, axis=2)
+        mask = (mask > self.threshold_water_pixel).astype('int')
+        mask = mask[:n, :n]
+        if self.crf_model:
+            mask = self.crf_model.refine(image, mask)
+        return mask
