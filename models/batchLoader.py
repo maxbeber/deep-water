@@ -21,7 +21,7 @@ class BatchLoader:
         self.image_size = image_size
         self.threshold_water_pixel = threshold_water_pixel
         self.images = [image.split(os.sep)[-1] for image in images]
-    
+
 
     def __call__(self):
         random.shuffle(self.images)
@@ -51,8 +51,8 @@ class BatchLoader:
         pair = np.concatenate([image, mask, image * mask], axis=1)
 
         return pair
-    
-    
+
+
     def _generate_image(self, image):
         raw_file = os.path.join(self.image_folder, image)
         raw_image = Image.open(raw_file)
@@ -68,7 +68,7 @@ class BatchLoader:
 
         return raw_image
 
-    
+
     def _generate_mask(self, image_file_name, n):
         mask_file = os.path.join(self.mask_folder, image_file_name)
         mask = Image.open(mask_file)
