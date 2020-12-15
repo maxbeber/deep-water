@@ -64,8 +64,8 @@ class BatchLoader:
         return raw_image
 
     
-    def _generate_mask(self, image, n):
-        mask_file = os.path.join(self.mask_folder, image)
+    def _generate_mask(self, image_file_name, n):
+        mask_file = os.path.join(self.mask_folder, image_file_name)
         mask = Image.open(mask_file)
         mask = mask.resize(self.image_size)
         mask = np.array(mask)
@@ -77,5 +77,8 @@ class BatchLoader:
         mask = (mask > self.threshold_water_pixel).astype('int')
         mask = mask[:n, :n]
         if self.crf_model:
-            mask = self.crf_model.refine(image, mask)
+            raw_file = os.path.join(self.image_folder, image_file_name)
+            raw_image = Image.open(raw_file)
+            raw_image = np.array(raw_image)
+            mask = self.crf_model.refine(raw_image, mask)
         return mask
