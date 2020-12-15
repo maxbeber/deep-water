@@ -25,7 +25,8 @@ class CrfLabelRefine:
     
     def refine(self, image, mask):
         height, width = image.shape[:2]
-    
+        input_image_uint = (image * 255).astype(np.uint8)
+
         # Create a CRF object
         d = densecrf.DenseCRF2D(width, height, 2)
 
@@ -36,28 +37,20 @@ class CrfLabelRefine:
         d.setUnaryEnergy(predicted_unary)
 
         # to add the color-independent term, where features are the locations only:
-        d.addPairwiseGaussian(\
-            sxy=(self.theta_spat, self.theta_spat),
-            compat=self.compat_spat,
-            kernel=densecrf.DIAG_KERNEL,
-            normalization=densecrf.NORMALIZE_SYMMETRIC)
+        d.addPairwiseGaussian(sxy=(self.theta_spat, self.theta_spat), compat=self.compat_spat,\
+            kernel=densecrf.DIAG_KERNEL, normalization=densecrf.NORMALIZE_SYMMETRIC)
 
-        input_image_uint = (image * 255).astype(np.uint8) #enfore unsigned 8-bit
         # to add the color-dependent term, i.e. 5-dimensional features are (x,y,r,g,b) based on the input image:    
-        d.addPairwiseBilateral(\
-            sxy=(self.theta_col, self.theta_col),
-            srgb=(5, 5, 5),
-            rgbim=input_image_uint,
-            compat=self.compat_col,
-            kernel=densecrf.DIAG_KERNEL,
-            normalization=densecrf.NORMALIZE_SYMMETRIC)
+        d.addPairwiseBilateral(sxy=(self.theta_col, self.theta_col), srgb=(5, 5, 5), rgbim=input_image_uint,\
+            compat=self.compat_col, kernel=densecrf.DIAG_KERNEL, normalization=densecrf.NORMALIZE_SYMMETRIC)
 
         # Finally, we run inference to obtain the refined predictions:
-        refined_predictions = np.array(d.inference(self.num_iter)).reshape(self.num_classes, height, width)
+        inference = d.inference(self.num_iter)
+        refined_predictions = np.array(inference).reshape(self.num_classes, height, width)
     
         # since refined_predictions will be a 2 x width x height array, 
         # each slice respresenting probability of each class (water and no water)
         # therefore we return the argmax over the zeroth dimension to return a mask
-        predictions = np.argmax(refined_predictions, axis=0)
+        new_mask = np.argmax(refined_predictions, axis=0)
 
-        return predictions
+        return new_mask
