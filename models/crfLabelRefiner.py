@@ -2,17 +2,20 @@ import numpy as np
 from pydensecrf import densecrf
 from pydensecrf.utils import unary_from_labels
 
-class CrfLabelRefine:
+class CrfLabelRefiner:
     """
     Represents a Conditional Random Fields model.
     Parameters
     ----------
-    compat_spat : folder where the images are located
-    compat_col  : size of the batch
-    theta_spat  : size of each image
-    theta_col   : size of each image
-    num_iter    : number of iterations to run the CRF model inference
-    num_classes : number of classes
+    compat_spat : is a non-dimensional parameter that penalizes small pieces of segmentation
+    that are spatially isolated. Larger values means larger pieces of segmentation are allowed.
+    compat_col  : is a non-dimensional parameter that penalizes small peices of segmentation
+    that are less uniform in color. Larger values means pieces of segmentation with less similar
+    image intensity are allowed.
+    theta_spat  : represents a location tolerance coeficient.
+    theta_col   : representes a color intensity tolerance coeficient.
+    num_iter    : number of iterations to run the CRF model inference.
+    num_classes : number of classes.
     """
     def __init__(self, compat_spat=10, compat_col=30, theta_spat=20, theta_col=80, num_iter=10, num_classes=2):
         self.compat_spat = compat_spat
@@ -25,7 +28,7 @@ class CrfLabelRefine:
     
     def refine(self, image, mask):
         height, width = image.shape[:2]
-        input_image_uint = (image * 255).astype(np.uint8)
+        image_unit = (image * 255).astype(np.uint8)
         # Create a CRF object
         d = densecrf.DenseCRF2D(width, height, 2)
         # For the predictions, densecrf needs 'unary potentials' which are labels (water or no water)
@@ -36,7 +39,7 @@ class CrfLabelRefine:
         d.addPairwiseGaussian(sxy=(self.theta_spat, self.theta_spat), compat=self.compat_spat,\
             kernel=densecrf.DIAG_KERNEL, normalization=densecrf.NORMALIZE_SYMMETRIC)
         # to add the color-dependent term, i.e. 5-dimensional features are (x,y,r,g,b) based on the input image:    
-        d.addPairwiseBilateral(sxy=(self.theta_col, self.theta_col), srgb=(5, 5, 5), rgbim=input_image_uint,\
+        d.addPairwiseBilateral(sxy=(self.theta_col, self.theta_col), srgb=(5, 5, 5), rgbim=image_unit,\
             compat=self.compat_col, kernel=densecrf.DIAG_KERNEL, normalization=densecrf.NORMALIZE_SYMMETRIC)
         # Finally, we run inference to obtain the refined predictions:
         inference = d.inference(self.num_iter)
