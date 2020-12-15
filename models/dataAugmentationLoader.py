@@ -54,7 +54,7 @@ class DataAugmentationLoader:
             self.mask_folder,
             batch_size=self.batch_size,
             class_mode=None,
-            color_mode = 'grayscale',
+            color_mode='grayscale',
             seed=self.seed,
             shuffle=False,
             target_size=self.image_size)
