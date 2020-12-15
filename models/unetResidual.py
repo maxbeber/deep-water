@@ -69,13 +69,13 @@ class UnetResidual(UnetBase):
         ## upsample
         _ = self.upsamp_concat_block(_, e4)
         _ = self.res_block(_, f)
-        f = int(f / 2)
+        f //= 2
         _ = self.upsamp_concat_block(_, e3)
         _ = self.res_block(_, f)
-        f = int(f / 2)
+        f //= 2
         _ = self.upsamp_concat_block(_, e2)
         _ = self.res_block(_, f)
-        f = int(f / 2)
+        f //= 2
         _ = self.upsamp_concat_block(_, e1)
         _ = self.res_block(_, f)
         ## classify
