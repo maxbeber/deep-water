@@ -35,7 +35,7 @@ class BatchLoader:
                 batch_x.append(raw_image)
                 mask_image = self._generate_mask(image, n)
                 if self.crf_model:
-                    mask_image = self.crf_model(raw_image, mask_image)
+                    mask_image = self.crf_model.refine(raw_image, mask_image)
                 batch_y.append(mask_image)
             batch_x = np.array(batch_x) / 255.0
             batch_y = np.array(batch_y)
