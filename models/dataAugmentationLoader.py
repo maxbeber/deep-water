@@ -18,23 +18,23 @@ class DataAugmentationLoader:
         self.image_size = image_size
         self.seed = 111
         self.datagenerator_image_args = {
-            "featurewise_center": False,
-            "featurewise_std_normalization": False,
-            "shear_range": 0,
-            "zoom_range": 0.2,
-            "rotation_range": 45,
-            "horizontal_flip": True,
-            "vertical_flip": True,
+            "featurewise_center":False,
+            "featurewise_std_normalization":False,
+            "shear_range":0,
+            "zoom_range":0.2,
+            "rotation_range":45,
+            "horizontal_flip":True,
+            "vertical_flip":True,
             "rescale":1.0/255.0
         }
         self.datagenerator_mask_args = {
-            "featurewise_center": False,
-            "featurewise_std_normalization": False,
-            "shear_range": 0,
-            "zoom_range": 0.2,
-            "rotation_range": 45,
-            "horizontal_flip": True,
-            "vertical_flip": True,
+            "featurewise_center":False,
+            "featurewise_std_normalization":False,
+            "shear_range":0,
+            "zoom_range":0.2,
+            "rotation_range":45,
+            "horizontal_flip":True,
+            "vertical_flip":True,
             "rescale":1.0/255.0,
             "preprocessing_function":self._clip_mask,
         }
