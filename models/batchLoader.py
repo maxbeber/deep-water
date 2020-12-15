@@ -34,10 +34,13 @@ class BatchLoader:
                 n = raw_image.shape[0]
                 batch_x.append(raw_image)
                 mask_image = self._generate_mask(image, n)
+                if self.crf_model:
+                    mask_image = self.crf_model(raw_image, mask_image)
                 batch_y.append(mask_image)
             batch_x = np.array(batch_x) / 255.0
             batch_y = np.array(batch_y)
             batch_y = np.expand_dims(batch_y, 3)
+
             yield (batch_x, batch_y)
 
 
@@ -46,6 +49,7 @@ class BatchLoader:
         mask = y.squeeze()
         mask = np.stack((mask,) * 3, axis=-1)
         pair = np.concatenate([image, mask, image * mask], axis=1)
+
         return pair
     
     
@@ -61,6 +65,7 @@ class BatchLoader:
         nx, ny, _ = np.shape(raw_image)
         n = np.minimum(nx, ny)
         raw_image = raw_image[:n, :n, :]
+
         return raw_image
 
     
@@ -76,9 +81,5 @@ class BatchLoader:
         mask = np.max(mask, axis=2)
         mask = (mask > self.threshold_water_pixel).astype('int')
         mask = mask[:n, :n]
-        if self.crf_model:
-            raw_file = os.path.join(self.image_folder, image_file_name)
-            raw_image = Image.open(raw_file)
-            raw_image = np.array(raw_image)
-            mask = self.crf_model.refine(raw_image, mask)
+
         return mask
