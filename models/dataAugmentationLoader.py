@@ -20,23 +20,27 @@ class DataAugmentationLoader:
         self.datagenerator_image_args = {
             "featurewise_center":False,
             "featurewise_std_normalization":False,
-            "shear_range":0,
-            "zoom_range":0.2,
-            "rotation_range":45,
+            "height_shift_range":0.3,
             "horizontal_flip":True,
+            "rescale":1.0/255.0,
+            "rotation_range":45,
+            "shear_range":0,
             "vertical_flip":True,
-            "rescale":1.0/255.0
+            "width_shift_range":0.3,
+            "zoom_range":0.25,
         }
         self.datagenerator_mask_args = {
             "featurewise_center":False,
             "featurewise_std_normalization":False,
-            "shear_range":0,
-            "zoom_range":0.2,
-            "rotation_range":45,
+            "height_shift_range":0.3,
             "horizontal_flip":True,
-            "vertical_flip":True,
-            "rescale":1.0/255.0,
             "preprocessing_function":self._clip_mask,
+            "rescale":1.0/255.0,
+            "rotation_range":45,
+            "shear_range":0,
+            "vertical_flip":True,
+            "width_shift_range":0.3,
+            "zoom_range":0.25
         }
 
 
