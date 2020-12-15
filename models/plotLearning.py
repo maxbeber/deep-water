@@ -17,7 +17,7 @@ class PlotLearning(Callback):
         self.threshold_water_pixel = threshold_water_pixel
 
 
-    def on_train_begin(self, logs=None):
+    def on_train_begin(self, logs={}):
         super().on_train_begin(logs=logs)
 
 
