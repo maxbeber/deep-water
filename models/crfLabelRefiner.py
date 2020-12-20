@@ -27,6 +27,8 @@ class CrfLabelRefiner:
 
     
     def refine(self, image, mask):
+        normalization = densecrf.NORMALIZE_SYMMETRIC
+        kernel = densecrf.DIAG_KERNEL
         height, width = image.shape[:2]
         image_unit = (image * 255).astype(np.uint8)
         # Create a CRF object
@@ -36,11 +38,11 @@ class CrfLabelRefiner:
         # set the unary potentials to CRF object
         d.setUnaryEnergy(predicted_unary)
         # to add the color-independent term, where features are the locations only:
-        d.addPairwiseGaussian(sxy=(self.theta_spat, self.theta_spat), compat=self.compat_spat,\
-            kernel=densecrf.DIAG_KERNEL, normalization=densecrf.NORMALIZE_SYMMETRIC)
+        sxy = (self.theta_spat, self.theta_spat)
+        d.addPairwiseGaussian(sxy=sxy, compat=self.compat_spat, kernel=kernel, normalization=normalization)
         # to add the color-dependent term, i.e. 5-dimensional features are (x,y,r,g,b) based on the input image:    
-        d.addPairwiseBilateral(sxy=(self.theta_col, self.theta_col), srgb=(5, 5, 5), rgbim=image_unit,\
-            compat=self.compat_col, kernel=densecrf.DIAG_KERNEL, normalization=densecrf.NORMALIZE_SYMMETRIC)
+        sxy = (self.theta_col, self.theta_col)
+        d.addPairwiseBilateral(sxy=sxy, srgb=(5, 5, 5), rgbim=image_unit, compat=self.compat_col, kernel=kernel, normalization=normalization)
         # Finally, we run inference to obtain the refined predictions:
         inference = d.inference(self.num_iter)
         refined_predictions = np.array(inference).reshape(self.num_classes, height, width)
