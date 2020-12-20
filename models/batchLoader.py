@@ -79,7 +79,7 @@ class BatchLoader:
         else:
             mask = mask[:, :, :3]
         mask = np.max(mask, axis=2)
-        mask = (mask > self.threshold_water_pixel).astype('int')
+        mask = (mask >= self.threshold_water_pixel).astype('int')
         mask = mask[:n, :n]
 
         return mask
