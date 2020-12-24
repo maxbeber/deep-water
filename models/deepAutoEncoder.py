@@ -1,7 +1,7 @@
 from tensorflow.keras import Input, layers
 from tensorflow.keras.models import Model
 
-class DeepAutoEncoder():
+class DeepAutoEncoder:
     """
     Represents an autoencoder for image denoising.
 

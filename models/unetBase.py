@@ -1,6 +1,6 @@
 import os
 
-class UnetBase():
+class UnetBase:
     """
     Represents a base class for a deep neural network using an U-Net architecture.
 
