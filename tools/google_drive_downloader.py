@@ -6,7 +6,7 @@ from requests.exceptions import ConnectionError
 from requests.exceptions import HTTPError
 from requests.exceptions import Timeout
 
-class GoogleDriveDownloader():
+class GoogleDriveDownloader:
     """
     Represents a class that downloads and can also extract files
     from Google Drive.
