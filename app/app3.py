@@ -1,27 +1,23 @@
-import dash as dash
+import dash
 import dash_table
-import numpy as np
-import pandas as pd
 import dash_core_components as dcc
 import dash_html_components as html
-import utils.dash_reusable_components as drc
-from dash.dependencies import Input, Output
+import matplotlib.pyplot as plt
 import numpy as np
+import os
+import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import os
+import utils.dash_reusable_components as drc
 from app_helpers import download_image, import_image, lat_long,\
     import_annotation, load_model, model_prediction, blkwhte_rgb, slct_image,\
     calculate_water, get_water_land_per_year, get_sqkm, get_geom
-import matplotlib.pyplot as plt
+from dash.dependencies import Input, Output
 
 app = dash.Dash(
     __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-#====================================================================
-# prerequisites
-#--------------------------------------------------------------------
 # import dataset
 df = pd.read_json('waterBodiesDash.json').T
 df["lat"] = (df['min_latitude'] + df['max_latitude'])/2
@@ -163,9 +159,7 @@ app.layout = html.Div(
                 html.Div(
                     className="one-third column div-for-charts bg-grey",
                     children=geo_location
-                ),
-                
-                   
+                ) 
             ]
         )
     ]
@@ -276,10 +270,8 @@ def update_histogram(dropdown_water_body):
             plot_bgcolor="#282b38",
             paper_bgcolor="#282b38")
         return figure
-    
     dff = df.loc[dropdown_water_body, :]
     years = dff["layers"]
-
     model = load_model()
     prediction = []
     prediction_dic = dict()
@@ -294,8 +286,6 @@ def update_histogram(dropdown_water_body):
         water_percentage = calculate_water(mask) * 100
         prediction_dic[str(i)] = water_percentage
         prediction.append(water_percentage)
-
-
     [xVal, yVal, _] = [years, prediction, ['#000']]
     layout = go.Layout(
         bargap=0.01,
@@ -334,7 +324,6 @@ def update_histogram(dropdown_water_body):
             for xi, yi in zip(xVal, yVal)
         ],
     )
-
     histogram = go.Figure(
         data=[
             go.Scatter(
@@ -371,7 +360,6 @@ def update_pie_chart(dropdown_water_body, dropdown_year):
         return figure
 
     dff = df.loc[dropdown_water_body, :]
-
     # get predictions from the model
     lake = slct_image(
         data_frame=df,
@@ -389,7 +377,6 @@ def update_pie_chart(dropdown_water_body, dropdown_year):
     water_sqkm, land_sqkm = get_water_land_per_year(
         fraction = water_percentage, area=image_sqkm)
     water_sqkm, land_sqkm = round(water_sqkm, 2), round(land_sqkm, 2)
-    
     #plot
     labels=["water", "land"]
     values=[water_sqkm, land_sqkm]
