@@ -49,14 +49,14 @@ def import_image(im = "sample_image.jpg"):
     
 
 def slct_image(data_frame, slct_lake, slct_year):
-        dff = data_frame.loc[slct_lake, :]
-        country = dff["country"]
-        name = dff["name"]
-        year = slct_year
-        folder = "lakes_cropped"
-        image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg".replace(" ", "_").lower()
+    dff = data_frame.loc[slct_lake, :]
+    country = dff["country"]
+    name = dff["name"]
+    year = slct_year
+    folder = "lakes_cropped"
+    image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg".replace(" ", "_").lower()
     
-        return image_path
+    return image_path
 
 
 def lat_long(data_frame):
@@ -73,6 +73,7 @@ def lat_long(data_frame):
         dff["max_latitude"],
         dff["max_latitude"]
     ]
+
     return (longit, latit)
 
 
@@ -129,6 +130,7 @@ def model_prediction_stationary(X, model):
         original_image = tf.Variable(raw_image)
         resized_image = tf.keras.preprocessing.image.smart_resize(original_image, image_size)
         y = model.predict(np.expand_dims(resized_image, axis=0))
+        
         return y
 
 
@@ -162,13 +164,13 @@ def get_sqkm(bounding_box):
         pyproj.Proj(init='epsg:4088')
     )
     bounding_box_new = transform(proj, bounding_box)
-    sqm = bounding_box_new.area
+    sqm = bounding_box_new.area / 1000000
 
-    return sqm / 1000000
+    return sqm
 
 
 def get_water_land_per_year(fraction, area):
     water_sqkm = area * fraction
     land_sqkm = area - water_sqkm
     
-    return water_sqkm, land_sqkm
+    return (water_sqkm, land_sqkm)
