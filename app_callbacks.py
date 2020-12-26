@@ -1,6 +1,6 @@
 import numpy as np
 import plotly.graph_objects as go
-from app_helpers import calculate_water, get_geom, get_sqkm, get_water_land_per_year, import_image, slct_image
+from app_helpers import calculate_water, get_geom, get_sqkm, get_water_land_per_year, load_image, slct_image
 from app_layout import get_mapbox
 
 
@@ -22,7 +22,7 @@ def callback_histogram(df, model, dropdown_water_body):
     prediction_dic = dict()
     for i in years:
         lake = slct_image(data_frame=df, slct_lake=dropdown_water_body, slct_year=i)
-        image = import_image(lake)
+        image = load_image(lake)
         mask = model.predict(np.expand_dims(image, axis=0))
         water_percentage = calculate_water(mask) * 100
         prediction_dic[str(i)] = water_percentage
@@ -61,7 +61,7 @@ def callback_pie_chart(df, model, dropdown_water_body, dropdown_year):
     dff = df.loc[dropdown_water_body, :]
     # get predictions from the model
     lake = slct_image(data_frame=df, slct_lake=dropdown_water_body, slct_year=dropdown_year)
-    image = import_image(lake)
+    image = load_image(lake)
     mask = model.predict(np.expand_dims(image, axis=0))
     # receiving the area for the whole image
     bounding_box = get_geom(dff)
@@ -95,7 +95,7 @@ def callback_satellite_image(df, model, dropdown_water_body, dropdown_year, slid
         slct_lake=dropdown_water_body,
         slct_year=dropdown_year
         )
-    image = import_image(lake)
+    image = load_image(lake)
     figure.add_trace(
         go.Image(z=image)
     )

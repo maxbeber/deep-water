@@ -1,4 +1,3 @@
-import json
 import numpy as np
 import os
 import pandas as pd
@@ -7,10 +6,10 @@ import rasterio
 import requests
 import shutil
 import tensorflow as tf
+from functools import partial
 from models.unetResidual import UnetResidual
 from shapely.geometry import Polygon
 from shapely.ops import transform
-from functools import partial
 
 def download_image(data_frame, slct_lake, size=256):
     dff = data_frame.loc[slct_lake, :]
@@ -33,14 +32,13 @@ def download_image(data_frame, slct_lake, size=256):
     r = requests.get(url, params=payload, stream=True)
     filename = "sample_image.jpg"
     if r.status_code == 200:
-        # Set decode_content value to True, otherwise the downloaded image file's size will be zero.
         r.raw.decode_content = True
         with open(filename,'wb') as f:
             shutil.copyfileobj(r.raw, f)
 
 
-def import_image(im = "sample_image.jpg"):
-    dataset = rasterio.open(im)
+def load_image(image):
+    dataset = rasterio.open(image)
     bands = dataset.read()
     image = np.ma.transpose(bands, [1, 2, 0])
     
