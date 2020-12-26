@@ -1,5 +1,4 @@
 import dash
-import dash_table
 import matplotlib.pyplot as plt
 from app_callbacks import callback_dropdown_year, callback_mapbox, callback_satellite_image, callback_pie_chart, callback_histogram
 from app_helpers import load_model, load_dataset
