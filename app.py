@@ -6,6 +6,7 @@ from app_helpers import load_model, load_dataset
 from app_layout import render_layout
 from dash.dependencies import Input, Output
 
+
 mapbox_access_token = "pk.eyJ1Ijoia2FybHJhZHRrZSIsImEiOiJja2YyZnVvbzUwODJ6MnVxbHU0cDV4YXAxIn0.a3aiSNjy2BOO0WKg40PSsA"
 app = dash.Dash(
     __name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}]
