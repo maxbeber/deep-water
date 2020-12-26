@@ -178,6 +178,3 @@ dash_app/app2_trial.py
 
 # Jupyter Notebooks
 *.ipynb
-
-# Saved models
-unet*.h5
