@@ -92,15 +92,21 @@ def callback_satellite_image(df, model, dropdown_water_body, dropdown_year, slid
         return figure
     lake = slct_image(df, dropdown_water_body, dropdown_year)
     image = load_image(lake)
+    y_pred = model.predict(np.expand_dims(image, axis=0))
+    mask = y_pred.squeeze()
+    _apply_mask_contour(figure, image, mask, slider_opacity)
+    
+    return figure
+
+
+def _apply_mask_contour(figure, image, mask, slider_opacity):
+    colorscale = [[0, 'gold'], [0.5, 'gold'], [1, 'gold']]
     figure.add_trace(
         go.Image(z=image)
     )
     figure.update_layout(
         margin={"r": 60, "t": 0, "l": 0, "b": 0}
     )
-    y_pred = model.predict(np.expand_dims(image, axis=0))
-    mask = y_pred.squeeze()
-    colorscale = [[0, 'gold'], [0.5, 'gold'], [1, 'gold']]
     figure.add_trace(
         go.Contour(
             z=mask,

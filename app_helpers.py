@@ -91,9 +91,9 @@ def load_dataset(file_path):
     return df
 
 
-def model_prediction(X, model):
+def model_prediction(model, image):
     image_size = (256, 256)
-    with rasterio.open(X) as dataset:
+    with rasterio.open(image) as dataset:
         bands = dataset.read()
         raw_image = np.ma.transpose(bands, [1, 2, 0])
         original_image = tf.Variable(raw_image)
