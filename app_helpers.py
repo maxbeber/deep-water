@@ -7,7 +7,7 @@ import requests
 import shutil
 import tensorflow as tf
 from functools import partial
-from models.unetResidual import UnetResidual
+from models import UnetResidual
 from shapely.geometry import Polygon
 from shapely.ops import transform
 
@@ -84,8 +84,8 @@ def load_model():
     return unet_residual
 
 
-def load_dataset(water_bodies):
-    df = pd.read_json(water_bodies).T
+def load_dataset(file_path):
+    df = pd.read_json(file_path).T
     df["lat"] = (df['min_latitude'] + df['max_latitude']) / 2.0
     df["lon"] = (df['min_longitude'] + df['max_longitude']) / 2.0
 
