@@ -11,6 +11,7 @@ from models import UnetResidual
 from shapely.geometry import Polygon
 from shapely.ops import transform
 
+
 def download_image(data_frame, slct_lake, size=256):
     dff = data_frame.loc[slct_lake, :]
     min_longitude = dff['min_longitude']
