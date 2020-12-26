@@ -63,5 +63,6 @@ def update_pie_chart(dropdown_water_body, dropdown_year):
     pie_chart = callback_pie_chart(df, model, dropdown_water_body, dropdown_year)
     return pie_chart
 
+
 if __name__ == '__main__':
     app.run_server(host='127.0.0.1', port='8050', debug=True)

@@ -20,11 +20,7 @@ def callback_histogram(df, model, dropdown_water_body):
     prediction = []
     prediction_dic = dict()
     for i in years:
-        lake = slct_image(
-            data_frame=df,
-            slct_lake=dropdown_water_body,
-            slct_year=i
-            )
+        lake = slct_image(data_frame=df, slct_lake=dropdown_water_body, slct_year=i)
         image = import_image(lake)
         mask = model.predict(np.expand_dims(image, axis=0))
         water_percentage = calculate_water(mask) * 100
