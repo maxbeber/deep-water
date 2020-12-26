@@ -147,13 +147,7 @@ def _build_menu_dropdown_year():
         children=[
             dcc.Dropdown(
                 id="dropdown_year",
-                options=[
-                    # {
-                    #     "label": str(n),
-                    #     "value": str(n),
-                    # }
-                    # for n in range(2016, 2020)
-                ],
+                options=[],
                 value=2019,
                 placeholder="Select the desired year",
             )

@@ -93,6 +93,7 @@ def load_dataset(water_bodies):
 
     return df
 
+
 def model_prediction(X, model):
     image_size = (256, 256)
     with rasterio.open(X) as dataset:
