@@ -1,6 +1,6 @@
 import numpy as np
 import plotly.graph_objects as go
-from app_helpers import calculate_water, get_geom, get_water_land_per_year, get_sqkm, import_image, load_model, slct_image
+from app_helpers import calculate_water, get_geom, get_sqkm, get_water_land_per_year, import_image, slct_image
 from app_layout import get_mapbox
 
 
@@ -12,12 +12,11 @@ def callback_dropdown_year(df, dropdown_water_body):
     return years
 
 
-def callback_histogram(df, dropdown_water_body):
+def callback_histogram(df, model, dropdown_water_body):
     if not dropdown_water_body:
         histogram = _get_histogram_default()
         return histogram
     years = df.loc[dropdown_water_body, "layers"]
-    model = load_model()
     prediction = []
     prediction_dic = dict()
     for i in years:
@@ -57,7 +56,7 @@ def callback_mapbox(df, mapbox_access_token, dropdown_water_body):
     return mapbox
 
 
-def callback_pie_chart(df, dropdown_water_body, dropdown_year):
+def callback_pie_chart(df, model, dropdown_water_body, dropdown_year):
     if not dropdown_water_body:
         pie_chart = _get_pie_chart_default()
         return pie_chart
@@ -65,7 +64,6 @@ def callback_pie_chart(df, dropdown_water_body, dropdown_year):
     # get predictions from the model
     lake = slct_image(data_frame=df, slct_lake=dropdown_water_body, slct_year=dropdown_year)
     image = import_image(lake)
-    model = load_model()
     mask = model.predict(np.expand_dims(image, axis=0))
     # receiving the area for the whole image
     bounding_box = get_geom(dff)
@@ -81,7 +79,7 @@ def callback_pie_chart(df, dropdown_water_body, dropdown_year):
     return pie_chart
 
 
-def callback_satellite_image(df, dropdown_water_body, dropdown_year, slider_opacity):
+def callback_satellite_image(df, model, dropdown_water_body, dropdown_year, slider_opacity):
     figure = go.Figure()
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
@@ -106,7 +104,6 @@ def callback_satellite_image(df, dropdown_water_body, dropdown_year, slider_opac
     figure.update_layout(
         margin={"r": 60, "t": 0, "l": 0, "b": 0}
     )
-    model = load_model()
     y_pred = model.predict(np.expand_dims(image, axis=0))
     mask = y_pred.squeeze()
     colorscale = [[0, 'gold'], [0.5, 'gold'], [1, 'gold']]
