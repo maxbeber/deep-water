@@ -32,8 +32,9 @@ def get_geom(df):
         df["max_latitude"]
     ]
     coordinates = [[lat, long] for lat, long in zip (latit, longit)]
-    
-    return Polygon(coordinates)
+    polygon = Polygon(coordinates)
+
+    return polygon
 
 
 def get_sqkm(bounding_box):
@@ -73,13 +74,11 @@ def load_model():
     return unet_residual
 
 
-def slct_image(data_frame, slct_lake, slct_year):
-    dff = data_frame.loc[slct_lake, :]
-    country = dff["country"]
-    name = dff["name"]
-    year = slct_year
+def slct_image(df, lake, year):
+    country = df.loc[lake, "country"]
+    name = df.loc[lake, "name"].replace(" ", "_").lower()
     folder = "assets/lakes"
-    image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg".replace(" ", "_").lower()
+    image_path = f"{folder}/{country}_{name}_s2cloudless_{year}.jpg"
     
     return image_path
 

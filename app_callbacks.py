@@ -21,7 +21,7 @@ def callback_histogram(df, model, dropdown_water_body):
     prediction = []
     prediction_dic = dict()
     for i in years:
-        lake = slct_image(data_frame=df, slct_lake=dropdown_water_body, slct_year=i)
+        lake = slct_image(df, dropdown_water_body, i)
         image = load_image(lake)
         mask = model.predict(np.expand_dims(image, axis=0))
         water_percentage = calculate_water(mask) * 100
@@ -60,7 +60,7 @@ def callback_pie_chart(df, model, dropdown_water_body, dropdown_year):
         return pie_chart
     dff = df.loc[dropdown_water_body, :]
     # get predictions from the model
-    lake = slct_image(data_frame=df, slct_lake=dropdown_water_body, slct_year=dropdown_year)
+    lake = slct_image(df, dropdown_water_body, dropdown_year)
     image = load_image(lake)
     mask = model.predict(np.expand_dims(image, axis=0))
     # receiving the area for the whole image
@@ -90,11 +90,7 @@ def callback_satellite_image(df, model, dropdown_water_body, dropdown_year, slid
     )
     if not dropdown_water_body:
         return figure
-    lake = slct_image(
-        data_frame=df,
-        slct_lake=dropdown_water_body,
-        slct_year=dropdown_year
-        )
+    lake = slct_image(df, dropdown_water_body, dropdown_year)
     image = load_image(lake)
     figure.add_trace(
         go.Image(z=image)
