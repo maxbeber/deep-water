@@ -1,6 +1,6 @@
 import numpy as np
 import plotly.graph_objects as go
-from app_helpers import calculate_water, get_geom, get_sqkm, get_water_land_per_year, load_image, slct_image
+from app_helpers import calculate_water, ensemble_predict, get_geom, get_sqkm, get_water_land_per_year, load_image, slct_image
 from app_layout import get_mapbox
 
 
@@ -13,7 +13,7 @@ def callback_dropdown_year(df, dropdown_water_body):
     return years
 
 
-def callback_histogram(df, model, dropdown_water_body):
+def callback_histogram(df, models, dropdown_water_body):
     if not dropdown_water_body:
         histogram = _get_histogram_default()
         return histogram
@@ -23,7 +23,7 @@ def callback_histogram(df, model, dropdown_water_body):
     for i in years:
         lake = slct_image(df, dropdown_water_body, i)
         image = load_image(lake)
-        mask = model.predict(np.expand_dims(image, axis=0))
+        mask = ensemble_predict(models, image)
         water_percentage = calculate_water(mask) * 100
         prediction_dic[str(i)] = water_percentage
         prediction.append(water_percentage)
@@ -54,7 +54,7 @@ def callback_mapbox(df, mapbox_access_token, dropdown_water_body):
     return mapbox
 
 
-def callback_pie_chart(df, model, dropdown_water_body, dropdown_year):
+def callback_pie_chart(df, models, dropdown_water_body, dropdown_year):
     if not dropdown_water_body:
         pie_chart = _get_pie_chart_default()
         return pie_chart
@@ -62,7 +62,7 @@ def callback_pie_chart(df, model, dropdown_water_body, dropdown_year):
     # get predictions from the model
     lake = slct_image(df, dropdown_water_body, dropdown_year)
     image = load_image(lake)
-    mask = model.predict(np.expand_dims(image, axis=0))
+    mask = ensemble_predict(models, image)
     # receiving the area for the whole image
     bounding_box = get_geom(dff)
     image_sqkm = get_sqkm(bounding_box)
@@ -77,7 +77,7 @@ def callback_pie_chart(df, model, dropdown_water_body, dropdown_year):
     return pie_chart
 
 
-def callback_satellite_image(df, model, dropdown_water_body, dropdown_year, slider_opacity):
+def callback_satellite_image(df, models, dropdown_water_body, dropdown_year, slider_opacity):
     figure = go.Figure()
     figure.update_layout(
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
@@ -92,8 +92,7 @@ def callback_satellite_image(df, model, dropdown_water_body, dropdown_year, slid
         return figure
     lake = slct_image(df, dropdown_water_body, dropdown_year)
     image = load_image(lake)
-    y_pred = model.predict(np.expand_dims(image, axis=0))
-    mask = y_pred.squeeze()
+    mask = ensemble_predict(models, image)
     _apply_mask_contour(figure, image, mask, slider_opacity)
     
     return figure

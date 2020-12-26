@@ -6,6 +6,7 @@ import rasterio
 import tensorflow as tf
 from functools import partial
 from models import UnetResidual
+from preprocessing import CrfLabelRefiner
 from shapely.geometry import Polygon
 from shapely.ops import transform
 
@@ -16,6 +17,16 @@ def calculate_water(predicted_mask):
   water_percentage = white / (white+black)
 
   return round(water_percentage, 5)
+
+
+def ensemble_predict(models, raw_image):
+    model1, model2 = models
+    image = np.expand_dims(raw_image, axis=0)
+    y_pred_1 = model1.predict(image)
+    y_pred_2 = model2.predict(image)
+    combined_mask = _get_ensemble_mask(image, y_pred_1, y_pred_2)
+    
+    return combined_mask
 
 
 def get_geom(df):
@@ -64,14 +75,15 @@ def load_image(image):
     return image
     
 
-def load_model():
-    model_file_name = 'saved_models/unet-residual-large-dice.h5'
-    model_name = 'foo'
-    image_size = (256, 256)
-    unet_residual = UnetResidual(model_name, image_size, version=2)
-    unet_residual.restore(model_file_name)
-    
-    return unet_residual
+def load_models():
+    model_name = 'unet-residual-large-dice'
+    model_file_name = 'unet-residual-large-dice.h5'
+    unet_residual = _load_model(model_name, model_file_name)
+    model_name = 'unet-residual-large-crf-dice'
+    model_file_name = 'unet-residual-large-crf-dice.h5'
+    unet_residual_crf = _load_model(model_name, model_file_name)
+
+    return (unet_residual, unet_residual_crf)
 
 
 def slct_image(df, lake, year):
@@ -91,13 +103,23 @@ def load_dataset(file_path):
     return df
 
 
-def model_prediction(model, image):
-    image_size = (256, 256)
-    with rasterio.open(image) as dataset:
-        bands = dataset.read()
-        raw_image = np.ma.transpose(bands, [1, 2, 0])
-        original_image = tf.Variable(raw_image)
-        resized_image = tf.keras.preprocessing.image.smart_resize(original_image, image_size)
-        y_pred = model.predict(np.expand_dims(resized_image, axis=0))
+def _get_ensemble_mask(raw_image, y_pred_1, y_pred_2):
+    #crf_model = CrfLabelRefiner()
+    #image = np.squeeze(raw_image, axis=0)
+    pred_1 = np.squeeze(y_pred_1, axis=0)
+    pred_2 = np.squeeze(y_pred_2, axis=0)
+    mask = np.maximum(pred_1, pred_2)
+    mask[mask >= 0.5] = 1 
+    mask[mask < 0.5] = 0
+    #mask = crf_model.refine(image, mask)
+    mask = np.squeeze(mask, -1)
+
+    return mask
+
+
+def _load_model(model_name, model_file_name, image_size=(256, 256)):
+    model_file_path = f'saved_models/{model_file_name}'
+    unet_residual = UnetResidual(model_name, image_size, version=2)
+    unet_residual.restore(model_file_path)
     
-    return y_pred
+    return unet_residual
