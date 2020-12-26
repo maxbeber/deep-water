@@ -9,6 +9,7 @@ def callback_dropdown_year(df, dropdown_water_body):
         return [{"label": str(n), "value": str(n)} for n in range(2016, 2020)]
     layers = df.loc[dropdown_water_body, "layers"]
     years = [{"label": str(n), "value": str(n)} for n in layers]
+
     return years
 
 
@@ -49,6 +50,7 @@ def callback_mapbox(df, mapbox_access_token, dropdown_water_body):
             'style': 'outdoors',
             'zoom': 6},
         showlegend = True)
+
     return mapbox
 
 
@@ -126,6 +128,7 @@ def _get_histogram_default():
         yaxis={'showgrid': False, 'zeroline': False, 'visible': False},
         plot_bgcolor="#282b38",
         paper_bgcolor="#282b38")
+
     return figure
 
 
@@ -193,6 +196,7 @@ def _get_pie_chart_default():
         yaxis={'showgrid': False, 'zeroline': False, 'visible': False},
         plot_bgcolor="#282b38",
         paper_bgcolor="#282b38")
+
     return figure
 
 
