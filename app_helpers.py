@@ -2,10 +2,10 @@ import numpy as np
 import os
 import pandas as pd
 import pyproj
-import rasterio
 import tensorflow as tf
 from functools import partial
 from models import UnetResidual
+from PIL import Image
 from preprocessing import CrfLabelRefiner
 from shapely.geometry import Polygon
 from shapely.ops import transform
@@ -67,12 +67,15 @@ def get_water_land_per_year(fraction, area):
     return (water_sqkm, land_sqkm)
 
 
-def load_image(image):
-    dataset = rasterio.open(image)
-    bands = dataset.read()
-    image = np.ma.transpose(bands, [1, 2, 0])
+def load_image(image_path):
+    raw_image = Image.open(image_path)
+    raw_image = np.array(raw_image)
+    if raw_image.ndim == 2:
+        raw_image = np.stack((raw_image,) * 3, axis=-1)
+    else:
+        raw_image = raw_image[:, :, :3]
     
-    return image
+    return raw_image
     
 
 def load_models():
