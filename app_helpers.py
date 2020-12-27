@@ -104,15 +104,16 @@ def load_dataset(file_path):
 
 
 def _get_ensemble_mask(raw_image, y_pred_1, y_pred_2):
-    #crf_model = CrfLabelRefiner()
-    #image = np.squeeze(raw_image, axis=0)
+    crf_model = CrfLabelRefiner()
+    image = np.squeeze(raw_image, axis=0)
     pred_1 = np.squeeze(y_pred_1, axis=0)
     pred_2 = np.squeeze(y_pred_2, axis=0)
     mask = np.maximum(pred_1, pred_2)
     mask[mask >= 0.5] = 1 
     mask[mask < 0.5] = 0
-    #mask = crf_model.refine(image, mask)
-    mask = np.squeeze(mask, -1)
+    image = image.copy(order='C')
+    mask = mask.copy(order='C')
+    mask = crf_model.refine(image, mask)
 
     return mask
 
