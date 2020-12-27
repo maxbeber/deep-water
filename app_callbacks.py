@@ -1,6 +1,6 @@
 import numpy as np
 import plotly.graph_objects as go
-from app_helpers import calculate_water, ensemble_predict, get_geom, get_sqkm, get_water_land_per_year, load_image, slct_image
+from app_helpers import calculate_water, ensemble_predict, get_bounding_box, get_bounding_box_area, get_water_land_per_year, load_image, slct_image
 from app_layout import get_mapbox
 
 
@@ -64,8 +64,8 @@ def callback_pie_chart(df, models, dropdown_water_body, dropdown_year):
     image = load_image(lake)
     mask = ensemble_predict(models, image)
     # receiving the area for the whole image
-    bounding_box = get_geom(dff)
-    image_sqkm = get_sqkm(bounding_box)
+    bounding_box = get_bounding_box(dff)
+    image_sqkm = get_bounding_box_area(bounding_box)
     # calculating the area for water and land
     water_percentage = calculate_water(mask)
     water_sqkm, land_sqkm = get_water_land_per_year(fraction=water_percentage, area=image_sqkm)

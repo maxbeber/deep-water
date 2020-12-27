@@ -1,12 +1,12 @@
 import numpy as np
 import os
 import pandas as pd
-import pyproj
 import tensorflow as tf
 from functools import partial
 from models import UnetResidual
 from PIL import Image
 from preprocessing import CrfLabelRefiner
+from pyproj import CRS, Geod
 from shapely.geometry import Polygon
 from shapely.ops import transform
 
@@ -29,35 +29,32 @@ def ensemble_predict(models, raw_image):
     return combined_mask
 
 
-def get_geom(df):
-    longit = [
+def get_bounding_box(df):
+    longitude = [
         df["min_longitude"], 
-        df["max_longitude"], 
+        df["min_longitude"], 
         df["max_longitude"],
-        df["min_longitude"] 
+        df["max_longitude"] 
     ]
-    latit = [
+    latitude = [
         df["min_latitude"], 
-        df["min_latitude"], 
+        df["max_latitude"], 
         df["max_latitude"],
-        df["max_latitude"]
+        df["min_latitude"]
     ]
-    coordinates = [[lat, long] for lat, long in zip (latit, longit)]
+    coordinates = [[lat, long] for lat, long in zip (latitude, longitude)]
     polygon = Polygon(coordinates)
 
     return polygon
 
 
-def get_sqkm(bounding_box):
-    proj = partial(
-        pyproj.transform, 
-        pyproj.Proj(init='epsg:4326'),
-        pyproj.Proj(init='epsg:4088')
-    )
-    bounding_box_new = transform(proj, bounding_box)
-    sqm = bounding_box_new.area / 1000000
+def get_bounding_box_area(bounding_box):
+    crs_4326 = CRS('epsg:4326')
+    geod_wgs84 = crs_4326.get_geod()
+    polygon_area_m2, _ = geod_wgs84.geometry_area_perimeter(bounding_box)
+    polygon_area_km2 = polygon_area_m2 / 1000000.0
 
-    return sqm
+    return polygon_area_km2
 
 
 def get_water_land_per_year(fraction, area):
