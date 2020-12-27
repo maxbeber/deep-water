@@ -4,6 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import tools.dash_reusable_components as drc
 
+
 MAP_STYLE= 'outdoors'
 
 
