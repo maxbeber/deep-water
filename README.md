@@ -2,6 +2,8 @@
 
 This projects track changes in water level using satellite imagery and deep learning.
 
+A demo video is available [here](https://drive.google.com/file/d/1iATFNuEvBrYWUtnZvZTDVe_R_z8LpgAA/view?usp=sharing).
+
 ## Virtual Environement
 
 To setup your local environemnt it is recommended to create a virtual environment using condas. Make sure you have it installed on your computer and then execute the command below:
