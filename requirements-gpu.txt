@@ -6,4 +6,4 @@ numpy
 Pillow
 rasterio
 requests
-tensorflow-gpu==2.3
+tensorflow-gpu==2.4
