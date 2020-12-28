@@ -168,5 +168,5 @@ s2cloudless_label_augmented_imagery/
 # Jupyter Notebooks
 *.ipynb
 
-# Savev models
-saved_models/
+# Saved models
+saved_models/*.h5
