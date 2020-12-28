@@ -7,8 +7,12 @@ A demo video is available [here](https://drive.google.com/file/d/1iATFNuEvBrYWUt
 **Table of Content:**
 1. Introduction
 2. Virtual Environment
-3. Datasets.
-4. Dashboard
+3. Datasets
+4. Data Augmentation
+5. Baseline
+6. Model Optimization
+7. Dashboard
+8. Next Steps
 
 ## Introduction
 
@@ -43,3 +47,12 @@ The virtual environment can be deactivate in a single line of code.
 The dashboard can be executed with the following command:
 
 ```python app.py```
+
+## Next Steps
+
+The topics below can be studied and analysed in the context of the project:
+
+- Apply post-processing techniques such as defrosting;
+- Collect satellite imagery with clouds;
+- Collect more data using the [sentinelsat](https://pypi.org/project/sentinelsat/) package;
+- Estimate the volume of a given lake;
