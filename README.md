@@ -7,14 +7,16 @@ A demo video is available [here](https://drive.google.com/file/d/1iATFNuEvBrYWUt
 **Table of Content:**
 1. Introduction
 2. Virtual Environment
-3. Tbd.
-4. Run the Dashboard
+3. Datasets.
+4. Dashboard
 
 ## Introduction
 
 Tbd.
 
 > Freshwater is the most important resource for mankind, cross-cutting all social, economic and environmental activities. It is a condition for all life on our planet, an enabling limiting factor for any social and technological development, a possible source of welfare or misery, cooperation or conflict. (Unesco)
+
+The exponenetial growth of satellite-based information over the past four decades has provided unprecedented opportunities to improve water resource manegement.
 
 ## Virtual Environement
 
@@ -31,3 +33,13 @@ After the enviroment is created, it is necessary to activate the virtual environ
 The virtual environment can be deactivate in a single line of code.
 
 ```conda deactivate```
+
+## Datasets
+
+[NWPU-Resic45](https://www.tensorflow.org/datasets/catalog/resisc45) dataset is a pubicly available benchmark for Remote Sensing Image Scene Classification (RESIC), created by [Nortwestern Polytechnical University](https://en.nwpu.edu.cn/) (NWPU). This dataset contains 31,500 images, covering 45 scene classes (including water classes) with 700 images in each class.
+
+## Dashboard
+
+The dashboard can be executed with the following command:
+
+```python app.py```
