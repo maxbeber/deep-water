@@ -78,10 +78,10 @@ def load_image(image_path):
 def load_models():
     model_name = 'unet-residual-large-dice'
     model_file_name = 'unet-residual-large-dice.h5'
-    unet_residual = _load_model(model_name, model_file_name)
+    unet_residual = _load_model(model_name, model_file_name, version=2)
     model_name = 'unet-residual-large-crf-dice'
     model_file_name = 'unet-residual-large-crf-dice.h5'
-    unet_residual_crf = _load_model(model_name, model_file_name)
+    unet_residual_crf = _load_model(model_name, model_file_name, version=2)
 
     return (unet_residual, unet_residual_crf)
 
@@ -118,7 +118,7 @@ def _get_ensemble_mask(raw_image, y_pred_1, y_pred_2):
     return mask
 
 
-def _load_model(model_name, model_file_name, image_size=(256, 256), version=2):
+def _load_model(model_name, model_file_name, image_size=(256, 256), version=1):
     model_file_path = f'saved_models/{model_file_name}'
     unet_residual = UnetResidual(model_name, image_size, version=version)
     unet_residual.restore(model_file_path)
