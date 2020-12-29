@@ -87,7 +87,7 @@ def load_models():
     return (unet_residual, unet_residual_crf)
 
 
-def get_image_full_path(df, lake, year):
+def get_image_path(df, lake, year):
     country = df.loc[lake, "country"]
     name = df.loc[lake, "name"].replace(" ", "_").lower()
     folder = "assets/lakes"
