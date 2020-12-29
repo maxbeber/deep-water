@@ -170,3 +170,6 @@ s2cloudless_label_augmented_imagery/
 
 # Saved models
 saved_models/*.h5
+
+# Presentation
+deep-water-presentation.pptx
