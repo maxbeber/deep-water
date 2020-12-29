@@ -71,6 +71,7 @@ def load_image(image_path):
         raw_image = np.stack((raw_image,) * 3, axis=-1)
     else:
         raw_image = raw_image[:, :, :3]
+    raw_image = raw_image / 255.0
     
     return raw_image
     
@@ -86,7 +87,7 @@ def load_models():
     return (unet_residual, unet_residual_crf)
 
 
-def slct_image(df, lake, year):
+def get_image_full_path(df, lake, year):
     country = df.loc[lake, "country"]
     name = df.loc[lake, "name"].replace(" ", "_").lower()
     folder = "assets/lakes"

@@ -1,6 +1,6 @@
 import numpy as np
 import plotly.graph_objects as go
-from app_helpers import calculate_water, ensemble_predict, get_bounding_box, get_bounding_box_area, get_water_land_per_year, load_image, slct_image
+from app_helpers import calculate_water, ensemble_predict, get_bounding_box, get_bounding_box_area, get_image_full_path, get_water_land_per_year, load_image
 from app_layout import get_mapbox
 
 
@@ -21,7 +21,7 @@ def callback_histogram(df, models, dropdown_water_body):
     prediction = []
     prediction_dic = dict()
     for i in years:
-        lake = slct_image(df, dropdown_water_body, i)
+        lake = get_image_full_path(df, dropdown_water_body, i)
         image = load_image(lake)
         mask = ensemble_predict(models, image)
         water_percentage = calculate_water(mask) * 100
@@ -60,7 +60,7 @@ def callback_pie_chart(df, models, dropdown_water_body, dropdown_year):
         return pie_chart
     dff = df.loc[dropdown_water_body, :]
     # get predictions from the model
-    lake = slct_image(df, dropdown_water_body, dropdown_year)
+    lake = get_image_full_path(df, dropdown_water_body, dropdown_year)
     image = load_image(lake)
     mask = ensemble_predict(models, image)
     # receiving the area for the whole image
@@ -90,7 +90,7 @@ def callback_satellite_image(df, models, dropdown_water_body, dropdown_year, sli
     )
     if not dropdown_water_body:
         return figure
-    lake = slct_image(df, dropdown_water_body, dropdown_year)
+    lake = get_image_full_path(df, dropdown_water_body, dropdown_year)
     image = load_image(lake)
     mask = ensemble_predict(models, image)
     _apply_mask_contour(figure, image, mask, slider_opacity)
@@ -100,6 +100,7 @@ def callback_satellite_image(df, models, dropdown_water_body, dropdown_year, sli
 
 def _apply_mask_contour(figure, image, mask, slider_opacity):
     colorscale = [[0, 'gold'], [0.5, 'gold'], [1, 'gold']]
+    image = 255 * image
     figure.add_trace(
         go.Image(z=image)
     )
