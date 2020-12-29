@@ -128,6 +128,19 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# NWPU dataset
+NWPU_images.zip
+nwpu_images/
+nwpu_augmented_images/
+nwpu_label_images/
+nwpu_label_augmented_images/
+
+# Sentinel-2 Cloudless dataset
+s2cloudless_imagery/
+s2cloudless_augmented_imagery/
+s2cloudless_label_imagery/
+s2cloudless_label_augmented_imagery/
+
 # DS Store
 .DS_Store
 
@@ -140,30 +153,17 @@ deep-water.code-workspace
 # Visual studio Code settings
 .vscode/
 
+# Baselines
+@baselines/
+
+# Milestones notebooks
+@milestones/
+
 # Training files
 @training/
 
 # Annotations
 annotations/
-
-# Baselines
-@baselines/
-
-# NWPU dataset
-NWPU_images.zip
-nwpu_images/
-nwpu_augmented_images/
-nwpu_label_images/
-nwpu_label_augmented_images/
-
-# Milestones notebooks
-@milestones/
-
-# Sentinel-2 Cloudless dataset
-s2cloudless_imagery/
-s2cloudless_augmented_imagery/
-s2cloudless_label_imagery/
-s2cloudless_label_augmented_imagery/
 
 # Jupyter Notebooks
 *.ipynb
