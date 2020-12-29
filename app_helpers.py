@@ -118,9 +118,9 @@ def _get_ensemble_mask(raw_image, y_pred_1, y_pred_2):
     return mask
 
 
-def _load_model(model_name, model_file_name, image_size=(256, 256)):
+def _load_model(model_name, model_file_name, image_size=(256, 256), version=2):
     model_file_path = f'saved_models/{model_file_name}'
-    unet_residual = UnetResidual(model_name, image_size, version=2)
+    unet_residual = UnetResidual(model_name, image_size, version=version)
     unet_residual.restore(model_file_path)
     
     return unet_residual
