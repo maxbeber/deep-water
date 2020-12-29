@@ -11,9 +11,9 @@ dependencies:
   - python=3.8.5
   - dash
   - pip:
-      - git+https://github.com/lucasb-eyer/pydensecrf.git
       - cython
       - Pillow
       - rasterio
       - requests
       - tensorflow==2.4
+      - git+https://github.com/lucasb-eyer/pydensecrf.git
