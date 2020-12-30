@@ -18,7 +18,7 @@ A demo video is available [here](https://drive.google.com/file/d/1iATFNuEvBrYWUt
 
 Tbd.
 
-> Freshwater is the most important resource for mankind, cross-cutting all social, economic and environmental activities. It is a condition for all life on our planet, an enabling limiting factor for any social and technological development, a possible source of welfare or misery, cooperation or conflict. (Unesco)
+> Freshwater is the most important resource for mankind, cross-cutting all social, economic and environmental activities. It is a condition for all life on our planet, an enabling limiting factor for any social and technological development, a possible source of welfare or misery, cooperation or conflict. (UNESCO)
 
 The exponenetial growth of satellite-based information over the past four decades has provided unprecedented opportunities to improve water resource manegement.
 
