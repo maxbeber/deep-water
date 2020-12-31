@@ -6,12 +6,13 @@ This project aims to track changes in water level using satellite imagery and de
 1. Introduction
 2. Datasets
 3. Data Augmentation
-4. Baseline
-5. Model Optimization
-6. Dashboard
-7. Technical Stack
-8. Virtual Environment
-9. Next Steps
+4. Metrics
+5. Baseline
+6. Model Optimization
+7. Dashboard
+8. Technical Stack
+9. Virtual Environment
+10. Next Steps
 
 ## Introduction
 
@@ -48,13 +49,22 @@ The second dataset is a time-series of cloudless Sentinel-2 imagery including 17
 
 The following techniques have been applied during training:
 
-Height shift up to 30%
+- Height shift up to 30%;
 - Horizontal flip;
 - Rotation up to 45 degrees;
 - No shear;
 - Vertical flip;
 - Width shift up to 30%;
 - Zoom between 75% and 125%.
+
+## Metrics
+
+The following metrics have been used to evaluate the model:
+
+- Jaccard Index
+- Dice Coefficient
+
+More information about these metrics can be found [here](https://towardsdatascience.com/metrics-to-evaluate-your-semantic-segmentation-model-6bcb99639aa2).
 
 ## Baseline
 
