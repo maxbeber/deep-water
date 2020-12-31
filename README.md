@@ -59,7 +59,7 @@ The following techniques have been applied during training:
 
 ## Metrics
 
-The following metrics have been used to evaluate the model:
+The following metrics have been used to evaluate the semantic segmenation model:
 
 - Jaccard Index
 - Dice Coefficient
@@ -98,7 +98,7 @@ The following libraries are required to create the virtual environment. The crea
 - Matplotlib
 - NumPy
 - Pillow
-- Pydensecrf
+- [Pydensecrf](https://github.com/lucasb-eyer/pydensecrf)
 - Rasterio
 - Requests
 - Tensorflow 2.4
