@@ -1,6 +1,6 @@
 # Deep Water
 
-This project aims to track changes in water level using satellite imagery and deep learning. As part of my studies, I worked on this project with my colleague Karl as part of our portfolio project of the Data Science Retreat. The retreat consists of a three months intensive in-person bootcamp in Berlin.
+This project aims to track changes in water level using satellite imagery and deep learning. As part of my studies, I worked on this project with my colleague Karl as part of our portfolio project of the Data Science Retreat. The retreat consists of a three months intensive in-person Data Science bootcamp in Berlin, Germany.
 
 **Table of Content:**
 1. Introduction
@@ -46,7 +46,30 @@ The second dataset is a time-series of cloudless Sentinel-2 imagery including 17
 
 ## Data Augmentation
 
-The following T
+The following techniques have been applied during training:
+
+Height shift up to 30%
+- Horizontal flip;
+- Rotation up to 45 degrees;
+- No shear;
+- Vertical flip;
+- Width shift up to 30%;
+- Zoom between 75% and 125%.
+
+## Baseline
+
+The baseline consists of a simple U-Net model architecture. This strategy allow us to modify the model for our own purposes and fine-tunning it as necessary for our development purposes. By using this network architecture, we could spend more time understanding the optimization strategies.
+
+## Model Optimization
+
+The following strategies have been explored:
+1. Using Early Stopping and Adaptive Learning Rates;
+2. Using a bigger model (and dropout);
+3. Using regularization (Batch Normalization);
+4. Using residual connections;
+4. Dealing with class imbalance using dice loss;
+6. Refining label images using CRFs;
+7. Ensemble predictions.
 
 ## Dashboard
 
