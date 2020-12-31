@@ -9,10 +9,11 @@ This project aims to track changes in water level using satellite imagery and de
 4. Metrics
 5. Baseline
 6. Model Optimization
-7. Dashboard
-8. Technical Stack
-9. Virtual Environment
-10. Next Steps
+7. Results
+8. Dashboard
+9. Technical Stack
+10. Virtual Environment
+11. Next Steps
 
 ## Introduction
 
@@ -73,13 +74,14 @@ The baseline consists of a simple U-Net model architecture. This strategy allow 
 ## Model Optimization
 
 The following strategies have been explored:
-1. Using Early Stopping and Adaptive Learning Rates;
-2. Using a bigger model (and dropout);
-3. Using regularization (Batch Normalization);
-4. Using residual connections;
-4. Dealing with class imbalance using dice loss;
-6. Refining label images using CRFs;
-7. Ensemble predictions.
+
+1. Using Early Stopping and Adaptive Learning Rates
+2. Using a bigger model (and dropout)
+3. Using regularization (Batch Normalization)
+4. Using residual connections
+4. Dealing with class imbalance using dice loss
+6. Refining label images using CRFs
+7. Ensemble predictions
 
 ## Dashboard
 
@@ -88,6 +90,18 @@ The dashboard can be executed with the following command:
 ```python app.py```
 
 A demo is available [here](https://drive.google.com/file/d/1iATFNuEvBrYWUtnZvZTDVe_R_z8LpgAA/view?usp=sharing).
+
+**Use Case 1: Lake Copais, Greece**
+
+![Use Case 1: Lake Copais](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/use-case-lake-copais.png)
+
+**Use Case 2: Lake Di Cancano, Italy**
+
+![Use Case 2: Lake Di Cancano](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/use-case-lake-di-cancano.png)
+
+**Use Case 3: Lake Salda, Turkey**
+
+![Use Case 3: Lake Salda](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/use-case-lake-salda.png)
 
 ## Technical Stack
 
