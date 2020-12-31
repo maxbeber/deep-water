@@ -16,7 +16,7 @@ A demo video is available [here](https://drive.google.com/file/d/1iATFNuEvBrYWUt
 
 ## Introduction
 
-Tbd.
+The motivation for this study is this [article](https://www.nationalgeographic.com/magazine/2018/03/drying-lakes-climate-change-global-warming-drought/) written in March 2018 from the [National Geographic](https://www.nationalgeographic.com/) magazine.
 
 > Freshwater is the most important resource for mankind, cross-cutting all social, economic and environmental activities. It is a condition for all life on our planet, an enabling limiting factor for any social and technological development, a possible source of welfare or misery, cooperation or conflict. (UNESCO)
 
