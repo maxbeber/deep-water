@@ -10,7 +10,7 @@ This project aims to track changes in water level using satellite imagery and de
 5. Metrics
 6. Baseline
 7. Model Optimization
-8. Results
+8. Model Results
 9. Dashboard
 10. Technical Stack
 11. Virtual Environment
@@ -124,6 +124,14 @@ Model performance using binary cross entropy as the loss function:
 Model performance using dice loss as the loss function:
 
 ![Model optimization using dice loss](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-optimization-dice-loss.png)
+
+## Model Results
+
+The test set to measure the results presented below is based on 182 images from Sentinel-2 dataset.
+
+U-Net Residual trained without label correction:
+
+![Model results: unet residual large dice](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-results-unet-residual-large-dice.png)
 
 ## Dashboard
 
