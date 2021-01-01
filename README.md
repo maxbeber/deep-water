@@ -20,7 +20,7 @@ This project aims to track changes in water level using satellite imagery and de
 
 The motivation for this project is the article [Some of the World's Biggest Lakes Are Drying Up](https://www.nationalgeographic.com/magazine/2018/03/drying-lakes-climate-change-global-warming-drought/) found in the March 2018 edition of the [National Geographic](https://www.nationalgeographic.com/) magazine.
 
-> Freshwater is the most important resource for mankind, cross-cutting all social, economic and environmental activities. It is a condition for all life on our planet, an enabling limiting factor for any social and technological development, a possible source of welfare or misery, cooperation or conflict. (UNESCO)
+> Freshwater is the most important resource for mankind, cross-cutting all social, economic and environmental activities. It is a condition for all life on our planet, an enabling limiting factor for any social and technological development, a possible source of welfare or misery, cooperation or conflict. ([UNESCO](https://en.unesco.org/))
 
 The exponenetial growth of satellite-based information over the past four decades has provided unprecedented opportunities to improve water resource manegement.
 
