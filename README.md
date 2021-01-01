@@ -98,6 +98,8 @@ Model performance:
 
 ![Baseline results using image augmentation](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/baseline-with-augmentation.png)
 
+It can be seen clearly that the baseline model overfits using image augmentation.
+
 ## Model Optimization
 
 The following strategies have been explored:
@@ -109,6 +111,14 @@ The following strategies have been explored:
 4. Dealing with class imbalance using dice loss
 6. Refining label images using CRFs
 7. Ensemble predictions
+
+Model performance using binary cross entropy as the loss function:
+
+![Model optimization using binary cross entropy](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-optimization-binary-cross-entropy.png)
+
+Model performance using dice loss as the loss function:
+
+![Model optimization using dice loss](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-optimization-dice-loss.png)
 
 ## Dashboard
 
@@ -165,7 +175,7 @@ The virtual environment can be deactivate in a single line of code.
 
 The topics below can be studied and analysed in the context of the project:
 
-- Apply post-processing techniques such as defrosting;
-- Collect satellite imagery with clouds;
-- Collect more data using the [sentinelsat](https://pypi.org/project/sentinelsat/) package;
-- Estimate the volume of a given water body;
+- Apply post-processing techniques such as defrosting
+- Collect satellite imagery with clouds
+- Collect more data using the [sentinelsat](https://pypi.org/project/sentinelsat/) package.
+- Estimate the volume of a given water body.
