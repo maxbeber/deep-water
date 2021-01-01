@@ -112,6 +112,11 @@ The following strategies have been explored:
 6. Refining label images using CRFs
 7. Ensemble predictions
 
+Train/Validation/Test splits:
+- training set: 489 images from Resic-45 dataset randomly transformed at each epoch using one of the techniques described in the section _Data Augmentation_
+- validation set: 211 images from Resic-45 dataset
+- test set: 359 images from Sentinel-2 dataset
+
 Model performance using binary cross entropy as the loss function:
 
 ![Model optimization using binary cross entropy](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-optimization-binary-cross-entropy.png)
