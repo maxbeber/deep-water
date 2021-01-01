@@ -5,15 +5,16 @@ This project aims to track changes in water level using satellite imagery and de
 **Table of Content:**
 1. Introduction
 2. Datasets
-3. Data Augmentation
-4. Metrics
-5. Baseline
-6. Model Optimization
-7. Results
-8. Dashboard
-9. Technical Stack
-10. Virtual Environment
-11. Next Steps
+3. Labeling
+4. Data Augmentation
+5. Metrics
+6. Baseline
+7. Model Optimization
+8. Results
+9. Dashboard
+10. Technical Stack
+11. Virtual Environment
+12. Next Steps
 
 ## Introduction
 
@@ -45,6 +46,10 @@ The second dataset is a time-series of cloudless Sentinel-2 imagery including 17
 - [Lake Burdur](https://en.wikipedia.org/wiki/Lake_Burdur), Turkey
 - [Lake Mendocino](https://en.wikipedia.org/wiki/Lake_Mendocino), USA
 - [Elephant Butte Reservoir](https://en.wikipedia.org/wiki/Elephant_Butte_Reservoir), USA
+
+## Labeling
+
+The [MakeSense](https://www.makesense.ai/) online tool has been used for labeling both datasets images. It only requires a web browser and you are ready to go. It's an excellent choice for small computer vision deep learning projects, making the process of preparing the dataset easier and faster.
 
 ## Data Augmentation
 
@@ -112,6 +117,7 @@ The following libraries are required to create the virtual environment. The crea
 - Matplotlib
 - NumPy
 - Pillow
+- Plotly
 - [Pydensecrf](https://github.com/lucasb-eyer/pydensecrf)
 - Rasterio
 - Requests
@@ -140,4 +146,4 @@ The topics below can be studied and analysed in the context of the project:
 - Apply post-processing techniques such as defrosting;
 - Collect satellite imagery with clouds;
 - Collect more data using the [sentinelsat](https://pypi.org/project/sentinelsat/) package;
-- Estimate the volume of a given lake;
+- Estimate the volume of a given water body;
