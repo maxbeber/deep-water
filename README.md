@@ -79,9 +79,9 @@ The baseline consists of a simple U-Net model architecture. This strategy allow 
 ### Without Data Augmentation
 
 Train/Validation/Test splits based on Resic-45 dataset only:
-- training set: 489 images
-- validation set: 140 images
-- test set: 71 images
+- training set: 489 images;
+- validation set: 140 images;
+- test set: 71 images.
 
 Model performance:
 
@@ -90,9 +90,9 @@ Model performance:
 ### With Data Augmentation
 
 Train/Validation/Test splits based on Resic-45 dataset only:
-- training set: 979 images
-- validation set: 280 images
-- test set: 122 images
+- training set: 979 images;
+- validation set: 280 images;
+- test set: 122 images.
 
 Model performance:
 
@@ -113,9 +113,9 @@ The following strategies have been explored:
 7. Ensemble predictions
 
 Train/Validation/Test splits:
-- training set: 489 images from Resic-45 dataset randomly transformed at each epoch using one of the techniques described in the section _Data Augmentation_
-- validation set: 211 images from Resic-45 dataset
-- test set: 359 images from Sentinel-2 dataset
+- training set: 489 images from Resic-45 dataset randomly transformed at each epoch using one of the techniques described in the section _Data Augmentation_;
+- validation set: 211 images from Resic-45 dataset;
+- test set: 359 images from Sentinel-2 dataset.
 
 Model performance using binary cross entropy as the loss function:
 
