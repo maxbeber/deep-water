@@ -129,17 +129,19 @@ Model performance using dice loss as the loss function:
 
 The test set to measure the results presented below is based on 182 images from Sentinel-2 dataset.
 
-U-Net residual model trained without label correction:
+Model 1: U-Net residual model trained without label correction:
 
 ![Model results: unet residual large dice](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-results-unet-residual-large-dice.png)
 
-U-Net residual model trained with label correction using Conditional Random Fields:
+Model 2: U-Net residual model trained with label correction using Conditional Random Fields:
 
 ![Model results: unet residual large dice](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-results-unet-residual-large-dice-with-crf.png)
 
-Ensemble model based on the two previous models:
+Model 3: Ensemble model based on the two previous models:
 
 ![Model results: unet residual large dice](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/model-results-combined-model.png)
+
+The ensemble model is the one with highest accuracy (97.15%) and is the one used in the Dashboard application that will be covered in the next section.
 
 ## Dashboard
 
