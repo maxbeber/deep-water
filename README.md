@@ -29,23 +29,23 @@ The exponenetial growth of satellite-based information over the past four decade
 [NWPU-Resic-45](https://www.tensorflow.org/datasets/catalog/resisc45) dataset is a pubicly available benchmark for Remote Sensing Image Scene Classification (RESIC), created by [Nortwestern Polytechnical University](https://en.nwpu.edu.cn/) (NWPU). This dataset contains 31,500 images, covering 45 scene classes (including water classes) with 700 images in each class.
 
 The second dataset is a time-series of cloudless Sentinel-2 imagery including 17 criticaly endangered lakes as following:
-- [Lake Poopo](https://en.wikipedia.org/wiki/Lake_Poop%C3%B3), Bolivia
-- [Lake Urmia](https://en.wikipedia.org/wiki/Lake_Urmia), Iran
-- [Lake Mojave](https://en.wikipedia.org/wiki/Lake_Mohave), USA
-- [Aral sea](https://en.wikipedia.org/wiki/Aral_Sea), Kazahkstan
-- [Lake Copais](https://en.wikipedia.org/wiki/Lake_Copais), Greece
-- [Lake Ramganga](https://en.wikipedia.org/wiki/Ramganga_Dam), India
-- [Qinghai Lake](https://en.wikipedia.org/wiki/Qinghai_Lake), China
-- [Salton Sea](https://en.wikipedia.org/wiki/Salton_Sea), USA
-- [Lake Faguibine](https://earthobservatory.nasa.gov/images/8991/drying-of-lake-faguibine-mali), Mali
-- [Mono Lake](https://en.wikipedia.org/wiki/Mono_Lake), USA
-- [Walker Lake](https://en.wikipedia.org/wiki/Walker_Lake_(Nevada)), USA
-- [Lake Balaton](https://en.wikipedia.org/wiki/Lake_Balaton), Hungary
-- [Lake Koroneia](https://en.wikipedia.org/wiki/Lake_Koroneia), Greece
-- [Lake Salda](https://en.wikipedia.org/wiki/Lake_Salda), Turkey
-- [Lake Burdur](https://en.wikipedia.org/wiki/Lake_Burdur), Turkey
-- [Lake Mendocino](https://en.wikipedia.org/wiki/Lake_Mendocino), USA
-- [Elephant Butte Reservoir](https://en.wikipedia.org/wiki/Elephant_Butte_Reservoir), USA
+- [Lake Poopo](https://en.wikipedia.org/wiki/Lake_Poop%C3%B3), Bolivia;
+- [Lake Urmia](https://en.wikipedia.org/wiki/Lake_Urmia), Iran;
+- [Lake Mojave](https://en.wikipedia.org/wiki/Lake_Mohave), USA;
+- [Aral sea](https://en.wikipedia.org/wiki/Aral_Sea), Kazahkstan;
+- [Lake Copais](https://en.wikipedia.org/wiki/Lake_Copais), Greece;
+- [Lake Ramganga](https://en.wikipedia.org/wiki/Ramganga_Dam), India;
+- [Qinghai Lake](https://en.wikipedia.org/wiki/Qinghai_Lake), China;
+- [Salton Sea](https://en.wikipedia.org/wiki/Salton_Sea), USA;
+- [Lake Faguibine](https://earthobservatory.nasa.gov/images/8991/drying-of-lake-faguibine-mali), Mali;
+- [Mono Lake](https://en.wikipedia.org/wiki/Mono_Lake), USA;
+- [Walker Lake](https://en.wikipedia.org/wiki/Walker_Lake_(Nevada)), USA;
+- [Lake Balaton](https://en.wikipedia.org/wiki/Lake_Balaton), Hungary;
+- [Lake Koroneia](https://en.wikipedia.org/wiki/Lake_Koroneia), Greece;
+- [Lake Salda](https://en.wikipedia.org/wiki/Lake_Salda), Turkey;
+- [Lake Burdur](https://en.wikipedia.org/wiki/Lake_Burdur), Turkey;
+- [Lake Mendocino](https://en.wikipedia.org/wiki/Lake_Mendocino), USA;
+- [Elephant Butte Reservoir](https://en.wikipedia.org/wiki/Elephant_Butte_Reservoir), USA.
 
 ## Labeling
 
@@ -104,13 +104,13 @@ It can be seen clearly that the baseline model overfits using image augmentation
 
 The following strategies have been explored:
 
-1. Using Early Stopping and adaptive learning rates
-2. Using a bigger model (and dropout)
-3. Using regularization (Batch Normalization)
-4. Using residual connections
-4. Dealing with class imbalance using dice loss
-6. Refining label images using CRFs
-7. Ensemble predictions
+1. Using Early Stopping and adaptive learning rates;
+2. Using a bigger model (and dropout);
+3. Using regularization (Batch Normalization);
+4. Using residual connections;
+4. Dealing with class imbalance using dice loss;
+6. Refining label images using CRFs;
+7. Ensemble predictions.
 
 Train/Validation/Test splits:
 - training set: 489 images from Resic-45 dataset randomly transformed at each epoch using one of the techniques described in the fourth section _Data Augmentation_;
@@ -196,7 +196,7 @@ The virtual environment can be deactivate in a single line of code.
 
 The topics below can be studied and analysed in the context of the project:
 
-- Apply post-processing techniques such as defrosting
-- Collect satellite imagery with clouds
-- Collect more data using the [sentinelsat](https://pypi.org/project/sentinelsat/) package.
+- Apply post-processing techniques such as defrosting;
+- Collect satellite imagery with clouds;
+- Collect more data using the [sentinelsat](https://pypi.org/project/sentinelsat/) package;
 - Estimate the volume of a given water body.
