@@ -113,7 +113,7 @@ The following strategies have been explored:
 7. Ensemble predictions
 
 Train/Validation/Test splits:
-- training set: 489 images from Resic-45 dataset randomly transformed at each epoch using one of the techniques described in the section _Data Augmentation_;
+- training set: 489 images from Resic-45 dataset randomly transformed at each epoch using one of the techniques described in the fourth section _Data Augmentation_;
 - validation set: 211 images from Resic-45 dataset;
 - test set: 359 images from Sentinel-2 dataset.
 
