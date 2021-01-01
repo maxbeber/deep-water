@@ -26,7 +26,7 @@ The exponenetial growth of satellite-based information over the past four decade
 
 ## Datasets
 
-[NWPU-Resic45](https://www.tensorflow.org/datasets/catalog/resisc45) dataset is a pubicly available benchmark for Remote Sensing Image Scene Classification (RESIC), created by [Nortwestern Polytechnical University](https://en.nwpu.edu.cn/) (NWPU). This dataset contains 31,500 images, covering 45 scene classes (including water classes) with 700 images in each class.
+[NWPU-Resic-45](https://www.tensorflow.org/datasets/catalog/resisc45) dataset is a pubicly available benchmark for Remote Sensing Image Scene Classification (RESIC), created by [Nortwestern Polytechnical University](https://en.nwpu.edu.cn/) (NWPU). This dataset contains 31,500 images, covering 45 scene classes (including water classes) with 700 images in each class.
 
 The second dataset is a time-series of cloudless Sentinel-2 imagery including 17 criticaly endangered lakes as following:
 - [Lake Poopo](https://en.wikipedia.org/wiki/Lake_Poop%C3%B3), Bolivia
@@ -70,17 +70,39 @@ The following metrics have been used to evaluate the semantic segmenation model:
 - Jaccard Index
 - Dice Coefficient
 
-More information about these metrics can be found [here](https://towardsdatascience.com/metrics-to-evaluate-your-semantic-segmentation-model-6bcb99639aa2).
+More information about both of these metrics can be found [here](https://towardsdatascience.com/metrics-to-evaluate-your-semantic-segmentation-model-6bcb99639aa2).
 
 ## Baseline
 
 The baseline consists of a simple U-Net model architecture. This strategy allow us to modify the model for our own purposes and fine-tunning it as necessary for our development purposes. By using this network architecture, we could spend more time understanding the optimization strategies.
 
+### Without Data Augmentation
+
+Train/Validation/Test Splits:
+- training set: 489 images from Resic-45 dataset
+- validation set: 140 images from Resic-45 dataset
+- test set: 71 images from Resic-45 dataset
+
+Model performance:
+
+![Baseline results without image augmentation](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/baseline-no-augmentation.png)
+
+### With Data Augmentation
+
+Train/Validation/Test Splits:
+- training set: 979 images from Resic-45 dataset
+- validation set: 280 images from Resic-45 dataset
+- test set: 122 images from Resic-45 dataset
+
+Model performance:
+
+![Baseline results using image augmentation](https://github.com/maxbeber/deep-water/blob/develop/assets/documentation/baseline-with-augmentation.png)
+
 ## Model Optimization
 
 The following strategies have been explored:
 
-1. Using Early Stopping and Adaptive Learning Rates
+1. Using Early Stopping and adaptive learning rates
 2. Using a bigger model (and dropout)
 3. Using regularization (Batch Normalization)
 4. Using residual connections
