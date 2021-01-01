@@ -1,6 +1,6 @@
 # Deep Water
 
-This project aims to track changes in water level using satellite imagery and deep learning. Throughout my studies, I worked on this project with my friend Karl as part of our [portfolio project](https://www.meetup.com/Data-Science-Retreat/events/273185026/) of the Data Science Retreat. The retreat consists of a three months intensive in-person Data Science bootcamp in Berlin, Germany.
+This project aims to track changes in water level using satellite imagery and deep learning. Throughout my studies, I've worked on this project with my friend Karl as part of our [portfolio project](https://www.meetup.com/Data-Science-Retreat/events/273185026/) of the Data Science Retreat. The retreat consists of a three months intensive in-person Data Science bootcamp in Berlin, Germany.
 
 **Table of Content:**
 1. Introduction
